@@ -1,5 +1,5 @@
 <x-layout>
-    <x-page-title>Historique de la session {{ $parametre }} </x-page-title>
+    <x-page-title>Historique des plongées de la session {{ $parametre }} </x-page-title>
     <div class="shadow-md max-w-full w-2/3 rounded-lg overflow-hidden border-2 mx-auto">
             <table class="text-sm text-left text-gray-500 w-full">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50">
