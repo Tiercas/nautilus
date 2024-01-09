@@ -28,7 +28,7 @@
                     <td class="px-8 py-4">{{ $dive->DL_NAME }}</td>
                     <td class="px-8 py-4">
                         <button class="bg-green-400 hover:bg-green-500 focus:bg-green-500 text-black rounded-lg px-10 py-1.5">S'inscrire</button>
-                        <button class="bg-yellow-400 hover:bg-yellow-500 focus:bg-yellow-500 text-black rounded-lg px-5 py-1.5">Voir les inscrits</button>
+                        <a href="/dives/{{$dive->DS_CODE}}"><button class="bg-yellow-400 hover:bg-yellow-500 focus:bg-yellow-500 text-black rounded-lg px-5 py-1.5">Voir les inscrits</button></a>
                     </td>
                 </tr>
             @endforeach
