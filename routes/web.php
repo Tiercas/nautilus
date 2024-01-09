@@ -18,6 +18,8 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\DivingLocation;
 use App\Models\Boat;
+use App\Models\Prerogative;
+
 
 Route::get('/login', function ()
 {
@@ -60,5 +62,5 @@ Route::get('/test', function()
 
 Route::get('/create/dive', function()
 {
-    return view('create_dive', ['locations' => DivingLocation::all(),  'boats' => Boat::all()]);
+    return view('create_dive', ['locations' => DivingLocation::all(),  'boats' => Boat::all(), 'levels' => Prerogative::all(), 'users' => User::all()]);
 });
