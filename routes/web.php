@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DiversBySession;
 use App\Http\Controllers\DivesList;
 use App\Models\DivingSession;
 use App\Http\Controllers\DivingSignUpController;
@@ -72,4 +73,6 @@ Route::get('/create/dive', function()
     return view('create_dive', ['locations' => DivingLocation::all(),  'boats' => Boat::all()]);
 });
 
-Route::get('/sessions', [Session::class,'index']);
+Route::get('/sessions', [DiversBySession::class,'getAllSessions']);
+
+Route::get('/session/{ds_code}', [DiversBySession::class,'getDiversBySession']);

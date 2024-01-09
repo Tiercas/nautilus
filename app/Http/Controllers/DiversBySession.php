@@ -3,15 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\DiversListBySession;
+use App\Models\User;
+use Illuminate\View\View;
+
 
 class DiversBySession extends Controller
 {
-    public function getDiversBySession(): View
+    public function getDiversBySession($ds_code): View
     {
-        $request = DiversListBySession::selectRaw('US_NAME, US_FIRST_NAME, DS_CODE')
+        $request = User::selectRaw('US_NAME, US_FIRST_NAME')
         ->join('CAR_REGISTRATION','CAR_USER.US_ID','=','CAR_REGISTRATION.US_ID')
-        ->groupBy('DS_CODE')
         ->get();
 
         return view('diversinsessions', ['datas' => $request]);
@@ -19,8 +20,12 @@ class DiversBySession extends Controller
 
     public function getAllSessions(): View
     {
-        $request = DiversListBySession::selectRaw('DS_CODE')
+        $request = User::join('car_registration', 'car_user.US_ID', '=', 'car_registration.US_ID')
+        ->groupBy('car_registration.ds_code', 'car_user.us_name', 'car_user.US_FIRST_NAME')
+        ->select('car_user.us_name', 'car_user.US_FIRST_NAME', 'car_registration.ds_code')
         ->get();
+    
+
         return view('diversinsessions',['sessions' => $request]);
     }
 }
