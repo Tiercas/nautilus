@@ -9,7 +9,7 @@ class DivesList extends Controller
 {
     function index(): View
     {
-        $dives = DivingSession::select('car_diving_session.DL_ID', 'DS_DATE', 'DL_DEPTH', 'CAR_SCHEDULE', 'DL_NAME')
+        $dives = DivingSession::select('DS_CODE', 'car_diving_session.DL_ID', 'DS_DATE', 'DL_DEPTH', 'CAR_SCHEDULE', 'DL_NAME')
             ->join('car_diving_location', 'car_diving_session.DL_ID', '=', 'car_diving_location.DL_ID')
             ->get();
         return view('dives', ['dives' => $dives]);
