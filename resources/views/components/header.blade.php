@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
+<nav x-data="{ open: false }" class="bg-[#002550] border-b border-gray-100">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
@@ -6,14 +6,14 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('homepage') }}">
-                        <img class="block h-9 w-auto fill-current text-gray-800" src="resources/img/logo.png" alt="Nautilus logo"/>
+                        <img class="block h-9 w-auto fill-current text-gray-800" src="{{ asset('resources/img/logo.png') }}" alt="Nautilus logo"/>
                     </a>
                 </div>
 
                 <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                <div class="hidden text-[#EBEBEB] space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('homepage')" :active="request()->routeIs('homepage')">
-                        {{ __('Page d\'accueil') }}
+                        {{ __('Accueil') }}
                     </x-nav-link>
                     <x-nav-link :href="route('dives')" :active="request()->routeIs('dives')">
                         {{ __('Plongées') }}

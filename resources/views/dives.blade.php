@@ -1,4 +1,3 @@
-
 <x-layout>
     <x-page-title>Liste des plongées</x-page-title>
     <div class="shadow-md max-w-full rounded-lg overflow-hidden border-2">
@@ -23,8 +22,24 @@
                         @if (Session::has('Success'))
                             <div class="alert alert-info">{{ Session::get('Success') }}</div>
                         @endif
-                        <a href='/dives/{{$dive->DS_CODE}}' class="bg-green-400 hover:bg-green-500 focus:bg-green-500 text-black rounded-lg px-10 py-1.5">S'inscrire</a>
-                        <a href="/dives/list-divers/{{$dive->DS_CODE}}" class="bg-yellow-400 hover:bg-yellow-500 focus:bg-yellow-500 text-black rounded-lg px-5 py-1.5">Voir les inscrits</a>
+                        <a href='/dives/{{$dive->DS_CODE}}'>
+                            <x-button color="bg-green-700" colorHover="hover:bg-green-800">
+                                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+                                     xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 12">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                          stroke-width="2" d="M1 5.917 5.724 10.5 15 1.5"/>
+                                </svg>
+                            </x-button>
+                        </a>
+                        <a href="/dives/list-divers/{{$dive->DS_CODE}}">
+                            <x-button>
+                                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+                                     xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
+                                    <path
+                                        d="M14 2a3.963 3.963 0 0 0-1.4.267 6.439 6.439 0 0 1-1.331 6.638A4 4 0 1 0 14 2Zm1 9h-1.264A6.957 6.957 0 0 1 15 15v2a2.97 2.97 0 0 1-.184 1H19a1 1 0 0 0 1-1v-1a5.006 5.006 0 0 0-5-5ZM6.5 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM8 10H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5Z"/>
+                                </svg>
+                            </x-button>
+                        </a>
                         @if ($errors->any())
                             <div class="alert alert-danger">
                                 <ul>
