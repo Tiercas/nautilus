@@ -53,7 +53,7 @@
                         @endforeach
                     </select>
                 </div>
-                <div style="width: 30%;margin-bottom: 40px;margin-top: 40px;">
+                <div style="width: 40%;margin-bottom: 40px;margin-top: 40px;">
                     <h2>Créneau</h2>
                     <hr style="height: 3px;background-color: black;margin-bottom: 15px;margin-top: 5px; width : 100%">
                     <div style="display: flex;flex-direction: column;">
