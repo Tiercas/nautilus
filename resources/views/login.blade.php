@@ -20,7 +20,7 @@
                         <div>
                             <div class="flex -mx-3">
                                 <div class="w-full px-3 mb-5">
-                                    <label for="" class="text-xs font-semibold px-1">Email</label>
+                                    <label for="" class="text-xs font-semibold px-1">Mail</label>
                                     <div class="flex">
                                         <div class="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i class="mdi mdi-email-outline text-gray-400 text-lg"></i></div>
                                         <input type="email" id="mail" name="name" class="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="johnsmith@example.com">
@@ -38,7 +38,7 @@
                             </div>
                             <div class="flex -mx-3">
                                 <div class="w-full px-3 mb-5">
-                                    <button class="block w-full max-w-xs mx-auto bg-yellow-400 hover:bg-yellow-500 focus:bg-yellow-500 text-black rounded-lg px-3 py-3 font-semibold" type="submit">SE CONNECTER</button>
+                                    <input class="block w-full max-w-xs mx-auto bg-yellow-400 hover:bg-yellow-500 focus:bg-yellow-500 text-black rounded-lg px-3 py-3 font-semibold" type="submit" value="SE CONNECTER">
                                 </div>
                             </div>
                         </div>
@@ -47,8 +47,5 @@
             </div>
         </div>
     </form>
-
-
-<script src="#"></script>
-
+    <script src="#"></script>
 </x-layout>
