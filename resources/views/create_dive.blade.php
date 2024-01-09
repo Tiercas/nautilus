@@ -100,7 +100,7 @@
                 <div style="display: flex;flex-direction: column;width: 30%; margin-right: 2%;">
                     <label for="pilotInput">Pilote</label>
                     <hr style="height: 3px;background-color: black;margin-bottom: 15px;margin-top: 5px;">
-                    <select name="manager" id="pilotInput">
+                    <select name="pilot" id="pilotInput">
                         @foreach ($users as $user)
                             @if ($user->hasRole('PIL'))
                                 <option value="{{ $user->US_ID }}" />{{ $user->US_NAME }} {{ $user->US_FIRST_NAME }}
