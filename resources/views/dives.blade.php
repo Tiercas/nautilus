@@ -23,7 +23,7 @@
                             <div class="alert alert-info">{{ Session::get('Success') }}</div>
                         @endif
                         <a href='/dives/{{$dive->DS_CODE}}'>
-                            <x-button color="bg-green-700">
+                            <x-button color="bg-green-700" colorHover="hover:bg-green-800">
                                 <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
                                      xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 12">
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
@@ -32,7 +32,7 @@
                             </x-button>
                         </a>
                         <a href="/dives/list-divers/{{$dive->DS_CODE}}">
-                            <x-button color="">
+                            <x-button>
                                 <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
                                      xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
                                     <path
