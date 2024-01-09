@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DivingSignUpController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +17,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/signup/{userid}&{ds_code}', [DivingSignUpController::class, 'index']);
+
+Route::get('/signup/{userid}', [DivingSignUpController::class, 'show']);
+
