@@ -58,7 +58,16 @@ Route::get('/test', function()
 {
     return view('test', ['user' => User::find(1)]);
 });
+
+Route::get('/dives/list-divers/{id}', function($id){
+    return view('divingSessions.showParticipants', [
+        'users' => DivingSession::find($id)->getParticipants()
+    ]);
+});
+
 Route::get('/dives/{ds_code}', [DivingSignUpController::class, 'index']);
+
+Route::get('/signup/{ds_code}', [DivingSignUpController::class, 'index']);
 
 Route::get('/signup', [DivingSignUpController::class, 'show'])->name('signup');
 

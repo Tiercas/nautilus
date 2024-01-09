@@ -31,7 +31,7 @@
                         <div class="alert alert-info">{{ Session::get('Success') }}</div>
                     @endif
                         <a href='/dives/{{$dive->DS_CODE}}' class="bg-green-400 hover:bg-green-500 focus:bg-green-500 text-black rounded-lg px-10 py-1.5">S'inscrire</a>
-                        <button class="bg-yellow-400 hover:bg-yellow-500 focus:bg-yellow-500 text-black rounded-lg px-5 py-1.5">Voir les inscrits</button>
+                        <a href="/dives/list-divers/{{$dive->DS_CODE}}" class="bg-yellow-400 hover:bg-yellow-500 focus:bg-yellow-500 text-black rounded-lg px-5 py-1.5">Voir les inscrits</a>
                         @if ($errors->any())
                             <div class="alert alert-danger">
                                 <ul>
