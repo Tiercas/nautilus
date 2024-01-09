@@ -20,11 +20,11 @@ class DiversBySession extends Controller
 
     public function getAllSessions(): View
     {
-        $sessions = User::select('US_NAME', 'US_FIRST_NAME', 'DS_CODE')
-        ->join('CAR_REGISTRATION', 'CAR_REGISTRATION.US_ID', '=', 'CAR_USER.US_ID')
+        $sessions = User::
+        join('CAR_REGISTRATION', 'CAR_REGISTRATION.US_ID', '=', 'CAR_USER.US_ID')
         ->get();
     
-    return view('diversinsessions', ['sessions' => $sessions]);
+    return view('diversinsessions', compact('sessions'));
     
     }
 }

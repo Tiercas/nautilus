@@ -1,7 +1,6 @@
 <x-layout>
     <x-page-title>Historique des plongées</x-page-title>
     <div class="shadow-md max-w-full w-2/3 rounded-lg overflow-hidden border-2 mx-auto">
-        @if(is_array($sessions))
             <table class="text-sm text-left text-gray-500 w-full">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                     <tr>
@@ -20,7 +19,5 @@
                     @endforeach
                 </tbody>
             </table>
-        @else
-        @endif
     </div>
 </x-layout>
