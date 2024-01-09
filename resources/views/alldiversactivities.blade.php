@@ -1,5 +1,19 @@
 <x-layout>
     <x-page-title>Plongées réalisées</x-page-title>
+
+
+    <form name ="date_input" id="date_input" method="get" action="{{filteredSearch()}}">
+
+    <b>Apres le</b>
+    <input type="date" name="after_this_date"></input>
+    <b>et avant le</b>
+    <input type="date" name="before_this_date"></input>
+    
+    <button type="submit"><xbutton>recherche</xbutton></button>
+
+    </form>
+
+
     <div class="shadow-md max-w-full rounded-lg overflow-hidden border-2">
         <table class="text-sm text-left text-gray-500 w-full">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50">
