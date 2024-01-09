@@ -108,49 +108,13 @@
                     </select>
                 </div>
             </div>
-            <h2>Nombres d'inscrits</h2>
-        <div>
-            <label for="maxInput">Nombre maximum d'inscrits : </label>
-            <input type="number" name="max" id="maxInput">
-            <label for="minInput">Nombre minimum d'inscrits : </label>
-            <input type="number" name="min" id="maxInput">
-            <label for="levelInput">Profondeur : </label>
-            <input type="number" name="depth" id="levelInput">
-        </div>
-        <h2>Créneau</h2>
-        <div>
-            <label for="dayInput">Jour : </label>
-            <input type="date" name="day" id="dayInput">
-            <label for="hourInput">Heure de début</label>
-            <input type="time" name="hour" id="hourInput">
-        </div>
-        <div>
-            <label for="securityInput">Sécurité de surface : </label>
-            <select name="security" id="securityInput">
-                @foreach ($users as $user)
-                    @if($user->hasRole('SEC'))
-                        <option value="{{$user->US_ID}}"/>{{$user->US_NAME}} {{$user->US_FIRST_NAME}}</option>
-                    @endif
-                @endforeach
-            </select>
-            <label for="managerInput">Directeur : </label>
-            <select name="manager" id="managerInput">
-                @foreach ($users as $user)
-                    @if($user->hasRole('DIR'))
-                        <option value="{{$user->US_ID}}"/>{{$user->US_NAME}} {{$user->US_FIRST_NAME}}</option>
-                    @endif
-                @endforeach
-            </select>
-            <label for="pilotInput">Pilote : </label>
-            <select name="pilot" id="pilotInput">
-                @foreach ($users as $user)
-                    @if($user->hasRole('PIL'))
-                        <option value="{{$user->US_ID}}"/>{{$user->US_NAME}} {{$user->US_FIRST_NAME}}</option>
-                    @endif
-                @endforeach
-            </select>
-        </div>
-        <input type="submit" value="Créer">
-    </form>
+            <div class="flex -mx-3" style="margin-top: 50px;">
+                <div class="w-full px-3 mb-5">
+                    <input
+                        class="clickable block w-full max-w-xs mx-auto bg-yellow-400 hover:bg-yellow-500 focus:bg-yellow-500 text-black rounded-lg px-3 py-3 font-semibold"
+                        type="submit" value="CREER">
+                </div>
+            </div>
+        </form>
     </div>
 </x-layout>
