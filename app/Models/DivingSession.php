@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class DivingSession extends Model
 {
-    protected $table = 'car_diving_session';
+    protected $table = 'CAR_DIVING_SESSION';
     protected $primaryKey = 'ds_code';
     protected $keyType = 'string';
     public $timestamps = false;
