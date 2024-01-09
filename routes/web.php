@@ -28,28 +28,7 @@ Route::get('/login', function ()
     return view('login', ['wrongPassword' => false]);
 })->name('login');
 
-Route::post('/login', function (Request $request)
-{
-    $request->validate([
-        'mail' => 'required|email',
-        'password' => 'required',
-    ]);
-
-    $user = User::where('US_EMAIL', $request->mail)->first();
-    if($user == null)
-    {
-        return view('login', ['wrongPassword' => true]);
-    }
-    if($user->checkPassword($request->password))
-    {
-        session()->put('userid', $user->US_ID);
-        return redirect('/'); // TODO: Redirect to the user's hub page
-    }
-    else
-    {
-        return view('login', ['wrongPassword' => true]);
-    }
-});
+Route::post('/login', [AuthController::class, 'login']);
 
 Route::get('/', function ()
 {
