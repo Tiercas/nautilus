@@ -52,15 +52,13 @@ Route::get('/', function ()
     return view('welcome');
 })->name('homepage');
 
-Route::get('/dives', [DivesList::class, 'index'])->name('dives');
+Route::get('/dives', [DivingSignUpController::class, 'show'])->name('dives');
 
 Route::get('/test', function()
 {
     return view('test', ['user' => User::find(1)]);
 });
 Route::get('/dives/{ds_code}', [DivingSignUpController::class, 'index']);
-
-Route::get('/signup', [DivingSignUpController::class, 'show'])->name('signup');
 
 Route::get('/create/dive', function()
 {
