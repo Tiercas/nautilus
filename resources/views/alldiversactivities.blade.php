@@ -11,10 +11,8 @@
             <tbody>
             @foreach ($users as $user)
                 <tr class="odd:bg-white even:bg-gray-50 border-b">
-                    <td class="px-6 py-4">{{ $dive->DS_DATE }}</td>
-                    <td class="px-6 py-4">{{ $dive->CAR_SCHEDULE }}</td>
-                    <td class="px-6 py-4">{{ $dive->DL_DEPTH }}</td>
-                    <td class="px-6 py-4">{{ $dive->DL_NAME }}</td>
+                    <td class="px-6 py-4">{{ $user->left }}</td>
+                    <td class="px-6 py-4">{{ $user->US_ID }}</td>
                     <td class="px-6 py-4"><x-button>S'inscrire</x-button><x-button>Voir les inscrits</x-button></td>
                 </tr>
             @endforeach
