@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DivesList;
 use App\Models\DivingSession;
+use App\Http\Controllers\DivingSignUpController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 /*
@@ -59,6 +60,9 @@ Route::get('/test', function()
 {
     return view('test', ['user' => User::find(1)]);
 });
+Route::get('/signup/{ds_code}', [DivingSignUpController::class, 'index']);
+
+Route::get('/signup', [DivingSignUpController::class, 'show'])->name('signup');
 
 Route::get('/create/dive', function()
 {
