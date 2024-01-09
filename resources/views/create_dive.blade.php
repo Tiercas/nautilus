@@ -52,8 +52,12 @@
                             <option value="{{ $level->PRE_CODE }}">{{ $level->PRE_CODE }}</option>
                         @endforeach
                     </select>
-                    <label for="levelInput">Profondeur : </label>
+                    <label for="levelInput">Niveau : </label>
                     <input type="number" name="level" id="levelInput" min=1 max=4 style="width: 40px;border: 2px solid black;border-radius: 7px;-moz-appearance: textfield;text-align: center;" placeholder="0">
+                    <br>
+
+                    <label for="maxDepth">Profondeur maximum : </label>
+                    <input type="number" name="maxDepth" id="maxDepth" style="width: 40px;border: 2px solid black;border-radius: 7px;-moz-appearance: textfield;text-align: center;" placeholder="0">
                 </div>
                 <div style="width: 40%;margin-bottom: 40px;margin-top: 40px;">
                     <h2>Créneau</h2>

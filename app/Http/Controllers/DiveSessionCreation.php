@@ -21,7 +21,7 @@ class DiveSessionCreation extends Controller
         $dv->US_ID_CAR_SECURE = $request->security;
         $dv->US_ID_CAR_DIRECT = $request->manager;
         $dv->DS_DATE = $request->day;
-        $dv->DS_MAX_DEPTH = $request->depth;
+        $dv->DS_MAX_DEPTH = $request->maxDepth;
         $dv->DS_ACTIVE = 1;
         $dv->DS_MAX_DIVERS = $request->max;
         $dv->DS_LEVEL = $request->level;
