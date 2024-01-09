@@ -6,7 +6,7 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('homepage') }}">
-                        <img class="block h-9 w-auto fill-current text-gray-800" src="resources/img/logo.png" alt="Nautilus logo"/>
+                        <img class="block h-9 w-auto fill-current text-gray-800" src="resources/img/logo_allonge.png" alt="Nautilus logo"/>
                     </a>
                 </div>
 
