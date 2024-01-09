@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DivesList;
 use App\Models\DivingSession;
 use Illuminate\Support\Facades\Route;
 
@@ -18,10 +19,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dives', function () {
-    $dives = DivingSession::select('car_diving_session.DL_ID', 'DS_DATE', 'DL_DEPTH', 'CAR_SCHEDULE', 'DL_NAME')
-        ->join('car_diving_location', 'car_diving_session.DL_ID', '=', 'car_diving_location.DL_ID')
-        ->get();
-    //$divers =
-    return view('dives', ['dives' => $dives]);
-});
+Route::get('/dives', [DivesList::class, 'index']);

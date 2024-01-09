@@ -1,6 +1,5 @@
 <x-layout>
-    <h1>Liste des plongées</h1>
-    @dump($dives)
+    <x-page-title>Liste des plongées</x-page-title>
     <table>
         <thead>
             <tr>
@@ -17,6 +16,8 @@
                     <td>{{ $dive->CAR_SCHEDULE }}</td>
                     <td>{{ $dive->DL_DEPTH }}</td>
                     <td>{{ $dive->DL_NAME }}</td>
+                    <td><x-button>S'inscrire</x-button></td>
+                    <td><x-button>Voir les inscrits</x-button></td>
                 </tr>
             @endforeach
         </tbody>
