@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\DivesList;
+use App\Models\DivingSession;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,3 +21,5 @@ Route::get('/login', function () {
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/dives', [DivesList::class, 'index']);
