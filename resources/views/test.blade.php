@@ -18,5 +18,6 @@
         <p>Cet utilisateur n'a aucun rôle.</p>
     @endif
 
+    <img src="{{ asset('images/test.svg') }}" alt="Illustration de plongeur">
 </body>
 </html>
