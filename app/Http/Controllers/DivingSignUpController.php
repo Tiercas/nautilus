@@ -11,7 +11,8 @@ class DivingSignUpController extends Controller
         $userid = session()->get('userid');
         if(!preg_match('/[0-9]+/', $userid))
             return DivingSignUpController::error();
-        return view('diving-sign-up');
+        $divesList = new DivesList();
+        return $divesList->index();
     }
 
     public function index($ds_code){
@@ -24,6 +25,6 @@ class DivingSignUpController extends Controller
     }
 
     public static function error(){
-        return view('diving-sign-up')->withErrors(['userid' => 'Error with userid']);
+        return view('dives')->withErrors(['userid' => 'Error with userid']);
     }
 }

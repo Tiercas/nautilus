@@ -54,7 +54,7 @@ Route::get('/test', function()
 {
     return view('test', ['user' => User::find(1)]);
 });
-Route::get('/signup/{ds_code}', [DivingSignUpController::class, 'index']);
+Route::get('/dives/{ds_code}', [DivingSignUpController::class, 'index']);
 
 Route::get('/signup', [DivingSignUpController::class, 'show'])->name('signup');
 
