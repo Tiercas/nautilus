@@ -38,7 +38,7 @@
                             </div>
                             <div class="flex -mx-3">
                                 <div class="w-full px-3 mb-5">
-                                    <button class="block w-full max-w-xs mx-auto bg-yellow-400 hover:bg-yellow-500 focus:bg-yellow-500 text-black rounded-lg px-3 py-3 font-semibold">SE CONNECTER</button>
+                                    <button class="block w-full max-w-xs mx-auto bg-yellow-400 hover:bg-yellow-500 focus:bg-yellow-500 text-black rounded-lg px-3 py-3 font-semibold" type="submit">SE CONNECTER</button>
                                 </div>
                             </div>
                         </div>
