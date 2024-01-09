@@ -16,7 +16,7 @@
                         {{ __('Accueil') }}
                     </x-nav-link>
                     <x-nav-link :href="route('dives')" :active="request()->routeIs('dives')">
-                        {{ __('Plongées') }}
+                        {{ __('Inscription aux plongées') }}
                     </x-nav-link>
                 </div>
             </div>
@@ -40,7 +40,7 @@
                 {{ __('Page d\'accueil') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('dives')" :active="request()->routeIs('dives')">
-                {{ __('Plongées') }}
+                {{ __('Inscription aux plongées') }}
             </x-responsive-nav-link>
         </div>
 
