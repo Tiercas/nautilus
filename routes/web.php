@@ -17,7 +17,7 @@ use App\Models\User;
 
 Route::get('/login', function ()
 {
-    return view('login');
+    return view('login', ['wrongPassword' => false]);
 });
 
 Route::post('/login', function (Request $request)
