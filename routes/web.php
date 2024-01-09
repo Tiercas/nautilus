@@ -41,7 +41,7 @@ Route::post('/login', function (Request $request) {
     }
     if($user->checkPassword($request->password))
     {
-        session(['userid' => $user->US_ID]);
+        session(['user' => $user]);
         return redirect('/dives'); // TODO: Redirect to the user's hub page
     }
     else
@@ -54,6 +54,12 @@ Route::get('/', function ()
 {
     return view('welcome');
 })->name('homepage');
+
+Route::get('/logout', function ()
+{
+    session()->flush();
+    return redirect('/');
+})->name('logout');
 
 
 Route::middleware('auth:sanctum')->get('/dives', [DivingSignUpController::class, 'show'])->name('dives');
