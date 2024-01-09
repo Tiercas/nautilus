@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\DB;
  */
 class DivingSession extends Model
 {
-    protected $table = 'car_diving_session';
+    protected $table = 'CAR_DIVING_SESSION';
     protected $primaryKey = 'DS_CODE';
     protected $keyType = 'string';
     public $timestamps = false;
