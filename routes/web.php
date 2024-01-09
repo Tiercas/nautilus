@@ -20,7 +20,7 @@ use App\Models\User;
 Route::get('/login', function ()
 {
     return view('login', ['wrongPassword' => false]);
-});
+})->name('login');
 
 Route::post('/login', function (Request $request)
 {
@@ -46,11 +46,11 @@ Route::post('/login', function (Request $request)
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('homepage');
 
-Route::get('/dives', [DivesList::class, 'index']);
+Route::get('/dives', [DivesList::class, 'index'])->name('dives');
 Route::get('/test', function()
 {
     return view('test', ['user' => User::find(1)]);
-});
+})->name('test');
 
