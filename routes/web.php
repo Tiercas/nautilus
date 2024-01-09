@@ -67,10 +67,6 @@ Route::get('/dives/list-divers/{id}', function($id){
 
 Route::get('/dives/{ds_code}', [DivingSignUpController::class, 'index']);
 
-Route::get('/signup/{ds_code}', [DivingSignUpController::class, 'index']);
-
-Route::get('/signup', [DivingSignUpController::class, 'show'])->name('signup');
-
 Route::get('/create/dive', function()
 {
     return view('create_dive', ['locations' => DivingLocation::all(),  'boats' => Boat::all()]);
