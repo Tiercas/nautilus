@@ -23,4 +23,6 @@ class AuthController extends Controller
         session(['user' => $user]);
         return redirect('/');
     }
+
+
 }
