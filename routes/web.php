@@ -28,6 +28,10 @@ Route::post('/login', function (Request $request)
     ]);
 
     $user = User::where('US_EMAIL', $request->mail)->first();
+    if($user == null)
+    {
+        return view('login', ['wrongPassword' => true]);
+    }
     if($user->checkPassword($request->password))
     {
         return redirect('/'); // TODO: Redirect to the user's hub page
