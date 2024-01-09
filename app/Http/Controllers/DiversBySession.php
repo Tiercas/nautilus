@@ -11,13 +11,15 @@ class DiversBySession extends Controller
 {
     public function getDiversBySession($ds_code): View
     {
+        $parametre = $ds_code;
         $request = User::selectRaw('US_NAME, US_FIRST_NAME')
-        ->join('CAR_USER','CAR_USER.US_ID','=','CAR_DIVING_SESSION.US_ID')
+        ->join('CAR_REGISTRATION','CAR_REGISTRATION.US_ID', '=', 'CAR_USER.US_ID')
+        ->where('DS_CODE', $ds_code)
         ->get();
 
-        return view('diversinsessions', ['datas' => $request]);
+        return view('diversonesession', ['datas' => $request, 'parametre' => $parametre]);
     }
-
+    
     public function getAllSessions(): View
     {
         $sessions = User::
