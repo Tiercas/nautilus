@@ -5,14 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Role extends Model
+class Prerogative extends Model
 {
     use HasFactory;
+    protected $table = 'CAR_PREROGATIVE';
 
-    protected $table = 'CAR_ROLE';
-
-    protected $primaryKey = 'ROL_CODE';
+    protected $primaryKey = 'PRE_CODE';
     protected $keyType = 'string';
-
 
 }

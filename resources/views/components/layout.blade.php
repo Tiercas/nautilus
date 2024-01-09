@@ -8,7 +8,7 @@
 </head>
 <body class="min-h-[100vh] flex justify-between flex-col">
   <x-header/>
-  <main class="mx-auto max-w-[1028px] p-4 min-h-[80vh]">
+  <main class="mx-auto max-w-[1440px] w-full p-4 min-h-[80vh]">
     {{ $slot }}
   </main>
   <x-footer/>

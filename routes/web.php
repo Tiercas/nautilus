@@ -3,6 +3,7 @@
 use App\Http\Controllers\DivesList;
 use App\Models\DivingSession;
 use App\Http\Controllers\DivingSignUpController;
+use App\Http\Controllers\DiveSessionCreation;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 /*
@@ -19,6 +20,8 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\DivingLocation;
 use App\Models\Boat;
+use App\Models\Prerogative;
+
 
 Route::get('/login', function ()
 {
@@ -39,6 +42,7 @@ Route::post('/login', function (Request $request)
     }
     if($user->checkPassword($request->password))
     {
+        session()->put('userid', $user->US_ID);
         return redirect('/'); // TODO: Redirect to the user's hub page
     }
     else
@@ -69,5 +73,15 @@ Route::get('/dives/{ds_code}', [DivingSignUpController::class, 'index']);
 
 Route::get('/create/dive', function()
 {
-    return view('create_dive', ['locations' => DivingLocation::all(),  'boats' => Boat::all()]);
+    return view('create_dive', ['locations' => DivingLocation::all(),  'boats' => Boat::all(), 'levels' => Prerogative::all(), 'users' => User::all()]);
+});
+
+Route::post('/create/dive', function(Request $request)
+{
+    DiveSessionCreation::add($request);
+    return redirect('/');
+});
+
+Route::get('/test2', function(){
+    return view('drag_and_drop');
 });
