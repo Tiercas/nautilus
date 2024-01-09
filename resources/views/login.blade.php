@@ -8,6 +8,9 @@
 </div>
     <form method="post" action="/login">
         @csrf
+        @if(wrongPassword)
+
+        @endif
         <div class="min-w-screen min-h-screen flex items-center justify-center px-5 py-5">
             <div class="text-gray-500 rounded-3xl w-full overflow-hidden" style="max-width:1000px">
                 <div class="md:flex w-full">
