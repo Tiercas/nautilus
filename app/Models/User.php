@@ -34,6 +34,16 @@ class User extends Model
             return false;
         }
     }
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class, 'CAR_ROLE_ATTRIBUTION', 'US_ID', 'ROL_CODE');
+    }
+
+    public function hasRole($roleCode)
+    {
+        return $this->roles->contains('ROL_CODE', $roleCode);
+    }
 }
 
 ?>
