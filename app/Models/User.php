@@ -41,4 +41,10 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    protected $table = 'car_user';
+
+    protected $primaryKey = 'US_ID';
+
+    protected $keyType = 'int';
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\DivingSession;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,4 +16,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::get('/plongees/{id}', function($id){
+    $divingSession = DivingSession::find($id);
+    return view('divingSessions.showParticipants',[
+        'users' => $divingSession->getParticipants()
+    ]);
 });
