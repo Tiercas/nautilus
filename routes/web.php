@@ -71,3 +71,5 @@ Route::get('/create/dive', function()
 {
     return view('create_dive', ['locations' => DivingLocation::all(),  'boats' => Boat::all()]);
 });
+
+Route::get('/sessions', [Session::class,'index']);
