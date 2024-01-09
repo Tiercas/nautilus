@@ -5,9 +5,10 @@
     <x-page-title>Créer une plongée</x-page-title>
     <div style="display : flex; flex-direction: row">
         <div style="width: 50%;">
-            <img src="{{ asset('resources/img/Diver1.png') }}" alt="Illustration de plongueur">
+            <img src="{{ asset('storage/test.png') }}" alt="Illustration de plongueur">
         </div>
         <form action="/create/dive" method="POST">
+            @csrf
             <h1 class="text-4xl" style="font-family: 'Space Grotesk', sans-serif; font-weight: bold;">Création d'une plongée</h1>
             <div>
                 <label for="locationInput">Site : </label>
@@ -53,13 +54,9 @@
             <label for="maxInput">Nombre maximum d'inscrits : </label>
             <input type="number" name="max" id="maxInput">
             <label for="minInput">Nombre minimum d'inscrits : </label>
-            <input type="number" name="max" id="maxInput">
-            <label for="levelInput">Niveau requis : </label>
-            <select name="level" id="levelInput">
-                @foreach ($levels as $level)
-                    <option value="{{ $level->PRE_CODE }}">{{ $level->PRE_CODE }}</option>
-                @endforeach
-            </select>
+            <input type="number" name="min" id="maxInput">
+            <label for="levelInput">Profondeur : </label>
+            <input type="number" name="depth" id="levelInput">
         </div>
         <h2>Créneau</h2>
         <div>
@@ -77,14 +74,6 @@
                     @endif
                 @endforeach
             </select>
-            <label for="securityInput">Sécurité de surface : </label>
-            <select name="security" id="securityInput">
-                @foreach ($users as $user)
-                    @if($user->hasRole('SEC'))
-                        <option value="{{$user->US_ID}}"/>{{$user->US_NAME}} {{$user->US_FIRST_NAME}}</option>
-                    @endif
-                @endforeach
-            </select>
             <label for="managerInput">Directeur : </label>
             <select name="manager" id="managerInput">
                 @foreach ($users as $user)
@@ -94,7 +83,7 @@
                 @endforeach
             </select>
             <label for="pilotInput">Pilote : </label>
-            <select name="manager" id="pilotInput">
+            <select name="pilot" id="pilotInput">
                 @foreach ($users as $user)
                     @if($user->hasRole('PIL'))
                         <option value="{{$user->US_ID}}"/>{{$user->US_NAME}} {{$user->US_FIRST_NAME}}</option>

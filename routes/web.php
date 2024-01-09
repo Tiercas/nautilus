@@ -3,6 +3,7 @@
 use App\Http\Controllers\DivesList;
 use App\Models\DivingSession;
 use App\Http\Controllers\DivingSignUpController;
+use App\Http\Controllers\DiveSessionCreation;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 /*
@@ -67,4 +68,10 @@ Route::get('/signup', [DivingSignUpController::class, 'show'])->name('signup');
 Route::get('/create/dive', function()
 {
     return view('create_dive', ['locations' => DivingLocation::all(),  'boats' => Boat::all(), 'levels' => Prerogative::all(), 'users' => User::all()]);
+});
+
+Route::post('/create/dive', function(Request $request)
+{
+    DiveSessionCreation::add($request);
+    return redirect('/');
 });
