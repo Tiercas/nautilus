@@ -3,6 +3,7 @@
 use App\Http\Controllers\DivesList;
 use App\Models\DivingSession;
 use App\Http\Controllers\DivingSignUpController;
+use App\Http\Controllers\DiveSessionCreation;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 /*
@@ -19,6 +20,8 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\DivingLocation;
 use App\Models\Boat;
+use App\Models\Prerogative;
+
 
 Route::get('/login', function ()
 {
@@ -69,5 +72,11 @@ Route::get('/dives/{ds_code}', [DivingSignUpController::class, 'index']);
 
 Route::get('/create/dive', function()
 {
-    return view('create_dive', ['locations' => DivingLocation::all(),  'boats' => Boat::all()]);
+    return view('create_dive', ['locations' => DivingLocation::all(),  'boats' => Boat::all(), 'levels' => Prerogative::all(), 'users' => User::all()]);
+});
+
+Route::post('/create/dive', function(Request $request)
+{
+    DiveSessionCreation::add($request);
+    return redirect('/');
 });
