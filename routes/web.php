@@ -36,6 +36,12 @@ Route::get('/', function ()
     return view('welcome');
 })->name('homepage');
 
+Route::get('/logout', function ()
+{
+    session()->flush();
+    return redirect('/');
+})->name('logout');
+
 
 Route::middleware('auth:sanctum')->get('/dives', [DivingSignUpController::class, 'show'])->name('dives');
 
