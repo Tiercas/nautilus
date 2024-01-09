@@ -7,11 +7,16 @@
     <title>Document</title>
 </head>
 <body>
-    @if ($user->checkPassword('securepassword'))
-        <p>Match</p>
-        <p> {{$user->hasRoles('SEC')}} </p>
+    @if($user->roles->isNotEmpty())
+    <p>Roles:</p>
+    <ul>
+        @foreach($user->roles as $role)
+            <li>{{ $role->ROL_LABEL }}</li>
+        @endforeach
+    </ul>
     @else
-        <p>Unmatch</p>
+        <p>Cet utilisateur n'a aucun rôle.</p>
     @endif
+
 </body>
 </html>
