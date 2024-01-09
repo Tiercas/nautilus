@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 use Illuminate\Support\Facades\DB;
 
+/**
+ * @method static select(string $string, string $string1, string $string2, string $string3, string $string4)
+ */
 class DivingSession extends Model
 {
     protected $table = 'car_diving_session';

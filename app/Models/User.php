@@ -7,44 +7,58 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Model;
 
-class User extends Authenticatable
+class User extends Model
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasFactory, Notifiable, HasApiTokens;
+
+    protected $table = 'CAR_USER';
+
+    protected $primaryKey = 'US_ID';
 
     /**
-     * The attributes that are mass assignable.
+     * Check if a given password matches the stored password.
      *
-     * @var array<int, string>
+     * @param string $password the password to try
+     * @return bool true if the password matches, false otherwise
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
+    public function checkPassword($password)
+    {
+        if($password == $this->US_PASSWORD)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 
     /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
+     * Get the roles attributed to the user.
      */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class, RoleAttribution::class, 'US_ID', 'ROL_CODE');
+    }
 
     /**
-     * The attributes that should be cast.
+     * Check if the user has a given role.
      *
-     * @var array<string, string>
+     * @param string $roleCode the code of the role to check
+     * @return bool true if the user has the role, false otherwise
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
 
-    protected $table = 'car_user';
-
-    protected $primaryKey = 'US_ID';
-
     protected $keyType = 'int';
+    public function hasRole($roleCode)
+    {
+        return $this->roles->contains('ROL_CODE', $roleCode);
+    }
 }
+
+?>
