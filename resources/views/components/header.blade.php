@@ -13,10 +13,10 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('homepage')" :active="request()->routeIs('homepage')">
-                        {{ __('Homepage') }}
+                        {{ __('Page d\'accueil') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('dives')" :active="request()->routeIs('chirps.index')">
-                        {{ __('Chirps') }}
+                    <x-nav-link :href="route('dives')" :active="request()->routeIs('dives')">
+                        {{ __('Plongées') }}
                     </x-nav-link>
                 </div>
             </div>
@@ -37,10 +37,10 @@
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('homepage')" :active="request()->routeIs('homepage')">
-                {{ __('Homepage') }}
+                {{ __('Page d\'accueil') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('dives')" :active="request()->routeIs('chirps.index')">
-                {{ __('Chirps') }}
+            <x-responsive-nav-link :href="route('dives')" :active="request()->routeIs('dives')">
+                {{ __('Plongées') }}
             </x-responsive-nav-link>
         </div>
 
@@ -53,7 +53,7 @@
 
             <div class="mt-3 space-y-1">
                 <x-responsive-nav-link :href="route('dives')">
-                    {{ __('Profile') }}
+                    {{ __('Profil') }}
                 </x-responsive-nav-link>
 
                 <!-- Authentication -->
