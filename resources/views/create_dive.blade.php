@@ -55,8 +55,10 @@
             <input type="number" name="max" id="maxInput">
             <label for="minInput">Nombre minimum d'inscrits : </label>
             <input type="number" name="min" id="maxInput">
+            <label for="depthInput">Profondeur : </label>
+            <input type="number" name="depth" id="depthInput">
             <label for="levelInput">Profondeur : </label>
-            <input type="number" name="depth" id="levelInput">
+            <input type="number" name="level" id="levelInput" min=1 max=4 >
         </div>
         <h2>Créneau</h2>
         <div>

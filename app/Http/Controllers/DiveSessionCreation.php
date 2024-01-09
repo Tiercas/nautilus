@@ -23,6 +23,8 @@ class DiveSessionCreation extends Controller
         $dv->DS_DATE = $request->day;
         $dv->DS_MAX_DEPTH = $request->depth;
         $dv->DS_ACTIVE = 1;
+        $dv->DS_MAX_DIVERS = $request->max;
+        $dv->DS_LEVEL = $request->level;
         $dv->save();
     }
 }
