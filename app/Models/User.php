@@ -17,6 +17,23 @@ class User extends Model
 
     protected $primaryKey = 'US_ID';
 
+    /**
+     * Check if a given password matches the stored password.
+     *
+     * @param string $password the password to try
+     * @return bool true if the password matches, false otherwise
+     */
+    public function checkPassword($password)
+    {
+        if($password == $this->US_PASSWORD)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 }
 
 ?>

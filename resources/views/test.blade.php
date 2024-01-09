@@ -7,6 +7,11 @@
     <title>Document</title>
 </head>
 <body>
-    {{$user->US_NAME}}
+    @if ($user->checkPassword('securepassword'))
+        <p>Match</p>
+    @else
+        <p>Unmatch</p>
+    @endif
+
 </body>
 </html>
