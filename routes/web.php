@@ -28,3 +28,6 @@ Route::get('/dives', [DivesList::class, 'index']);
 
 Route::get('/divings', [DivingNumberController::class, 'index']);
 
+Route::get('/alldivings', [DivingNumberController::class, 'allIndex']);
+
+

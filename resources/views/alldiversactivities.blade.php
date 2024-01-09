@@ -4,16 +4,16 @@
         <table class="text-sm text-left text-gray-500 w-full">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50">
             <tr>
-                <th scope="col" class="px-6 py-3">Noms et Prénoms</th>
-                <th scope="col" class="px-6 py-3">Nombre de plongées</th>
+                <th scope="col" class="px-6 py-3">Nombre de plongées réalisées</th>
+                <th scope="col" class="px-6 py-3">Plongeur</th>
+
             </tr>
             </thead>
             <tbody>
-            @foreach ($users as $user)
+            @foreach ($datas as $data)
                 <tr class="odd:bg-white even:bg-gray-50 border-b">
-                    <td class="px-6 py-4">{{ $user->left }}</td>
-                    <td class="px-6 py-4">{{ $user->US_ID }}</td>
-                    <td class="px-6 py-4"><x-button>S'inscrire</x-button><x-button>Voir les inscrits</x-button></td>
+                    <td class="px-6 py-4">{{ $data->aggregate }}</td>
+                    <td class="px-6 py-4">{{ $data->US_NAME }}</td>
                 </tr>
             @endforeach
             </tbody>
