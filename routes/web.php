@@ -42,6 +42,7 @@ Route::post('/login', function (Request $request)
     }
     if($user->checkPassword($request->password))
     {
+        session()->put('userid', $user->US_ID);
         return redirect('/'); // TODO: Redirect to the user's hub page
     }
     else
@@ -79,4 +80,8 @@ Route::post('/create/dive', function(Request $request)
 {
     DiveSessionCreation::add($request);
     return redirect('/');
+});
+
+Route::get('/test2', function(){
+    return view('drag_and_drop');
 });
