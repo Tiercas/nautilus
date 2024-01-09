@@ -14,6 +14,7 @@
                 @foreach ($boats as $boat)
                     <option value="{{ $boat->BO_ID }}">{{ $boat->BO_NAME }}</option>
                 @endforeach
+            </select>
         </div>
     </form>
 </x-layout>
