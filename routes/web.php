@@ -56,7 +56,8 @@ Route::get('/', function ()
     return view('welcome');
 })->name('homepage');
 
-Route::get('/dives', [DivingSignUpController::class, 'show'])->name('dives');
+
+Route::middleware('auth:sanctum')->get('/dives', [DivingSignUpController::class, 'show'])->name('dives');
 
 Route::get('/test', function()
 {
