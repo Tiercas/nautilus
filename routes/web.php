@@ -16,6 +16,8 @@ use Illuminate\Http\Request;
 */
 
 use App\Models\User;
+use App\Models\DivingLocation;
+use App\Models\Boat;
 
 Route::get('/login', function ()
 {
@@ -44,13 +46,19 @@ Route::post('/login', function (Request $request)
     }
 });
 
-Route::get('/', function () {
+Route::get('/', function ()
+{
     return view('welcome');
 });
 
 Route::get('/dives', [DivesList::class, 'index']);
+
 Route::get('/test', function()
 {
     return view('test', ['user' => User::find(1)]);
 });
 
+Route::get('/create/dive', function()
+{
+    return view('create_dive', ['locations' => DivingLocation::all(),  'boats' => Boat::all()]);
+});
