@@ -21,12 +21,27 @@
             </thead>
             <tbody class="">
             @foreach ($dives as $dive)
-                <tr class="odd:bg-white even:bg-gray-50 border-b">
-                    <td class="px-6 py-4">{{ $dive->DS_DATE }}</td>
-                    <td class="px-6 py-4">{{ $dive->CAR_SCHEDULE }}</td>
-                    <td class="px-6 py-4">{{ $dive->DL_DEPTH }}m</td>
-                    <td class="px-6 py-4">{{ $dive->DL_NAME }}</td>
-                    <td class="px-6 py-4"><x-button>S'inscrire</x-button><x-button>Voir les inscrits</x-button></td>
+                <tr class="">
+                    <td class="px-8 py-4">{{ $dive->DS_DATE }}</td>
+                    <td class="px-8 py-4">{{ $dive->CAR_SCHEDULE }}</td>
+                    <td class="px-8 py-4">{{ $dive->DL_DEPTH }}</td>
+                    <td class="px-8 py-4">{{ $dive->DL_NAME }}</td>
+                    <td class="px-8 py-4">
+                    @if (Session::has('Success'))
+                        <div class="alert alert-info">{{ Session::get('Success') }}</div>
+                    @endif
+                        <a href='/dives/{{$dive->DS_CODE}}' class="bg-green-400 hover:bg-green-500 focus:bg-green-500 text-black rounded-lg px-10 py-1.5">S'inscrire</a>
+                        <button class="bg-yellow-400 hover:bg-yellow-500 focus:bg-yellow-500 text-black rounded-lg px-5 py-1.5">Voir les inscrits</button>
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+                    </td>
                 </tr>
             @endforeach
             </tbody>
