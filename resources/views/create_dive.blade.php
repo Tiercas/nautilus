@@ -30,7 +30,7 @@
                 </div>
             </div>
             <div style="display: flex;">
-                <div style="width: 60%; margin-bottom: 40px;margin-top: 40px;">
+                <div style="width: 58%; margin-bottom: 40px;margin-top: 40px;">
                     <h2>Nombres d'inscrits</h2>
                     <hr style="height: 3px;background-color: black;margin-bottom: 15px;margin-top: 5px; width : 50%">
                     <div style="display: flex; margin-bottom: 15px">
@@ -43,11 +43,11 @@
                         <div>
                             <label for="minInput">Maximum : </label>
                             <input type="number" name="max" id="maxInput" min="0" placeholder="0"
-                                style="width: 40px;border: 2px solid black;border-radius: 7px;-moz-appearance: textfield;text-align: center;">
+                                style="width: 42px;border: 2px solid black;border-radius: 7px;-moz-appearance: textfield;text-align: center;">
                         </div>
                     </div>
                     <label for="levelInput">Niveau requis : </label>
-                    <select name="level" id="levelInput" style="width: 200px; margin-bottom: 15px;">
+                    <select name="level" id="levelInput" style="width: 200px; margin-bottom: 15px; width : 150px">
                         @foreach ($levels as $level)
                             <option value="{{ $level->PRE_CODE }}">{{ $level->PRE_CODE }}</option>
                         @endforeach
