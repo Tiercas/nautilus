@@ -12,7 +12,7 @@ class DiversBySession extends Controller
     public function getDiversBySession($ds_code): View
     {
         $request = User::selectRaw('US_NAME, US_FIRST_NAME')
-        ->join('CAR_REGISTRATION','CAR_USER.US_ID','=','CAR_REGISTRATION.US_ID')
+        ->join('CAR_USER','CAR_USER.US_ID','=','CAR_DIVING_SESSION.US_ID')
         ->get();
 
         return view('diversinsessions', ['datas' => $request]);
@@ -20,12 +20,11 @@ class DiversBySession extends Controller
 
     public function getAllSessions(): View
     {
-        $request = User::join('car_registration', 'car_user.US_ID', '=', 'car_registration.US_ID')
-        ->groupBy('car_registration.ds_code', 'car_user.us_name', 'car_user.US_FIRST_NAME')
-        ->select('car_user.us_name', 'car_user.US_FIRST_NAME', 'car_registration.ds_code')
+        $sessions = User::select('US_NAME', 'US_FIRST_NAME', 'DS_CODE')
+        ->join('CAR_REGISTRATION', 'CAR_REGISTRATION.US_ID', '=', 'CAR_USER.US_ID')
         ->get();
     
-
-        return view('diversinsessions',['sessions' => $request]);
+    return view('diversinsessions', ['sessions' => $sessions]);
+    
     }
 }
