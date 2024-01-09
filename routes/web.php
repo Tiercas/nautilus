@@ -4,6 +4,7 @@ use App\Http\Controllers\DivesList;
 use App\Models\DivingSession;
 use App\Http\Controllers\DivingSignUpController;
 use App\Http\Controllers\DiveSessionCreation;
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 /*
@@ -62,6 +63,19 @@ Route::post('/create/dive', function(Request $request)
     return redirect('/');
 });
 
-Route::get('/test2', function(){
+Route::get('/tewst2', function(){
     return view('drag_and_drop');
+});
+
+Route::get('/dive/update/{id}', function($id){
+    return view('update_dive', ['dive' => DivingSession::find($id),
+                'locations' => DivingLocation::all(),
+                'boats' => Boat::all(),
+                'levels' => Prerogative::all(),
+                'users' => User::all()]);
+});
+
+Route::post('/dive/disable/{id}', function ($id){
+    DivingSession::find($id)->disable();
+    return redirect('/');
 });
