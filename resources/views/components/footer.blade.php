@@ -1,8 +1,8 @@
 <footer class="w-full flex flex-row sm:grid sm:grid-cols-3 bg-[#002550] h-36 items-center">
-  <div class='w-full bg-[#2A4192]  h-full flex flex-row items-center px-4'>
+  <div class='w-full bg-blue-700  h-full flex flex-row items-center px-4'>
     <img src='../../img/logo.png' class="h-[90%] w-full" alt=''>
   </div>
-  <div class='text-white bg-[#2A4192] h-full w-1/2 justify-end'
+  <div class='text-white bg-blue-700 h-full w-1/2 justify-end'
       style="clip-path: ellipse(75% 75% at 0 33%);">
     </div>
   <div class='md:flex md:flex-col items-start w-full md:px-12 '>
