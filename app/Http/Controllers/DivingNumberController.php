@@ -32,13 +32,13 @@ class DivingNumberController extends Controller
 
     public function allIndex(): View
     {
-        $usersDatas = DivingNumberModel::selectRaw('COUNT(*) as aggregate, car_user.US_NAME')
+        $usersDatas = DivingNumberModel::selectRaw('COUNT(*) as aggregate, car_user.US_FIRST_NAME, car_user.US_NAME')
     ->join('car_registration', 'car_user.us_id', '=', 'car_registration.us_id')
     ->join('car_diving_group', function ($join) {
         $join->on('car_registration.ds_code', '=', 'car_diving_group.ds_code')
             ->on('car_registration.dg_number', '=', 'car_diving_group.dg_number');
     })
-    ->groupBy('car_user.us_id', 'car_user.US_NAME')
+    ->groupBy('car_user.us_id', 'car_user.US_NAME', 'car_user.US_FIRST_NAME')
     ->get();
 
         return view('alldiversactivities', ['datas' => $usersDatas]);
