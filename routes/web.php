@@ -52,7 +52,7 @@ Route::get('/', function ()
     return view('welcome');
 })->name('homepage');
 
-Route::get('/dives', [DivesList::class, 'index'])->name('dives');
+Route::get('/dives', [DivingSignUpController::class, 'show'])->name('dives');
 
 Route::get('/test', function()
 {
