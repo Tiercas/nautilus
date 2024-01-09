@@ -9,6 +9,7 @@
 <body>
     @if ($user->checkPassword('securepassword'))
         <p>Match</p>
+        <p> {{$user->hasRoles('SEC')}} </p>
     @else
         <p>Unmatch</p>
     @endif

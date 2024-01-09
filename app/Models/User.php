@@ -35,11 +35,21 @@ class User extends Model
         }
     }
 
+    /**
+     * Get the roles attributed to the user.
+     */
+
     public function roles()
     {
-        return $this->belongsToMany(Role::class, 'CAR_ROLE_ATTRIBUTION', 'US_ID', 'ROL_CODE');
+        return $this->belongsToMany(Role::class, RoleAttribution::class, 'US_ID', 'ROL_CODE');
     }
 
+    /**
+     * Check if the user has a given role.
+     *
+     * @param string $roleCode the code of the role to check
+     * @return bool true if the user has the role, false otherwise
+     */
     public function hasRole($roleCode)
     {
         return $this->roles->contains('ROL_CODE', $roleCode);
