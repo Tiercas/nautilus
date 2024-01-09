@@ -16,6 +16,14 @@ Route::get('/login', function () {
     return view('login');
 });
 
+use App\Models\User;
+
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/', function()
+{
+    return view('test', ['user' => User::find(1)]);
+});
+
