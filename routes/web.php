@@ -12,6 +12,8 @@ use App\Http\Controllers\DiveSessionUpdate;
 use App\Http\Controllers\DiveSessionDelete;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -75,6 +77,7 @@ Route::middleware('App\Http\Middleware\rightChecker')
     $pre = DiveSessionCreation::add($request);
 
     $previousDives = session('previousDives', []);
+    $previousDives[] = $pre;
 
     session(['previousDives' => $previousDives]);
 
