@@ -57,7 +57,7 @@
                     <br>
 
                     <label for="maxDepth">Profondeur maximum : </label>
-                    <input type="number" name="maxDepth" id="maxDepth" style="width: 40px;border: 2px solid black;border-radius: 7px;-moz-appearance: textfield;text-align: center;" placeholder="0">
+                    <input type="number" min=1 name="maxDepth" id="maxDepth" style="width: 40px;border: 2px solid black;border-radius: 7px;-moz-appearance: textfield;text-align: center;" placeholder="0">
                 </div>
                 <div style="width: 40%;margin-bottom: 40px;margin-top: 40px;">
                     <h2>Créneau</h2>
@@ -70,8 +70,11 @@
                         </div>
                         <div style="margin-top: 15px;">
                             <label for="hourInput">Heure de début</label>
-                            <input type="time" name="hour" id="hourInput"
-                                style="border: 2px solid black;border-radius: 10px;padding: 7px;">
+                            <select name="hour" id="hour" style="width: 160px; margin-bottom: 15px;">
+                                <option value="Matin">Matin</option>
+                                <option value="Apres-midi">Après midi</option>
+                                <option value="Soir">Soir</option>
+                            </select>
                         </div>
                     </div>
                 </div>
