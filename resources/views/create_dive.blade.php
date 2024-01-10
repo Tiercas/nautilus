@@ -11,41 +11,6 @@
             <h1 class="text-4xl"
                 style="font-family: 'Space Grotesk', sans-serif; font-weight: bold; margin-bottom: 30px;">Création d'une
                 plongée</h1>
-            <div style="display: flex">
-                <div style="width: 50%">
-                    <label for="locationInput" style="margin-right: 20px;">Site : </label>
-                    <select name="location" id="locationInput" style="width: 200px;">
-                        @foreach ($locations as $location)
-                            @if(isset($precedent))
-                                @if($location->DL_ID == $precedent->DL_ID)
-                                    <option value="{{ $location->DL_ID }}" selected>{{ $location->DL_NAME }}</option>
-                                @else
-                                    <option value="{{ $location->DL_ID }}">{{ $location->DL_NAME }}</option>
-                                @endif
-                            @else
-                                <option value="{{ $location->DL_ID }}">{{ $location->DL_NAME }}</option>
-                            @endif
-                        @endforeach
-                    </select>
-                </div>
-                <div style="width: 50%">
-                    <label for="boatInput" style="margin-right: 20px;">Bateau : </label>
-                    <select name="boat" id="boatInput" style="width: 200px;">
-                        @foreach ($boats as $boat)
-                            @if(isset($precedent))
-                                @if($location->BO_ID == $precedent->BO_ID)
-                                    <option value="{{ $boat->BO_ID }}" selected>{{ $boat->BO_NAME }}</option>
-                                @else
-                                    <option value="{{ $boat->BO_ID }}">{{ $boat->BO_NAME }}</option>
-                                @endif
-                            @else
-                                <option value="{{ $boat->BO_ID }}">{{ $boat->BO_NAME }}</option>
-                            @endif
-
-                        @endforeach
-                    </select>
-                </div>
-            </div>
             <div style="display: flex;">
                 <div style="width: 58%; margin-bottom: 40px;margin-top: 40px;">
                     <h2>Nombres d'inscrits</h2>
@@ -109,7 +74,43 @@
                     </div>
                 </div>
             </div>
-            <div style="display: flex;">
+            <hr style="height: 3px;background-color: black;margin-bottom: 30px;margin-top: 5px; width : 50%;">
+            <div style="display: flex; margin-bottom: 50px;">
+                <div style="width: 50%">
+                    <label for="locationInput" style="margin-right: 20px;">Site : </label>
+                    <select name="location" id="locationInput" style="width: 200px;">
+                        @foreach ($locations as $location)
+                            @if(isset($precedent))
+                                @if($location->DL_ID == $precedent->DL_ID)
+                                    <option value="{{ $location->DL_ID }}" selected>{{ $location->DL_NAME }}</option>
+                                @else
+                                    <option value="{{ $location->DL_ID }}">{{ $location->DL_NAME }}</option>
+                                @endif
+                            @else
+                                <option value="{{ $location->DL_ID }}">{{ $location->DL_NAME }}</option>
+                            @endif
+                        @endforeach
+                    </select>
+                </div>
+                <div style="width: 50%">
+                    <label for="boatInput" style="margin-right: 20px;">Bateau : </label>
+                    <select name="boat" id="boatInput" style="width: 200px;">
+                        @foreach ($boats as $boat)
+                            @if(isset($precedent))
+                                @if($location->BO_ID == $precedent->BO_ID)
+                                    <option value="{{ $boat->BO_ID }}" selected>{{ $boat->BO_NAME }}</option>
+                                @else
+                                    <option value="{{ $boat->BO_ID }}">{{ $boat->BO_NAME }}</option>
+                                @endif
+                            @else
+                                <option value="{{ $boat->BO_ID }}">{{ $boat->BO_NAME }}</option>
+                            @endif
+
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+            <div style="display: flex; margin-bottom: 50px;">
                 <div style="display: flex;flex-direction: column;width: 30%; margin-right: 2%; margin-bottom: 30px;">
                     <label for="securityInput">Sécurité de surface</label>
                     <hr style="height: 3px;background-color: black;margin-bottom: 15px;margin-top: 5px;">
