@@ -22,7 +22,7 @@ class DiveSessionUpdate extends Controller
         $dv->DS_MAX_DEPTH = $request->maxDepth;
         $dv->DS_ACTIVE = 1;
         $dv->DS_MAX_DIVERS = $request->max;
-        $dv->DS_LEVEL = $request->level;
+        $dv->PRE_CODE = $request->level;
         $dv->save();
     }
 }

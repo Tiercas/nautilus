@@ -28,6 +28,13 @@ use App\Models\DivingLocation;
 use App\Models\Boat;
 use App\Models\Prerogative;
 
+Route::get('/error', function () {
+    $message = 'test';
+    return view('error-page' , [
+        'message' => $message
+    ]);
+});
+
 
 Route::get('/login', function () {
     return view('login', ['wrongPassword' => false]);
