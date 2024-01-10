@@ -28,8 +28,12 @@ const zoneStart = document.getElementById("zoneStart");
 const DropZone = document.getElementById("DropZone");
 const removePalanque = document.getElementById("removePal");
 const addPalanque = document.getElementById("addPal");
+const validatePalanque = document.getElementById("validatePal");
+
 let countZone = 2;
+let countDiver = 5;
 let zoneList = [new DropZoneClass(0), new DropZoneClass(1), new DropZoneClass(2)];
+
 function allowDrop(event) {
   event.preventDefault();
 }
@@ -46,6 +50,7 @@ function drop(event) {
 
   let data = event.dataTransfer.getData("draggable");
   let draggedItem = document.getElementById(data);
+  console.log(draggedItem);
   if(event.target === zoneStart){
     zoneStart.appendChild(draggedItem);
     zoneList[index].updateCounterNeg(setDropZoneSize(draggedItem));
@@ -96,3 +101,74 @@ removePalanque.addEventListener("click", function(){
   }
   DropZone.removeChild(palanque);
 });
+
+async function getDiver(ds_code){
+  let response = await fetch(`/api/dives/${ds_code}/divers`);
+  let data = await response.json().then(data => proccessDiverData(data));
+  return data;
+}
+
+function proccessDiverData(data){
+  for(let i = 0; i < data.length; i++){
+    countDiver++;
+    let diver = document.createElement("div");
+    diver.setAttribute("class", "w-fit h-8 border-2");
+    diver.setAttribute("id", 'item' + countDiver +',' + data[i].PRE_CODE);
+    diver.setAttribute("draggable", "true");
+    diver.setAttribute("ondragstart", "drag(event)");
+    diver.innerHTML = data[i].US_FIRST_NAME + " " + data[i].US_NAME;
+    zoneStart.appendChild(diver);
+  }
+}
+
+let validatePalanqueCombinate = {
+  'PB': ['E1', 'E2', 'E3', 'E4'],
+  'PA': ['E1', 'E2', 'E3', 'E4'],
+  'PO': ['E1', 'E2', 'E3', 'E4'],
+  'PE-12': ['E2', 'E3', 'E4'],
+  'PE-20': ['E2', 'E3', 'E4'],
+  'PE-40': ['E2', 'E3', 'E4'],
+  'PE-60': ['Director'],
+  'PA-60': ['Director']
+};
+
+function validateAllCombination(){
+  zoneList.forEach(element => {
+    element = document.getElementById("zone" + element.getZoneNumber());
+    if(element.hasChildNodes()){
+      let children = element.childNodes;
+      console.log(children);
+      for(let i = 0; i < children.length; i++){
+        let targetItemsSplit = children[i].id.split(',')[1];
+        for(targetItemsSplit in validatePalanqueCombinate){
+          for(let j = i + 1; j < children.length; j++){
+            let targetItemsSplit2 = children[j].id.split(',')[1];
+            console.log(targetItemsSplit2);
+            if(validatePalanqueCombinate[targetItemsSplit].includes(targetItemsSplit2)){
+              console.log("ok");
+              if(element.style.backgroundColor === 'red')
+                element.style.backgroundColor = 'white';
+              return true;
+            }else{
+              console.log("ko");
+              element.style.backgroundColor = 'red';
+              return false;
+            }
+          }
+        }
+      }
+    }else{
+      if(element.className === 'border-2 p-4'){
+          element.style.backgroundColor = 'red';
+        }
+    }
+  });
+}
+validatePalanque.addEventListener("click", function(){
+  if(validateAllCombination()){
+    console.log("ok");
+  }else
+    console.log("ko");
+});
+
+getDiver('DS1');
