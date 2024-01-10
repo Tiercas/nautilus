@@ -40,6 +40,8 @@
                                 @endif
                             @else
                                 <option value="{{ $boat->BO_ID }}">{{ $boat->BO_NAME }}</option>
+                            @endif
+
                         @endforeach
                     </select>
                 </div>
