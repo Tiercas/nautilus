@@ -25,6 +25,11 @@
                     div.mapboxgl-ctrl-bottom-right {
                         display: none;
                     }
+                    /*.mapboxgl-canvas {
+                        position: static;
+                        width: 100%;
+                        aspect-ratio: 16/9;
+                    }*/
                 </style>
                 <script>
                     mapboxgl.accessToken = 'pk.eyJ1IjoiZ290Y2hldXIiLCJhIjoiY2xyOGFyMnlhMHlxMTJqcHF3NHVsdWJiaiJ9.0tkuFzJwXUn1XwTAwaLHng';
@@ -39,15 +44,18 @@
                         .addTo(map);
                     map.addControl(new mapboxgl.NavigationControl());
                     map.addControl(new mapboxgl.ScaleControl());
+                    map.on('idle',function(){
+                        map.resize()
+                    })
                 </script>
             @endif
             <p class="text-xl font-bold my-2">{{ $dive->DL_NAME }} • {{ $dive->DS_MAX_DEPTH }}m</p>
         </div>
-        <div class="flex-1 border-r">
-            <h3 class="text-xl font-bold">Plongeurs</h3>
+        <div class="flex-1 border-r p-4">
+            <h3 class="text-xl font-bold mb-2">Plongeurs</h3>
         </div>
-        <div class="flex-1">
-            <h3 class="text-xl font-bold">Palanquées</h3>
+        <div class="flex-1 p-4">
+            <h3 class="text-xl font-bold mb-2">Palanquées</h3>
         </div>
     </div>
 </x-layout>
