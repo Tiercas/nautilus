@@ -1,20 +1,20 @@
 <?php
 
-use App\Http\Controllers\DiversBySession;
-use App\Http\Controllers\DivesList;
-use App\Http\Controllers\SecuritySheets\PreviewStrategy;
-use App\Models\DivingSession;
-use App\Http\Controllers\DivingSignUpController;
-use App\Http\Controllers\SecuritySheets\SecuritySheetController;
-use Illuminate\Support\Facades\Route;
+use App\Models\Boat;
+use App\Models\User;
+use App\Models\DivingGroup;
+use App\Models\Prerogative;
 use Illuminate\Http\Request;
 use Spipu\Html2Pdf\Html2Pdf;
-use App\Http\Controllers\DivingNumberController;
+use App\Models\DivingSession;
+use App\Models\DivingLocation;
 use App\Models\DivingNumberModel;
-use App\Http\Controllers\HomepageController;
-use App\Http\Controllers\DiveSessionCreation;
-use App\Http\Controllers\DiveSessionUpdate;
+use App\Http\Controllers\DivesList;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DiversBySession;
+use App\Http\Controllers\DiveSessionUpdate;
+use App\Http\Controllers\HomepageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,10 +27,11 @@ use App\Http\Controllers\AuthController;
 |
 */
 
-use App\Models\User;
-use App\Models\DivingLocation;
-use App\Models\Boat;
-use App\Models\Prerogative;
+use App\Http\Controllers\DiveSessionCreation;
+use App\Http\Controllers\DivingNumberController;
+use App\Http\Controllers\DivingSignUpController;
+use App\Http\Controllers\SecuritySheets\PreviewStrategy;
+use App\Http\Controllers\SecuritySheets\SecuritySheetController;
 
 
 Route::get('/login', function () {
