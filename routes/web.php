@@ -69,6 +69,12 @@ Route::middleware('App\Http\Middleware\rightChecker')
     ->post('/create/dive', function(Request $request)
 {
     $pre = DiveSessionCreation::add($request);
+
+    $previousDives = session('previousDives', []);
+    $previousDives[] = $pre;
+
+    session(['previousDives' => $previousDives]);
+
     return view('create_dive',  ['locations' => DivingLocation::all(),  'boats' => Boat::all(), 'levels' => Prerogative::all(), 'users' => User::all(), 'precedent' => $pre]);
 });
 
