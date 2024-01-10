@@ -8,6 +8,7 @@ use App\Http\Controllers\DivingSignUpController;
 use App\Http\Controllers\DiveSessionCreation;
 use App\Http\Controllers\DiveSessionUpdate;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ModificationDives;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 /*
@@ -99,3 +100,14 @@ Route::middleware('App\Http\Middleware\rightChecker')
 Route::get('/sessions', [DiversBySession::class,'getAllSessions']);
 
 Route::get('/session/{ds_code}', [DiversBySession::class,'getDiversBySession']);
+
+Route::get('/modificationdives', [ModificationDives::class, 'index']);
+
+Route::get('modificationdives/members/{ds_code}', function($ds_code){
+    
+    return ModificationDives::modificationMembers($ds_code);
+});
+
+Route::post('modificationdives/members/{ds_code}/deletion', function($ds_code, Request $request){
+
+});
