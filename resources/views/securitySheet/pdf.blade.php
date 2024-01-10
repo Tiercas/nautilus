@@ -56,6 +56,10 @@
         <td>{{$surfaceSecurity->US_FIRST_NAME}} {{$surfaceSecurity->US_NAME}}</td>
     </tr>
     <tr>
+        <td><strong>Pilote</strong></td>
+        <td>{{$driver->US_FIRST_NAME}} {{$driver->US_NAME}}</td>
+    </tr>
+    <tr>
         <td><strong>
             Observation
             <br>> météo et marée
@@ -96,7 +100,7 @@
 
         <!-- Members table header -->
         <tr class="members-header">
-            <td colspan="2"><strong>Nom Prénom</strong></td>
+            <td colspan="2"><strong>Prénom Nom</strong></td>
             <td>Aptitudes</td>
             <td><strong>Fonction</strong></td>
         </tr>
@@ -107,21 +111,14 @@
                 <td colspan="2">
                     {{$diver->US_NAME}} {{$diver->US_FIRST_NAME}}
                 </td>
-                <td>{{$diver->PRE_CODE}}</td>
                 <td>
-                    @if($diver->US_ID === 5)
-                        <!--dd($diver->roles)-->
+                    {{$diver->PRE_CODE}}
+                    @if($diver->US_TEACHING_LEVEL > 0)
+                        / E{{$diver->US_TEACHING_LEVEL}}
                     @endif
-
-                    @if($diver->US_ID === $dive->US_ID_CAR_DIRECT)
-                        Directeur de plongée
-                    @elseif ($diver->US_ID === $dive->US_ID)
-                        Pilote
-                    @elseif ($diver->US_ID === $dive->US_ID_CAR_SECURE)
-                        Sécurité de surface
-                    @else
-                        Plongeur
-                    @endif
+                </td>
+                <td>
+                    {{$dive->getRoleForUser($diver)}}
                 </td>
             </tr>
         @endforeach

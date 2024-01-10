@@ -38,6 +38,7 @@ class SecuritySheetController extends Controller
 
         $director = User::find($dive->US_ID_CAR_DIRECT);
         $surfaceSecurity = User::find($dive->US_ID_CAR_SECURE);
+        $driver = User::find($dive->US_ID);
 
         $location = DivingLocation::find($dive->DL_ID);
 
@@ -56,6 +57,7 @@ class SecuritySheetController extends Controller
             'dive' => $dive,
             'director' => $director,
             'surfaceSecurity' => $surfaceSecurity,
+            'driver' => $driver,
             'location' => $location,
             'divingGroups' => $divingGroupsForView
         ]);
