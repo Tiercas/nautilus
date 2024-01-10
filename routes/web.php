@@ -5,6 +5,7 @@ use App\Http\Controllers\DivesList;
 use App\Models\DivingSession;
 use App\Http\Controllers\DivingSignUpController;
 use App\Http\Controllers\DiveSessionCreation;
+use App\Http\Controllers\DiveSesssionUpdate;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
@@ -68,8 +69,8 @@ Route::middleware('App\Http\Middleware\rightChecker')
 Route::middleware('App\Http\Middleware\rightChecker')
     ->post('/create/dive', function(Request $request)
 {
-    DiveSessionCreation::add($request);
-    return redirect('/');
+    $pre = DiveSessionCreation::add($request);
+    return view('create_dive',  ['locations' => DivingLocation::all(),  'boats' => Boat::all(), 'levels' => Prerogative::all(), 'users' => User::all(), 'precedent' => $pre]);
 });
 
 Route::get('/tewst2', function(){
@@ -83,6 +84,11 @@ Route::middleware('App\Http\Middleware\rightChecker')
                 'boats' => Boat::all(),
                 'levels' => Prerogative::all(),
                 'users' => User::all()]);
+});
+
+Route::post('/dive/update/{id}', function($id, Request $request){
+        DiveSesssionUpdate::update($request, $id);
+        return redirect('/');
 });
 
 Route::middleware('App\Http\Middleware\rightChecker')
