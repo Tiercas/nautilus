@@ -35,4 +35,10 @@ class DivingSession extends Model
     public function getDivingGroups(){
         return DivingGroup::where('DS_CODE', $this->DS_CODE)->get();
     }
+
+    public function disable()
+    {
+        $this->DS_ACTIVE = 0;
+        $this->save();
+    }
 }

@@ -1,0 +1,22 @@
+.drop-down {
+    margin-left: 2.5em;
+    margin-bottom: 1em;
+    margin-top: 1em;
+    animation-duration: 0.5s;
+    animation-name: slidein;
+  }
+
+.drop-down-items{
+  margin-bottom: 0.5em;
+  column-span: all;
+}
+  
+  @keyframes slidein {
+    from {
+      transform: translateX(-100px);
+    }
+  
+    to {
+      transform: translateX(0px);
+     }
+  }

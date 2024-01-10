@@ -12,4 +12,5 @@ class DivingLocation extends Model
     protected $table = 'CAR_DIVING_LOCATION';
 
     protected $primaryKey = 'DL_ID';
+
 }

@@ -8,21 +8,18 @@ use Illuminate\Http\Request;
 class DivingSignUpController extends Controller
 {
     public function show(){
-        
-        $userid = session()->get('userid');
-        if(!preg_match('/[0-9]+/', $userid))
-            return DivingSignUpController::error();
         $divesList = new DivesList();
         return $divesList->index();
     }
 
     public function index($ds_code){
-        $userid = session()->get('userid');
+        $userid = session('user')->US_ID;
+        session()->put('DS_CODE', $ds_code);
         $request = DivingSignUpModel::select()->where('US_ID', $userid)->where('DS_CODE', $ds_code)->count();
         if(!$request == 0)
             return redirect()->route('dives')->withErrors(['already_registered' => 'Error already registered']);
-        $request = DivingSignUpModel::insert(['US_ID' => $userid, 'DS_CODE' => $ds_code]);
-        return redirect()->route('dives')->with('Success', 'inscription success');
+        $request = DivingSignUpModel::insert(['US_ID' => $userid, 'DS_CODE' => $ds_code, 'REG_ACTIVE' => 1]);
+        return redirect()->route('dives')->with('Success', 'Inscription Success');
     }
 
     public static function error(){
