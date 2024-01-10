@@ -12,11 +12,12 @@
                     <ul class="ps-5 mt-2 space-y-1 list-disc list-inside">
                         <li>Directeur de plongée : {{ $director->US_FIRST_NAME . " " . strtoupper($director->US_NAME) }}</li>
                         <li>Sécurité de surface : {{ $security->US_FIRST_NAME . " " . strtoupper($security->US_NAME) }}</li>
+                        <li>Créateur de la plongée : {{ $creator->US_FIRST_NAME . " " . strtoupper($creator->US_NAME) }}</li>
                     </ul>
                 </li>
+                <li>Nombre de plongeurs : {{ $dive->DS_DIVERS_COUNT }}</li>
                 <li>Bateau : {{ $dive->BO_NAME }}</li>
                 <li>Observation : {{ $dive->DS_OBSERVATION_FIELD }}</li>
-                <li>Nombre de plongeurs : {{ $dive->DS_DIVERS_COUNT }}</li>
             </ul>
             @if(preg_match("/[0-9]*\.[0-9]*/", $dive->DL_LONGITUDE) == 1 && preg_match("/[0-9]*\.[0-9]*/", $dive->DL_LATITUDE) == 1)
                 <div id='map' class="shadow rounded-lg w-full mt-4 aspect-video"></div>
@@ -25,11 +26,6 @@
                     div.mapboxgl-ctrl-bottom-right {
                         display: none;
                     }
-                    /*.mapboxgl-canvas {
-                        position: static;
-                        width: 100%;
-                        aspect-ratio: 16/9;
-                    }*/
                 </style>
                 <script>
                     mapboxgl.accessToken = 'pk.eyJ1IjoiZ290Y2hldXIiLCJhIjoiY2xyOGFyMnlhMHlxMTJqcHF3NHVsdWJiaiJ9.0tkuFzJwXUn1XwTAwaLHng';
@@ -43,7 +39,8 @@
                         .setLngLat([{{ $dive->DL_LONGITUDE }}, {{ $dive->DL_LATITUDE }}])
                         .addTo(map);
                     map.addControl(new mapboxgl.NavigationControl());
-                    map.addControl(new mapboxgl.ScaleControl());
+                    //map.addControl(new mapboxgl.ScaleControl());
+                    //map.addControl(new mapboxgl.FullscreenControl());
                     map.on('idle',function(){
                         map.resize()
                     })
