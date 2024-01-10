@@ -14,23 +14,24 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach ($user_role as $user)
+                @dump($users);
+                @for ($i = 1; $i < count($users[0]); $i++)
                     <tr class="odd:bg-white even:bg-gray-50 border-b">
-                        <td class="px-6 py-4">{{ $user[2] }}</td>
+                        <td class="px-6 py-4">{{ $users[0][$i][1] . " " . $users[0][$i][2] }}</td>
                         <td class="px-6 py-4">
-                            <input type="checkbox" id="checkbox{{ $user[0] }}" name="checkbox{{ $user[0] }}" value="checkbox{{ $user[0] }}_DIV @if(array_search('DIV', $user[1])) checked @endif">
+                            <input type="checkbox" id="checkbox{{ $users[0][$i][0] }}" name="checkbox{{ $users[0][$i][0] }}" value="checkbox{{ $users[0][$i][0] }}_DIV" @if(array_search('DIV', $users[1][$i]) !== false) checked @endif>
                         </td>
                         <td class="px-6 py-4">
-                            <input type="checkbox" id="checkbox{{ $user[0] }}" name="checkbox{{ $user[0] }}" value="checkbox{{ $user[0] }}_SEC @if(array_search('SEC', $user[1])) checked @endif">
+                            <input type="checkbox" id="checkbox{{ $users[0][$i][0] }}" name="checkbox{{ $users[0][$i][0] }}" value="checkbox{{ $users[0][$i][0] }}_SEC" @if(array_search('SEC', $users[1][$i]) !== false) checked @endif>
                         </td>
                         <td class="px-6 py-4">
-                            <input type="checkbox" id="checkbox{{ $user[0] }}" name="checkbox{{ $user[0] }}" value="checkbox{{ $user[0] }}_PIL @if(array_search('PIL', $user[1])) checked @endif">
+                            <input type="checkbox" id="checkbox{{ $users[0][$i][0] }}" name="checkbox{{ $users[0][$i][0] }}" value="checkbox{{ $users[0][$i][0] }}_PIL" @if(array_search('PIL', $users[1][$i]) !== false) checked @endif>
                         </td>
                         <td class="px-6 py-4">
-                            <input type="checkbox" id="checkbox{{ $user[0] }}" name="checkbox{{ $user[0] }}" value="checkbox{{ $user[0] }}_DIR @if(array_search('DIR', $user[1])) checked @endif">
+                            <input type="checkbox" id="checkbox{{ $users[0][$i][0] }}" name="checkbox{{ $users[0][$i][0] }}" value="checkbox{{ $users[0][$i][0] }}_DIR" @if(array_search('DIR', $users[1][$i]) !== false) checked @endif>
                         </td>
                     </tr>
-                @endforeach
+                @endfor
                 </tbody>
             </table>
 

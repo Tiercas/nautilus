@@ -9,17 +9,16 @@ class ManageAdherentController extends Controller {
     function index() {
         $users = User::select('*')->join('car_role_attribution', 'car_role_attribution.US_ID', '=', 'car_user.US_ID')->orderBy('car_user.US_ID')->get();
         $user_role = array();
-        $oldUserID = null;
+        $usersInfos = array();
         foreach ($users as $user) {
-            $user_role[$user->US_ID] = [$user->US_ID, [], $user->US_FIRST_NAME . " " . strtoupper($user->US_NAME)];
-            if ($oldUserID == $user->US_ID) {
-                array_push($user_role[$user->US_ID][1], $user->ROL_CODE);
-            } else {
-                $user_role[$user->US_ID][1] = [$user->ROL_CODE];
+            $usersInfos[$user->US_ID] = [$user->US_ID, $user->US_FIRST_NAME, $user->US_NAME];
+            if (!array_key_exists($user->US_ID, $user_role)){
+                $user_role[$user->US_ID] = array();
             }
-            $oldUserID = $user->US_ID;
+            array_push($user_role[$user->US_ID], $user->ROL_CODE);
         }
-        return view('manageAdherent', ['user_role' => $user_role]);
+        $users = [$usersInfos, $user_role];
+        return view('manageAdherent', ['users' => $users]);
     }
 
     function update(Request $request) {
