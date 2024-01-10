@@ -7,7 +7,7 @@
                 Carantec Nautisme vous accompagne dans vos plongées. 
                 Nos adhérent.e.s propose différentes activités pour tout les niveaux !
             </p>
-            <button onclick="location.href='{{ route('login') }}'">
+            <button class="button" onclick="location.href='{{ route('login') }}'">
                 Je me connecte
             </button>
         </div>
