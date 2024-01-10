@@ -2,19 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\DivingSession;
+use Illuminate\Http\Request;
 
-
-class DiveSessionCreation extends Controller
+class DiveSesssionUpdate extends Controller
 {
-    /**
-     * Add
-     */
-    public static function add($request)
+    //Update a diving session
+    public static function update($request, $id)
     {
-        $dv = new DivingSession();
-        $dv->DS_CODE = 'DS'.sizeof(DivingSession::all())+1;
+        $dv = DivingSession::where('DS_CODE', $id);
+
         $dv->US_ID = $request->pilot;
         $dv->DL_ID = $request->location;
         $dv->BO_ID = $request->boat;
@@ -27,6 +24,5 @@ class DiveSessionCreation extends Controller
         $dv->DS_MAX_DIVERS = $request->max;
         $dv->DS_LEVEL = $request->level;
         $dv->save();
-        return $dv;
     }
 }
