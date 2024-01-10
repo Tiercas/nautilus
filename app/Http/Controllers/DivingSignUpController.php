@@ -13,7 +13,7 @@ class DivingSignUpController extends Controller
     }
 
     public function index($ds_code){
-        $userid = session()->get('userid');
+        $userid = session('user')->US_ID;
         session()->put('DS_CODE', $ds_code);
         $request = DivingSignUpModel::select()->where('US_ID', $userid)->where('DS_CODE', $ds_code)->count();
         if(!$request == 0)
