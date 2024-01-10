@@ -35,6 +35,7 @@ class DivingNumberController extends Controller
                     ->on('car_registration.dg_number', '=', 'car_diving_group.dg_number');
             })
             ->join('car_diving_session','car_registration.ds_code','=','car_diving_session.ds_code')
+            ->where('car_diving_session.ds_date','>=',date("Y").'-00-00')
             ->where('car_user.US_ID', $userId)
             ->orderBy('ds_date','desc')
             ->count();
