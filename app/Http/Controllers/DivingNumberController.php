@@ -11,6 +11,12 @@ class DivingNumberController extends Controller
 {
     public function index(): View
     {
+
+        $dateDives = DivingNumberModel::join('car_registration', 'car_user.us_id', '=', 'car_registration.us_id')
+        ->join('car_diving_session','car_registration.ds_code','=','car_diving_session.ds_code')
+        ->where('car_user.US_ID',3)
+        ->get();
+
         $user = Auth::user();
         if ($user) {
             $userId = $user->US_ID;
@@ -28,7 +34,7 @@ class DivingNumberController extends Controller
             ->count();
         $usersCount = 99 - $usersCount;
 
-        return view('diveractivities', compact('usersCount'));
+        return view('diveractivities', compact('usersCount'), ['dates' => $dateDives]);
     }
 
     public function allIndex(): View
