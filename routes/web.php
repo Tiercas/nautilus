@@ -1,10 +1,13 @@
 <?php
 
 use App\Http\Controllers\DivesList;
+use App\Http\Controllers\SecuritySheets\PreviewStrategy;
 use App\Models\DivingSession;
 use App\Http\Controllers\DivingSignUpController;
+use App\Http\Controllers\SecuritySheets\SecuritySheetController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
+use Spipu\Html2Pdf\Html2Pdf;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -64,6 +67,12 @@ Route::get('/dives/list-divers/{id}', function($id){
         'users' => DivingSession::find($id)->getParticipants()
     ]);
 });
+
+Route::get('/dives/{ds_code}/security-sheet/test', function($id){
+    return (new SecuritySheetController)->setStrategy(new PreviewStrategy)->generate($id);
+});
+
+Route::get('/dives/{ds_code}/security-sheet/generate', [SecuritySheetController::class, 'generate']);
 
 Route::get('/dives/{ds_code}', [DivingSignUpController::class, 'index']);
 
