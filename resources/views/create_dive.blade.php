@@ -4,7 +4,7 @@
 
     <div style="display : flex; flex-direction: row">
         <div style="width: 50%; margin-right: 50px; height: 100%; display:flex; align-items: center; flex-direction: column">
-            @if(!isset($precedent))
+            @if(!isset($previousDives))
                 <img src="{{ asset('/images/Diver1.png') }}" alt="Diver illustration">
             @else
                 <p>Plongées crées</p>
@@ -15,11 +15,15 @@
                         <th>Site</th>
                         <th>Niveau requis</th>
                     </tr>
-                    @foreach ($precedent as $dive)
+                    @foreach ($previousDives as $dive)
                         <tr>
                             <td>{{ $dive->DS_DATE }}</td>
                             <td>{{ $dive->DS_MAX_DIVERS }}</td>
-                            <td>{{ $dive->DL_NAME }}</td>
+                            @foreach($locations as $location)
+                                @if($location->DL_ID == $dive->DL_ID)
+                                    <td>{{ $location->DL_NAME }}</td>
+                                @endif
+                            @endforeach
                             <td>{{ $dive->PRE_CODE }}</td>
                         </tr>
                     @endforeach

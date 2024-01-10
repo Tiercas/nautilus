@@ -75,7 +75,7 @@ Route::middleware('App\Http\Middleware\rightChecker')
 
     session(['previousDives' => $previousDives]);
 
-    return view('create_dive',  ['locations' => DivingLocation::all(),  'boats' => Boat::all(), 'levels' => Prerogative::all(), 'users' => User::all(), 'precedent' => $pre]);
+    return view('create_dive',  ['locations' => DivingLocation::all(),  'boats' => Boat::all(), 'levels' => Prerogative::all(), 'users' => User::all(), 'precedent' => $pre, 'previousDives' => $previousDives]);
 });
 
 Route::get('/tewst2', function(){
