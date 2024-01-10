@@ -58,6 +58,7 @@
                        @else class="block py-2 px-3 rounded hover:bg-blue-700 md:p-0 text-white md:hover:text-blue-500 hover:text-white md:hover:bg-transparent border-gray-700" @endif>Page
                         d'accueil</a>
                 </li>
+                @if (!session()->has('user'))
                 <li class="py-2 @if(request()->routeIs('dives'))border-b border-b-[#FFBE55]@endif">
                     <a href="{{ route('dives') }}"
                        @if(request()->routeIs('dives')) class="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500"
@@ -65,6 +66,7 @@
                        @else class="block py-2 px-3 rounded hover:bg-blue-700 md:p-0 text-white md:hover:text-blue-500 hover:text-white md:hover:bg-transparent border-gray-700" @endif>Inscription
                         aux plongées</a>
                 </li>
+                @endif
             </ul>
         </div>
     </div>
