@@ -29,6 +29,8 @@ use App\Models\User;
 use App\Models\DivingLocation;
 use App\Models\Boat;
 use App\Models\Prerogative;
+
+
 Route::get('/login', function () {
     return view('login', ['wrongPassword' => false]);
 })->name('login');
@@ -68,7 +70,7 @@ Route::middleware('App\Http\Middleware\rightChecker')
 
     if(is_string($pre))
     {
-        return view('create_dive', ['locations' => DivingLocation::all(),  'boats' => Boat::all(), 'levels' => Prerogative::all()->skip(3), 'users' => User::all(), 'error' => $pre]);
+        return view('create_dive', ['locations' => DivingLocation::all(),  'boats' => Boat::all(), 'levels' => Prerogative::all()->skip(3), 'users' => User::all(), 'error' => $pre, 'previousDives' => session()->get('previousDives')]);
     }
     else
     {
