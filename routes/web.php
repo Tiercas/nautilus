@@ -109,5 +109,5 @@ Route::get('modificationdives/members/{ds_code}', function($ds_code){
 });
 
 Route::post('modificationdives/members/{ds_code}/deletion/{us_id}', function($ds_code, $us_id){
-    ModificationDives::removalOfAMemberFromASession($ds_code, $us_id);
+     return ModificationDives::removalOfAMemberFromASession($ds_code, $us_id);
 });

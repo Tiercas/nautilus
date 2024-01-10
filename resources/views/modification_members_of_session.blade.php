@@ -1,4 +1,3 @@
-{{$persons}}
 <x-layout>
     <link rel="stylesheet" href="/css/drop-down.css">
     <x-page-title>Modification de la plongée du {{$sessionplongee[0]['DS_DATE']}}, à {{$sessionplongee[0]['DL_NAME']}}, {{$sessionplongee[0]['CAR_SCHEDULE']}}</x-page-title>

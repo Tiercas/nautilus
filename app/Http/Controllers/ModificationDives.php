@@ -29,6 +29,8 @@ class ModificationDives extends Controller
         Registration::where('car_registration.ds_code', '=', $ds_code)
         ->where('car_registration.us_id', '=', $us_id)
         ->delete();
+
+        return ModificationDives::modificationMembers($ds_code);
     }
 
     static function modificationMembers(string $ds_code){
