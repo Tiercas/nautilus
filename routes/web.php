@@ -145,4 +145,8 @@ Route::middleware('App\Http\Middleware\rightChecker')
 
 Route::middleware('App\Http\Middleware\rightChecker')
     ->post('manage/members/roles', [ManageAdherentController::class, 'update'])
-->name('updateMembersRole');
+    ->name('updateMembersRole');
+
+Route::middleware('App\Http\Middleware\rightChecker')
+    ->get('dive/{id}', [DivesList::class, 'show'])
+    ->name('dives_show');
