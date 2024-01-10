@@ -14,6 +14,10 @@ class DivingNumberController extends Controller
 
         $dateDives = DivingNumberModel::join('car_registration', 'car_user.us_id', '=', 'car_registration.us_id')
         ->join('car_diving_session','car_registration.ds_code','=','car_diving_session.ds_code')
+        ->join('car_diving_location','car_diving_session.dl_id','=','car_diving_location.dl_id')
+        ->join('car_role_attribution','car_user.us_id','=','car_role_attribution.Us_id')
+        ->join('car_role','car_role_attribution.rol_code','=','car_role.rol_code')
+
         ->where('car_user.US_ID',3)
         ->get();
 
