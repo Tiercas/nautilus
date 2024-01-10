@@ -10,8 +10,7 @@
                 <img src="{{ asset('/images/Diver1.png') }}" alt="Diver illustration">
             @else
                 <p style="font-size: 35px">Historique de plongées crées</p>
-                <hr
-                    style="height: 3px;background-color: black;margin-left: 10%;margin-bottom: 15px;margin-top: 5px; width : 80%">
+                <hr style="height: 3px;background-color: black;margin-left: 10%;margin-bottom: 15px;margin-top: 5px; width : 80%">
                 <table class="arrayhistory">
                     <tr class="history">
                         <th>Date et heure</th>
