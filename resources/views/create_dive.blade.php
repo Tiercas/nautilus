@@ -38,9 +38,8 @@
                     <div style="display: flex; margin-bottom: 15px">
                         <div style="margin-right: 20px;">
                             <label for="maxInput">Minimum : </label>
-                            <input type="number" name="max" id="maxInput" min="0" placeholder="0"
+                            <input required type="number" name="max" id="maxInput" min="0" placeholder="0"
                                 style="width: 40px;border: 2px solid black;border-radius: 7px;-moz-appearance: textfield;text-align: center;">
-
                         </div>
                         <div>
                             <label for="minInput">Maximum : </label>
@@ -48,26 +47,19 @@
                                 <input type="number" name="max" id="maxInput" min="0" placeholder="0"
                                     style="width: 42px;border: 2px solid black;border-radius: 7px;-moz-appearance: textfield;text-align: center;" value="{{ $precedent->DS_MAX_DIVERS }}">
                             @else
-                            <input type="number" name="max" id="maxInput" min="0" placeholder="0"
+                            <input required type="number" name="max" id="maxInput" min="0" placeholder="0"
                                 style="width: 42px;border: 2px solid black;border-radius: 7px;-moz-appearance: textfield;text-align: center;">
                             @endif
                         </div>
                     </div>
                     <label for="levelInput">Niveau requis : </label>
-                    <select name="level" id="levelInput" style="width: 260px; margin-bottom: 15px;">
+                    <select required name="level" id="levelInput" style="width: 260px; margin-bottom: 15px;">
                         @foreach ($levels as $level)
                             <option value="{{ $level->PRE_CODE }}">{{ $level->PRE_CODE }}</option>
                         @endforeach
                     </select>
-                    <label for="levelInput">Niveau : </label>
-                        @if(isset($precedent))
-                            <input type="number" name="level" id="levelInput" min=1 max=4 style="width: 40px;border: 2px solid black;border-radius: 7px;-moz-appearance: textfield;text-align: center;" placeholder="0" value="{{$precedent->DS_LEVEL}}">
-                        @else
-                            <input type="number" name="level" id="levelInput" min=1 max=4 style="width: 40px;border: 2px solid black;border-radius: 7px;-moz-appearance: textfield;text-align: center;" placeholder="0">
-                        @endif
-                    <br>
                     <label for="maxDepth">Profondeur maximum : </label>
-                    <input type="number" min=1 name="maxDepth" id="maxDepth" style="width: 40px;border: 2px solid black;border-radius: 7px;-moz-appearance: textfield;text-align: center;" placeholder="0">
+                    <input required type="number" min=1 name="maxDepth" id="maxDepth" style="width: 40px;border: 2px solid black;border-radius: 7px;-moz-appearance: textfield;text-align: center;" placeholder="0">
                 </div>
                 <div style="width: 40%;margin-bottom: 40px;margin-top: 40px;">
                     <h2>Créneau</h2>
@@ -76,16 +68,16 @@
                         <div>
                             <label for="dayInput">Jour : </label>
                             @if(isset($precedent))
-                                <input type="date" name="day" id="dayInput"
+                                <input required type="date" name="day" id="dayInput"
                                     style="border: 2px solid black;border-radius: 10px;padding: 7px;" value="{{ $precedent->DS_DATE }}">
                             @else
-                                <input type="date" name="day" id="dayInput"
+                                <input required type="date" name="day" id="dayInput"
                                     style="border: 2px solid black;border-radius: 10px;padding: 7px;">
                             @endif
                         </div>
                         <div style="margin-top: 15px;">
                             <label for="hourInput">Heure de début</label>
-                            <select name="hour" id="hour" style="width: 160px; margin-bottom: 15px;">
+                            <select required name="hour" id="hour" style="width: 160px; margin-bottom: 15px;">
                                 <option value="Matin">Matin</option>
                                 <option value="Apres-midi">Après midi</option>
                                 <option value="Soir">Soir</option>
@@ -98,7 +90,7 @@
             <div style="display: flex; margin-bottom: 50px;">
                 <div style="width: 50%">
                     <label for="locationInput" style="margin-right: 20px;">Site : </label>
-                    <select name="location" id="locationInput" style="width: 200px;">
+                    <select required name="location" id="locationInput" style="width: 200px;">
                         @foreach ($locations as $location)
                             @if(isset($precedent))
                                 @if($location->DL_ID == $precedent->DL_ID)
@@ -114,7 +106,7 @@
                 </div>
                 <div style="width: 50%">
                     <label for="boatInput" style="margin-right: 20px;">Bateau : </label>
-                    <select name="boat" id="boatInput" style="width: 200px;">
+                    <select required name="boat" id="boatInput" style="width: 200px;">
                         @foreach ($boats as $boat)
                             @if(isset($precedent))
                                 @if($location->BO_ID == $precedent->BO_ID)
@@ -134,7 +126,7 @@
                 <div style="display: flex;flex-direction: column;width: 30%; margin-right: 2%; margin-bottom: 30px;">
                     <label for="securityInput">Sécurité de surface</label>
                     <hr style="height: 3px;background-color: black;margin-bottom: 15px;margin-top: 5px;">
-                    <select name="security" id="securityInput">
+                    <select required name="security" id="securityInput">
                         @foreach ($users as $user)
                             @if ($user->hasRole('SEC'))
                                 <option value="{{ $user->US_ID }}" />{{ $user->US_NAME }} {{ $user->US_FIRST_NAME }}
@@ -146,7 +138,7 @@
                 <div style="display: flex;flex-direction: column;width: 30%; margin-right: 2%;">
                     <label for="managerInput">Directeur</label>
                     <hr style="height: 3px;background-color: black;margin-bottom: 15px;margin-top: 5px;">
-                    <select name="manager" id="managerInput">
+                    <select required name="manager" id="managerInput">
                         @foreach ($users as $user)
                             @if ($user->hasRole('DIR'))
                                 <option value="{{ $user->US_ID }}" />{{ $user->US_NAME }} {{ $user->US_FIRST_NAME }}
@@ -158,7 +150,7 @@
                 <div style="display: flex;flex-direction: column;width: 30%; margin-right: 2%;">
                     <label for="pilotInput">Pilote</label>
                     <hr style="height: 3px;background-color: black;margin-bottom: 15px;margin-top: 5px;">
-                    <select name="pilot" id="pilotInput">
+                    <select required name="pilot" id="pilotInput">
                         @foreach ($users as $user)
                             @if ($user->hasRole('PIL'))
                                 <option value="{{ $user->US_ID }}" />{{ $user->US_NAME }} {{ $user->US_FIRST_NAME }}
