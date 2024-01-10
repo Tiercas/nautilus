@@ -14,9 +14,9 @@
                 </tr>
                 </thead>
                 <tbody>
-                @for ($i = 1; $i < count($users[0]); $i++)
+                @foreach ($users[0] as $i => $value)
                     <tr class="odd:bg-white even:bg-gray-50 border-b">
-                        <td class="px-6 py-4">{{ $users[0][$i][1] . " " . $users[0][$i][2] }}</td>
+                        <td class="px-6 py-4">{{ $users[0][$i][1] . " " . strtoupper($users[0][$i][2]) }}</td>
                         <td class="px-6 py-4">
                             <input type="checkbox" id="checkbox{{ $users[0][$i][0] }}" name="checkbox_{{ $users[0][$i][0] }}_DIV" value="DIV" @if(array_search('DIV', $users[1][$i]) !== false) checked @endif>
                         </td>
@@ -30,7 +30,7 @@
                             <input type="checkbox" id="checkbox{{ $users[0][$i][0] }}" name="checkbox_{{ $users[0][$i][0] }}_DIR" value="DIR" @if(array_search('DIR', $users[1][$i]) !== false) checked @endif>
                         </td>
                     </tr>
-                @endfor
+                @endforeach
                 </tbody>
             </table>
 
