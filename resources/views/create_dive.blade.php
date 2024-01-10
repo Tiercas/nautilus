@@ -16,7 +16,15 @@
                     <label for="locationInput" style="margin-right: 20px;">Site : </label>
                     <select name="location" id="locationInput" style="width: 200px;">
                         @foreach ($locations as $location)
-                            <option value="{{ $location->DL_ID }}">{{ $location->DL_NAME }}</option>
+                            @if(isset($precedent))
+                                @if($location->DL_ID == $precedent->DL_ID)
+                                    <option value="{{ $location->DL_ID }}" selected>{{ $location->DL_NAME }}</option>
+                                @else
+                                    <option value="{{ $location->DL_ID }}">{{ $location->DL_NAME }}</option>
+                                @endif
+                            @else
+                                <option value="{{ $location->DL_ID }}">{{ $location->DL_NAME }}</option>
+                            @endif
                         @endforeach
                     </select>
                 </div>
@@ -24,7 +32,16 @@
                     <label for="boatInput" style="margin-right: 20px;">Bateau : </label>
                     <select name="boat" id="boatInput" style="width: 200px;">
                         @foreach ($boats as $boat)
-                            <option value="{{ $boat->BO_ID }}">{{ $boat->BO_NAME }}</option>
+                            @if(isset($precedent))
+                                @if($location->BO_ID == $precedent->BO_ID)
+                                    <option value="{{ $boat->BO_ID }}" selected>{{ $boat->BO_NAME }}</option>
+                                @else
+                                    <option value="{{ $boat->BO_ID }}">{{ $boat->BO_NAME }}</option>
+                                @endif
+                            @else
+                                <option value="{{ $boat->BO_ID }}">{{ $boat->BO_NAME }}</option>
+                            @endif
+
                         @endforeach
                     </select>
                 </div>
@@ -42,8 +59,13 @@
                         </div>
                         <div>
                             <label for="minInput">Maximum : </label>
+                            @if(isset($precedent))
+                                <input type="number" name="max" id="maxInput" min="0" placeholder="0"
+                                    style="width: 42px;border: 2px solid black;border-radius: 7px;-moz-appearance: textfield;text-align: center;" value="{{ $precedent->DS_MAX_DIVERS }}">
+                            @else
                             <input type="number" name="max" id="maxInput" min="0" placeholder="0"
                                 style="width: 42px;border: 2px solid black;border-radius: 7px;-moz-appearance: textfield;text-align: center;">
+                            @endif
                         </div>
                     </div>
                     <label for="levelInput">Niveau requis : </label>
@@ -53,9 +75,12 @@
                         @endforeach
                     </select>
                     <label for="levelInput">Niveau : </label>
-                    <input type="number" name="level" id="levelInput" min=1 max=4 style="width: 40px;border: 2px solid black;border-radius: 7px;-moz-appearance: textfield;text-align: center;" placeholder="0">
+                        @if(isset($precedent))
+                            <input type="number" name="level" id="levelInput" min=1 max=4 style="width: 40px;border: 2px solid black;border-radius: 7px;-moz-appearance: textfield;text-align: center;" placeholder="0" value="{{$precedent->DS_LEVEL}}">
+                        @else
+                            <input type="number" name="level" id="levelInput" min=1 max=4 style="width: 40px;border: 2px solid black;border-radius: 7px;-moz-appearance: textfield;text-align: center;" placeholder="0">
+                        @endif
                     <br>
-
                     <label for="maxDepth">Profondeur maximum : </label>
                     <input type="number" min=1 name="maxDepth" id="maxDepth" style="width: 40px;border: 2px solid black;border-radius: 7px;-moz-appearance: textfield;text-align: center;" placeholder="0">
                 </div>
@@ -65,8 +90,13 @@
                     <div style="display: flex;flex-direction: column;">
                         <div>
                             <label for="dayInput">Jour : </label>
-                            <input type="date" name="day" id="dayInput"
-                                style="border: 2px solid black;border-radius: 10px;padding: 7px;">
+                            @if(isset($precedent))
+                                <input type="date" name="day" id="dayInput"
+                                    style="border: 2px solid black;border-radius: 10px;padding: 7px;" value="{{ $precedent->DS_DATE }}">
+                            @else
+                                <input type="date" name="day" id="dayInput"
+                                    style="border: 2px solid black;border-radius: 10px;padding: 7px;">
+                            @endif
                         </div>
                         <div style="margin-top: 15px;">
                             <label for="hourInput">Heure de début</label>
@@ -124,6 +154,17 @@
                         type="submit" value="CREER">
                 </div>
             </div>
-    </form>
+            @if(isset($precedent))
+                <div id="toast-default" class="flex items-center w-full max-w-xs p-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800" role="alert">
+                    <div class="ms-3 text-sm font-normal">Plongée crée !</div>
+                    <button type="button" class="ms-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700" data-dismiss-target="#toast-default" aria-label="Close">
+                        <span class="sr-only">Close</span>
+                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                        </svg>
+                    </button>
+                </div>
+            @endif
+        </form>
     </div>
 </x-layout>
