@@ -1,6 +1,16 @@
 <x-layout>
     @if(!session()->has('user'))
-            Vous devez être connecté pour accéder à cette page.
+        <link rel="stylesheet" href="/css/homepage.css">
+        <div class="center-box">
+            <h1>Carantec Nautisme, plongeons!</h1>
+            <p>
+                Carantec Nautisme vous accompagne dans vos plongées. 
+                Nos adhérent.e.s propose différentes activités pour tout les niveaux !
+            </p>
+            <button>
+                Je me connecte
+            </button>
+        </div>
     @else
         <x-page-title>Tableau de bord</x-page-title>
         <h2 class="text-2xl font-semibold text-gray-800">Bonjour {{ session('user')->US_FIRST_NAME . " " . session('user')->US_NAME . "," }}</h2>
