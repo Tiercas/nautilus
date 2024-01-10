@@ -1,4 +1,5 @@
 <x-layout>
+    <link rel="stylesheet" href="/css/drop-down.css">
     <x-page-title>Inscription aux plongées</x-page-title>
     <div class="shadow-md max-w-full rounded-lg overflow-hidden border-2">
         <table class="text-sm text-left text-gray-500 w-full">
@@ -55,34 +56,15 @@
                     @php
                     $participants = $dive->getParticipants();
                     @endphp
-
+                    <div class="drop-down">
                     @foreach($participants as $user)   
-                        <p>{{$user->US_NAME}} {{$user->US_FIRST_NAME}}</p>
+                        <p class = "drop-down-items">{{$user->US_NAME}} {{$user->US_FIRST_NAME}}</p>
                     @endforeach
+                    </div>
                 </x-drop-down>
             @endforeach
             </tbody>
         </table>
     </div>
-
-    <script>
-        let buttons = document.getElementsByClassName('diveDropdownButton');
-
-        console.log(buttons.length)
-
-        for(let i = 0; i < buttons.length; i++){
-            button = buttons[i]
-            button.addEventListener('click', (evt) => {
-                toggleDropDownMenu(evt);
-            });
-        }
-
-        function toggleDropDownMenu(evt){
-            let button = evt.currentTarget
-            let sessionCode = button.id.split('-')[1];
-            console.log('dropdown'+sessionCode);
-            let disclosure = document.getElementById('dropdown'+sessionCode);
-            disclosure.classList.toggle('hidden');
-        }
-    </script>
+    <script type="text/javascript" src="/js/drop-down.js"></script>
 </x-layout>
