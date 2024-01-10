@@ -15,7 +15,7 @@
         <x-page-title>Tableau de bord</x-page-title>
         <h2 class="text-2xl font-semibold text-gray-800">Bonjour {{ session('user')->US_FIRST_NAME . " " . session('user')->US_NAME . "," }}</h2>
         <div class="flex flex-row justify-evenly mt-10">
-            <x-square-button bgColor="bg-[#e37373]" textColor="text-black" textSubtitle="Mes plongées" link="#">
+            <x-square-button bgColor="bg-[#e37373]" textColor="text-black" textSubtitle="Mes plongées" link="{{ route('divings')}}">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-12 h-12">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0ZM3.75 12h.007v.008H3.75V12Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm-.375 5.25h.007v.008H3.75v-.008Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
                 </svg>
