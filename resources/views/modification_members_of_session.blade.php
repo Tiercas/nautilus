@@ -49,7 +49,7 @@
         </table>
     </div>
     <div class="mt-3 shadow-md max-w-fit w-1/6 mx-left rounded-lg overflow-hidden border-2">
-        <a href='/modificationdives/members/{{$sessionplongee[0]['DS_CODE']}}'>
+        <a href="/adherents/{{$level}}" class="text-blue-500 underline">
             <x-button color="red" colorHover="hover:bg-green-800">
                 Ajouter un adhérent
             </x-button>

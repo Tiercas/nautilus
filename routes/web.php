@@ -4,6 +4,7 @@ use App\Http\Controllers\DiversBySession;
 use App\Http\Controllers\DivesList;
 use App\Http\Controllers\HomepageController;
 use App\Models\DivingSession;
+use App\Http\Controllers\AdherentController;
 use App\Http\Controllers\DivingSignUpController;
 use App\Http\Controllers\DiveSessionCreation;
 use App\Http\Controllers\DiveSessionUpdate;
@@ -110,4 +111,8 @@ Route::get('modificationdives/members/{ds_code}', function($ds_code){
 
 Route::post('modificationdives/members/{ds_code}/deletion/{us_id}', function($ds_code, $us_id){
      return ModificationDives::removalOfAMemberFromASession($ds_code, $us_id);
+});
+
+Route::get('/adherents/{level}', function($level){
+    return AdherentController::index($level);
 });

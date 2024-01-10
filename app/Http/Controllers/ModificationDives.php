@@ -35,9 +35,10 @@ class ModificationDives extends Controller
 
     static function modificationMembers(string $ds_code){
 
-        $members = DivingSession::selectRaw('car_diving_session.DS_CODE, car_user.US_ID, car_user.us_name, car_user.us_first_name, car_role_attribution.ROL_CODE, car_user.US_SUB_DATE')
+        $members = DivingSession::selectRaw('car_prerogative.pre_level, car_diving_session.DS_CODE, car_user.US_ID, car_user.us_name, car_user.us_first_name, car_role_attribution.ROL_CODE, car_user.US_SUB_DATE')
         ->join('car_registration', 'car_diving_session.DS_CODE', '=', 'car_registration.DS_CODE')
         ->join('car_user', 'car_registration.US_ID', '=', 'car_user.US_ID')
+        ->join('car_prerogative','car_diving_session.pre_code','=','car_prerogative.pre_code')
         ->join('car_role_attribution', 'car_user.US_ID', '=', 'car_role_attribution.US_ID')
         ->where('car_diving_session.ds_code', '=', $ds_code)
         ->get();
@@ -54,10 +55,18 @@ class ModificationDives extends Controller
         ->where('ds_code', '=', $ds_code)
         ->get();
 
+        $level = DivingSession::selectRaw('car_prerogative.pre_level')
+        ->join('car_registration', 'car_diving_session.DS_CODE', '=', 'car_registration.DS_CODE')
+        ->join('car_user', 'car_registration.US_ID', '=', 'car_user.US_ID')
+        ->join('car_prerogative','car_diving_session.pre_code','=','car_prerogative.pre_code')
+        ->join('car_role_attribution', 'car_user.US_ID', '=', 'car_role_attribution.US_ID')
+        ->where('car_diving_session.ds_code', '=', $ds_code)
+        ->get();
 
         return view('modification_members_of_session', [
             'persons' => $members,
             'sessionplongee' => $sessionplongee,
+            'level' => $level,
         ]);
     }
 }
