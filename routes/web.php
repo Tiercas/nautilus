@@ -88,7 +88,7 @@ Route::middleware('App\Http\Middleware\rightChecker')
 Route::middleware('App\Http\Middleware\rightChecker')
     ->post('/dive/update/{id}', function($request, $id){
         DiveSesssionUpdate::update($request, $id);
-        redirect('/');
+        return redirect('/');
 });
 
 Route::middleware('App\Http\Middleware\rightChecker')
