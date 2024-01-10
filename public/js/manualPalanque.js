@@ -15,8 +15,12 @@ class DropZoneClass{
     return this.zoneNumber;
   }
 
-  updateCounter(number){
+  updateCounterPos(number){
     this.counter += number;
+  }
+
+  updateCounterNeg(number){
+    this.counter -= number;
   }
 }
 
@@ -24,8 +28,8 @@ const zoneStart = document.getElementById("zoneStart");
 const DropZone = document.getElementById("DropZone");
 const removePalanque = document.getElementById("removePal");
 const addPalanque = document.getElementById("addPal");
-let countZone = 3;
-let zoneList = [new DropZoneClass(zone1), new DropZoneClass(zone2), new DropZoneClass(zone3)];
+let countZone = 2;
+let zoneList = [new DropZoneClass(0), new DropZoneClass(1), new DropZoneClass(2)];
 function allowDrop(event) {
   event.preventDefault();
 }
@@ -36,7 +40,7 @@ function drag(event) {
 
 function drop(event) {
   event.preventDefault();
-  console.log(zoneList);
+  let index = event.target.id.split('zone')[1];
   if(isElementInList('item', event.target.id.split(',')))
     return;
 
@@ -44,10 +48,10 @@ function drop(event) {
   let draggedItem = document.getElementById(data);
   if(event.target === zoneStart){
     zoneStart.appendChild(draggedItem);
-    zoneList[event.target].getCounter -= setDropZoneSize(draggedItem);
+    zoneList[index].updateCounterNeg(setDropZoneSize(draggedItem));
   }else
-    if(count < 3 && count + setDropZoneSize(draggedItem) <= 3){
-      zoneList[event.target].updateCounter(setDropZoneSize(draggedItem));
+    if(zoneList[index].getCounter() < 3 && zoneList[index].getCounter() + setDropZoneSize(draggedItem) <= 3){
+      zoneList[index].updateCounterPos(setDropZoneSize(draggedItem));
       event.target.appendChild(draggedItem);
     }else
       zoneStart.appendChild(draggedItem);
@@ -77,12 +81,18 @@ addPalanque.addEventListener("click", function(){
   palanque.setAttribute("id", "zone" + (countZone));
   palanque.setAttribute("ondrop", "drop(event)");
   palanque.setAttribute("ondragover", "allowDrop(event)");
-  zoneList.push(new DropZoneClass("zone"+countZone));
+  zoneList.push(new DropZoneClass(countZone));
   DropZone.appendChild(palanque);
 });
 
 removePalanque.addEventListener("click", function(){
   let palanque = document.getElementById("zone" + (countZone));
   countZone--;
+  if(palanque.hasChildNodes()){
+    let children = palanque.childNodes;
+    for(let i = 0; i < children.length; i++){
+      zoneStart.appendChild(children[i]);
+    }
+  }
   DropZone.removeChild(palanque);
 });

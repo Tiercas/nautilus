@@ -11,9 +11,9 @@
   </div>
 
   <div class="p-2 grid grid-cols-2 md:grid-cols-3 gap-4" id="DropZone">
+    <div class="border-2 p-4" id="zone0" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
     <div class="border-2 p-4" id="zone1" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
     <div class="border-2 p-4" id="zone2" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-    <div class="border-2 p-4" id="zone3" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
   </div>
   </div>
   <button type='button' id="addPal">Add P</button>
