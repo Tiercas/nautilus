@@ -103,7 +103,7 @@ Route::get('/sessions', [DiversBySession::class,'getAllSessions']);
 
 Route::get('/session/{ds_code}', [DiversBySession::class,'getDiversBySession']);
 
-Route::get('/divings', [DivingNumberController::class, 'index']);
+Route::get('/divings', [DivingNumberController::class, 'index'])->name('divings');
 
 Route::get('/alldivings', [DivingNumberController::class, 'allIndex']);
 
