@@ -21,6 +21,7 @@ class DivesList extends Controller
 
     function show($id) {
         $divingSession = DivingSession::join('CAR_DIVING_LOCATION', 'CAR_DIVING_SESSION.DL_ID', '=', 'CAR_DIVING_LOCATION.DL_ID')
+            ->join('CAR_BOAT', 'CAR_DIVING_SESSION.BO_ID', '=', 'CAR_BOAT.BO_ID')
             ->where('DS_CODE', '=', $id)
             ->first();
         if($divingSession === null) return redirect()->route('homepage');

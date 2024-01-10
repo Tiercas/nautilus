@@ -14,11 +14,12 @@
                         <li>Sécurité de surface : {{ $security->US_FIRST_NAME . " " . strtoupper($security->US_NAME) }}</li>
                     </ul>
                 </li>
+                <li>Bateau : {{ $dive->BO_NAME }}</li>
                 <li>Observation : {{ $dive->DS_OBSERVATION_FIELD }}</li>
                 <li>Nombre de plongeurs : {{ $dive->DS_DIVERS_COUNT }}</li>
             </ul>
             @if(preg_match("/[0-9]*\.[0-9]*/", $dive->DL_LONGITUDE) == 1 && preg_match("/[0-9]*\.[0-9]*/", $dive->DL_LATITUDE) == 1)
-                <div id='map' class="rounded-lg w-full mt-4 aspect-video"></div>
+                <div id='map' class="shadow rounded-lg w-full mt-4 aspect-video"></div>
                 <script src='https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.js'></script>
                 <style>
                     div.mapboxgl-ctrl-bottom-right {
@@ -31,7 +32,7 @@
                         container: 'map',
                         style: 'mapbox://styles/gotcheur/clr8b55yw001v01pebzatbczl',
                         center: [{{ $dive->DL_LONGITUDE }}, {{ $dive->DL_LATITUDE }}],
-                        zoom: 13
+                        zoom: 12
                     });
                     const diveLocation = new mapboxgl.Marker()
                         .setLngLat([{{ $dive->DL_LONGITUDE }}, {{ $dive->DL_LATITUDE }}])
