@@ -30,7 +30,7 @@
             <tbody>
                 @foreach($dates as $date)
                 <tr class="odd:bg-white even:bg-gray-50 border-b">
-                <td class="px-6 py-4">{{ $date->DL_NAME }}</td>
+                    <td class="px-6 py-4">{{ $date->DL_NAME }}</td>
                     <td class="px-6 py-4">{{ $date->DS_DATE }}</td>
                     <td class="px-6 py-4">{{ $date->ROL_LABEL }}</td>
 
