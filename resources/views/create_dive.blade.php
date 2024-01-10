@@ -4,7 +4,27 @@
 
     <div style="display : flex; flex-direction: row">
         <div style="width: 50%; margin-right: 50px; height: 100%; display:flex; align-items: center; flex-direction: column">
-            <img src="{{ asset('/images/Diver1.png') }}" alt="Diver illustration">
+            @if(isset($precedent))
+                <img src="{{ asset('/images/Diver1.png') }}" alt="Diver illustration">
+            @else
+                <p>Plongées crées</p>
+                <table>
+                    <tr>
+                        <th>Date et heure</th>
+                        <th>Nombre maximum d'inscrits</th>
+                        <th>Site</th>
+                        <th>Niveau requis</th>
+                    </tr>
+                    @foreach ($precedent as $dive)
+                        <tr>
+                            <td>{{ $dive->DS_DATE }}</td>
+                            <td>{{ $dive->DS_MAX_DIVERS }}</td>
+                            <td>{{ $dive->DL_NAME }}</td>
+                            <td>{{ $dive->PRE_CODE }}</td>
+                        </tr>
+                    @endforeach
+                </table>
+            @endif
         </div>
         <form action="/create/dive" method="POST" style="width: 70%;font-size: 20px;">
             @csrf
