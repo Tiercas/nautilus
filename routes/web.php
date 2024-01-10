@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DiversBySession;
 use App\Http\Controllers\DivesList;
 use App\Models\DivingSession;
 use App\Http\Controllers\DivingSignUpController;
@@ -45,7 +46,7 @@ Route::middleware('App\Http\Middleware\rightChecker')
     ->name('dives');
 
 Route::get('/test', function() {
-    return view('test', ['user' => User::find(1)]);
+    return view('test');
 });
 
 Route::middleware('App\Http\Middleware\rightChecker')
@@ -89,3 +90,7 @@ Route::middleware('App\Http\Middleware\rightChecker')
     DivingSession::find($id)->disable();
     return redirect('/');
 });
+
+Route::get('/sessions', [DiversBySession::class,'getAllSessions']);
+
+Route::get('/session/{ds_code}', [DiversBySession::class,'getDiversBySession']);
