@@ -51,6 +51,11 @@ class User extends Model
      * @param string $roleCode the code of the role to check
      * @return bool true if the user has the role, false otherwise
      */
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+    ];
+
+    protected $keyType = 'int';
     public function hasRole($roleCode)
     {
         return $this->roles->contains('ROL_CODE', $roleCode);
@@ -61,4 +66,4 @@ class User extends Model
 
 }
 
-?>
+
