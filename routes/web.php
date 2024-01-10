@@ -62,7 +62,7 @@ Route::middleware('App\Http\Middleware\rightChecker')
 Route::middleware('App\Http\Middleware\rightChecker')
     ->get('/create/dive', function()
 {
-    return view('create_dive', ['locations' => DivingLocation::all(),  'boats' => Boat::all(), 'levels' => Prerogative::all(), 'users' => User::all()]);
+    return view('create_dive', ['locations' => DivingLocation::all(),  'boats' => Boat::all(), 'levels' => Prerogative::all()->skip(3), 'users' => User::all()]);
 })->name('create_dive');
 
 Route::middleware('App\Http\Middleware\rightChecker')
@@ -75,7 +75,7 @@ Route::middleware('App\Http\Middleware\rightChecker')
 
     session(['previousDives' => $previousDives]);
 
-    return view('create_dive',  ['locations' => DivingLocation::all(),  'boats' => Boat::all(), 'levels' => Prerogative::all(), 'users' => User::all(), 'precedent' => $pre, 'previousDives' => $previousDives]);
+    return view('create_dive',  ['locations' => DivingLocation::all(),  'boats' => Boat::all(), 'levels' => Prerogative::all()->skip(3), 'users' => User::all(), 'precedent' => $pre, 'previousDives' => $previousDives]);
 });
 
 Route::get('/tewst2', function(){
@@ -87,7 +87,7 @@ Route::middleware('App\Http\Middleware\rightChecker')
     return view('update_dive', ['dive' => DivingSession::find($id),
                 'locations' => DivingLocation::all(),
                 'boats' => Boat::all(),
-                'levels' => Prerogative::all(),
+                'levels' => Prerogative::all()->skip(4),
                 'users' => User::all()]);
 });
 
