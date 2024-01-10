@@ -1,3 +1,4 @@
+<meta name="csrf-token" content="{{ $token }}">
 <x-layout>
   <div class="flex justify-around m-5">
   <div class="p-2 grid grid-cols-5">

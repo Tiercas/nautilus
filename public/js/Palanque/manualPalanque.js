@@ -33,6 +33,7 @@ const validatePalanque = document.getElementById("validatePal");
 let countZone = 2;
 let countDiver = 5;
 let zoneList = [new DropZoneClass(0), new DropZoneClass(1), new DropZoneClass(2)];
+let counterCheck = 0;
 
 function allowDrop(event) {
   event.preventDefault();
@@ -131,15 +132,16 @@ let validatePalanqueCombinate = {
 };
 
 function validateAllCombination(){
-  let val = zoneList.forEach(element => {
+  zoneList.forEach(element => {
     element = document.getElementById("zone" + element.getZoneNumber());
     if(element.hasChildNodes()){
+      if(element.childElementCount < 2)
+        return false;
       let children = element.childNodes;
-      console.log(children);
       for(let i = 0; i < children.length; i++){
         let targetItemsSplit = children[i].id.split(',')[1];
         for(targetItemsSplit in validatePalanqueCombinate){
-          for(let j = i + 1; j < children.length; j++){
+          for(let j = 0; j < children.length; j++){
             let targetItemsSplit2 = children[j].id.split(',')[1];
             console.log(targetItemsSplit2);
             if(validatePalanqueCombinate[targetItemsSplit].includes(targetItemsSplit2)){
@@ -148,36 +150,26 @@ function validateAllCombination(){
                 element.style.backgroundColor = 'white';
               return true;
               //TODO VERIF E1 -6metres
-            }else{
-              console.log("ko");
-              element.style.backgroundColor = 'red';
-              return false;
             }
           }
+          console.log("ko");
+          element.style.backgroundColor = 'red';
+          return false;
         }
       }
-    }else{
-      if(element.className === 'border-2 p-4'){
-          element.style.backgroundColor = 'red';
-        }
     }
   });
-  console.log('vAL' + val);
 }
 validatePalanque.addEventListener("click", function(){
-  if(validateAllCombination()){
-    console.log("ok");
-  }else
-    console.log("ko");
-  console.log(returnValueToPhp());
+  sendPalanque();
 });
 
-function returnValueToPhp(){
+function returnValueToPhp() {
   let palanque = document.querySelectorAll("div.zone");
   let palanqueList = [];
-  for(let i = 0; i < palanque.length; i++){
+  for (let i = 0; i < palanque.length; i++) {
     let zoneList = [];
-    for(let j = 0; j < palanque[i].childElementCount; j++){
+    for (let j = 0; j < palanque[i].childElementCount; j++) {
       let item = palanque[i].childNodes[j];
       zoneList.push(item.id.split(',')[1]);
     }
@@ -187,13 +179,40 @@ function returnValueToPhp(){
   return palanqueList;
 }
 
-function sendPalanque(){
+function sendPalanque() {
   let palanqueList = returnValueToPhp();
   let palanqueListJson = JSON.stringify(palanqueList);
+  let csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
   let xhr = new XMLHttpRequest();
   xhr.open('POST', '/api/palanques', true);
   xhr.setRequestHeader("Content-Type", "application/json");
+  xhr.setRequestHeader('X-CSRF-TOKEN', csrfToken);
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === XMLHttpRequest.DONE) {
+      if (xhr.status === 200) {
+        console.log("Request successful");
+        const responseData = JSON.parse(xhr.responseText);
+
+      // Check if a 'redirect' property exists in the response
+        if (responseData.redirect) {
+          // Redirect to the URL specified in the response
+          window.location.href = responseData.redirect;
+        } else {
+          console.error("Invalid response format - missing 'redirect' property");
+        }
+      } else {
+        console.error("Request failed");
+      }
+    }
+  };
   xhr.send(palanqueListJson);
+  console.log("send");
 }
+
+
+setInterval(() => {
+  validateAllCombination();
+}, 5000);
 
 getDiver('DS1');
