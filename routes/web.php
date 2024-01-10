@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DivesList;
 use App\Models\Boat;
 use App\Models\User;
 use App\Models\Prerogative;
