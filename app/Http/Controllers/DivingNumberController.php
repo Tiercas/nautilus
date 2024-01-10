@@ -39,9 +39,17 @@ class DivingNumberController extends Controller
 
     public function allIndex(Request $request): View
     {
+
         if($request['afterthe'] != '' and $request['beforethe'] != ''){
-            return DivingNumberController::filteredSearch($request['afterthe'], $request['beforethe']);
+            return DivingNumberController::afterAndBefore($request['afterthe'], $request['beforethe']);
         }
+        if($request['afterthe'] != '' and $request['beforethe'] == ''){
+            return DivingNumberController::after($request['afterthe']);
+        }
+        if($request['afterthe'] == '' and $request['beforethe'] != ''){
+            return DivingNumberController::before($request['beforethe']);
+        }
+
         $usersDatas = DivingNumberModel::selectRaw('COUNT(*) as aggregate, car_user.US_FIRST_NAME, car_user.US_NAME')
     ->join('car_registration', 'car_user.us_id', '=', 'car_registration.us_id')
     ->join('car_diving_group', function ($join) {
@@ -55,27 +63,52 @@ class DivingNumberController extends Controller
 
     }
 
-    public function filteredSearch(string $after, string $before): View
+    public function afterAndBefore(string $after, string $before): View
     {
 
 
         $usersDatas = DivingNumberModel::selectRaw('COUNT(*) as aggregate, car_user.US_FIRST_NAME, car_user.US_NAME')
         ->join('car_registration', 'car_user.us_id', '=', 'car_registration.us_id')
-        ->join('car_diving_session', function ($join) {
-            $join->on('car_registration.us_id', '=', 'car_diving_session.us_id');
-        })
-        ->where('car_diving_session.DS_DATE', '>', '"'.$after.'"')
-        ->where('car_diving_session.DS_DATE', '>', '"'.$before.'"')
+        ->join('car_diving_session', 'car_registration.DS_CODE', '=', 'car_diving_session.DS_CODE')
+        ->where('car_diving_session.DS_DATE', '>=', $after)
+                ->where('car_diving_session.DS_DATE', '<=', $before)
         ->groupBy('car_user.us_id', 'car_user.US_NAME', 'car_user.US_FIRST_NAME')
-        ->tosql();
+        ->get();
 
-        /*select COUNT(*) as aggregate, car_user.US_FIRST_NAME, car_user.US_NAME
-        from car_user
-        join car_registration on car_user.us_id = car_registration.us_id
-        join car_diving_session on car_registration.us_id = car_diving_session.us_id
-        where '2022-9-30' < car_diving_session.DS_DATE
-        and '2022-10-2' > car_diving_session.DS_DATE
-        group by car_user.us_id, car_user.us_name, car_user.us_first_name;*/
+
+        return view('alldiversactivities', ['datas' => $usersDatas]);
+
+    }
+
+
+    public function after(string $after): View
+    {
+
+
+        $usersDatas = DivingNumberModel::selectRaw('COUNT(*) as aggregate, car_user.US_FIRST_NAME, car_user.US_NAME')
+        ->join('car_registration', 'car_user.us_id', '=', 'car_registration.us_id')
+        ->join('car_diving_session', 'car_registration.DS_CODE', '=', 'car_diving_session.DS_CODE')
+        ->where('car_diving_session.DS_DATE', '>=', $after)
+        ->groupBy('car_user.us_id', 'car_user.US_NAME', 'car_user.US_FIRST_NAME')
+        ->get();
+
+
+        return view('alldiversactivities', ['datas' => $usersDatas]);
+
+    }
+
+
+    public function before(string $before): View
+    {
+
+
+        $usersDatas = DivingNumberModel::selectRaw('COUNT(*) as aggregate, car_user.US_FIRST_NAME, car_user.US_NAME')
+        ->join('car_registration', 'car_user.us_id', '=', 'car_registration.us_id')
+        ->join('car_diving_session', 'car_registration.DS_CODE', '=', 'car_diving_session.DS_CODE')
+        ->where('car_diving_session.DS_DATE', '<=', $before)
+        ->groupBy('car_user.us_id', 'car_user.US_NAME', 'car_user.US_FIRST_NAME')
+        ->get();
+
 
         return view('alldiversactivities', ['datas' => $usersDatas]);
 

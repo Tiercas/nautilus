@@ -3,9 +3,11 @@
 
 
     <form action="?{afterthe}&{beforethe}">
+        <label for="afterthe">Apres le :</label>
         <input type="date" name="afterthe">
+        <label for="before the">et avant le :</label>
         <input type="date" name="beforethe">
-        <button type="submit">Rechercher</button>
+        <x-button>Rechercher</x-button>
     </form>
 
 
