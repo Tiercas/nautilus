@@ -1,6 +1,7 @@
 <x-layout>
 
-    <link rel="stylesheet" href="../css/app.css">
+    <link rel="stylesheet" href="{{ asset('/css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('/css/create_div.css') }}">
 
     <div style="display : flex; flex-direction: row">
         <div style="width: 50%; margin-right: 50px; height: 100%; display:flex; align-items: center; flex-direction: column">
@@ -8,7 +9,7 @@
                 <img src="{{ asset('/images/Diver1.png') }}" alt="Diver illustration">
             @else
                 <p>Plongées crées</p>
-                <table>
+                <table class="history">
                     <tr>
                         <th>Date et heure</th>
                         <th>Nombre maximum d'inscrits</th>
