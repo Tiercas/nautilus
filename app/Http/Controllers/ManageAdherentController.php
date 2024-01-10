@@ -15,7 +15,7 @@ class ManageAdherentController extends Controller {
             if (!array_key_exists($user->US_ID, $user_role)){
                 $user_role[$user->US_ID] = array();
             }
-            array_push($user_role[$user->US_ID], $user->ROL_CODE);
+            $user_role[$user->US_ID][] = $user->ROL_CODE;
         }
         $users = [$usersInfos, $user_role];
         return view('manageAdherent', ['users' => $users]);
