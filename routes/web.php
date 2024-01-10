@@ -57,21 +57,33 @@ Route::middleware('App\Http\Middleware\rightChecker')
 });
 Route::middleware('App\Http\Middleware\rightChecker')
     ->get('/dives/{ds_code}', [DivingSignUpController::class, 'index']);
+
 Route::middleware('App\Http\Middleware\rightChecker')
     ->get('/create/dive', function()
 {
-    return view('create_dive', ['locations' => DivingLocation::all(),  'boats' => Boat::all(), 'levels' => Prerogative::all(), 'users' => User::all()]);
+    return view('create_dive', ['locations' => DivingLocation::all(),  'boats' => Boat::all(), 'levels' => Prerogative::all()->skip(3), 'users' => User::all(), 'previousDives' => session()->get('previousDives')]);
 })->name('create_dive');
+
 Route::middleware('App\Http\Middleware\rightChecker')
     ->post('/create/dive', function(Request $request)
 {
     $pre = DiveSessionCreation::add($request);
-    return view('create_dive',  ['locations' => DivingLocation::all(),  'boats' => Boat::all(), 'levels' => Prerogative::all(), 'users' => User::all(), 'precedent' => $pre]);
-    $previousDives = session('previousDives', []);
-    $previousDives[] = $pre;
 
-    session(['previousDives' => $previousDives]);
-    return view('create_dive',  ['locations' => DivingLocation::all(),  'boats' => Boat::all(), 'levels' => Prerogative::all()->skip(3), 'users' => User::all(), 'precedent' => $pre, 'previousDives' => $previousDives]);
+    error_log($pre);
+
+    if(is_string($pre))
+    {
+        return view('create_dive', ['locations' => DivingLocation::all(),  'boats' => Boat::all(), 'levels' => Prerogative::all()->skip(3), 'users' => User::all(), 'error' => $pre, 'previousDives' => session()->get('previousDives')]);
+    }
+    else
+    {
+        $previousDives = session('previousDives', []);
+        $previousDives[] = $pre;
+
+        session(['previousDives' => $previousDives]);
+        return view('create_dive',  ['locations' => DivingLocation::all(),  'boats' => Boat::all(), 'levels' => Prerogative::all()->skip(3), 'users' => User::all(), 'precedent' => $pre, 'previousDives' => $previousDives]);
+    }
+
 });
 Route::get('/tewst2', function(){
     return view('drag_and_drop');
@@ -94,6 +106,20 @@ Route::middleware('App\Http\Middleware\rightChecker')
     return redirect('/');
 });
 
+Route::post('/dive/delete/{id}', function ($id, Request $request){
+    DiveSessionDelete::update($id);
+    $previousDives = session('previousDives', []);
+
+    $indexToRemove = array_search($id, array_column($previousDives, 'DS_CODE'));
+
+    if ($indexToRemove !== false) {
+        unset($previousDives[$indexToRemove]);
+        $previousDives = array_values($previousDives);
+        session(['previousDives' => $previousDives]);
+    }
+
+    return redirect('/create/dive');
+});
 Route::get('/sessions', [DiversBySession::class,'getAllSessions']);
 
 Route::get('/session/{ds_code}', [DiversBySession::class,'getDiversBySession']);
@@ -110,4 +136,4 @@ Route::middleware('App\Http\Middleware\rightChecker')
 
 Route::middleware('App\Http\Middleware\rightChecker')
     ->post('manage/members/roles', [ManageAdherentController::class, 'update'])
-    ->name('updateMembersRole');
+->name('updateMembersRole');
