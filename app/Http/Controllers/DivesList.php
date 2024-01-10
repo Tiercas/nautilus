@@ -18,4 +18,11 @@ class DivesList extends Controller
         $user = session()->get('user');
         return view('dives', ['dives' => $dives, 'userPre' => Prerogative::find($user->PRE_CODE)]);
     }
+
+    function show($id): View {
+        $divingSession = DivingSession::find($id);
+        $format = '%d/%m/%Y';
+        $divingSession->DS_DATE = strftime($format, strtotime($divingSession->DS_DATE));
+        return view('dive_infos_palanque', ['dive' => $divingSession, 'users' => $divingSession->getParticipants()]);
+    }
 }
