@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\DiversBySession;
 use App\Http\Controllers\DivesList;
+use App\Http\Controllers\DivingNumberController;
+use App\Models\DivingNumberModel;
 use App\Http\Controllers\HomepageController;
 use App\Models\DivingSession;
 use App\Http\Controllers\DivingSignUpController;
@@ -9,7 +11,7 @@ use App\Http\Controllers\DiveSessionCreation;
 use App\Http\Controllers\DiveSessionUpdate;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Http\Request;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -32,6 +34,7 @@ Route::get('/login', function () {
 })->name('login');
 
 Route::post('/login', [AuthController::class, 'login']);
+
 
 Route::get('/', [HomepageController::class, 'index'])->name('homepage');
 
@@ -99,3 +102,9 @@ Route::middleware('App\Http\Middleware\rightChecker')
 Route::get('/sessions', [DiversBySession::class,'getAllSessions']);
 
 Route::get('/session/{ds_code}', [DiversBySession::class,'getDiversBySession']);
+
+Route::get('/divings', [DivingNumberController::class, 'index'])->name('divings');
+
+Route::get('/alldivings', [DivingNumberController::class, 'allIndex']);
+
+Route::get('/alldivings?{afterthe}&{beforethe}', [DivingNumberController::class, 'filteredSearch({afterthe}, {beforethe})']);
