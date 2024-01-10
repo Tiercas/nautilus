@@ -31,4 +31,10 @@ class DivingSession extends Model
 
         return $participants;
     }
+
+    public function disable()
+    {
+        $this->DS_ACTIVE = 0;
+        $this->save();
+    }
 }

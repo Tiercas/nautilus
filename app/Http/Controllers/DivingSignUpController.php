@@ -8,9 +8,6 @@ use Illuminate\Http\Request;
 class DivingSignUpController extends Controller
 {
     public function show(){
-        $userid = session()->get('userid');
-        if(!preg_match('/[0-9]+/', $userid))
-            return DivingSignUpController::error();
         $divesList = new DivesList();
         return $divesList->index();
     }
