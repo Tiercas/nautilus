@@ -7,9 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class DivingSignUpModel extends Model
 {
-    protected $table = 'CAR_REGISTRATION';
-    protected $primaryKey = ['us_id', 'ds_code'];
-    protected $keyType = ['int', 'string'];
-    protected $fillable = ['US_ID', 'DS_CODE', 'REG_ACTIVE'];
+    protected $table = 'car_registration';
+    
+    protected $fillable = ['US_ID', 'DS_CODE'];
     use HasFactory;
 }
