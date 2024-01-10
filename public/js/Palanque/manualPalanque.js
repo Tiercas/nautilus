@@ -83,7 +83,7 @@ function isElementInList(element, list){
 addPalanque.addEventListener("click", function(){
   countZone++;
   let palanque = document.createElement("div");
-  palanque.setAttribute("class", "border-2 p-4");
+  palanque.setAttribute("class", "border-2 p-4 zone");
   palanque.setAttribute("id", "zone " + (countZone));
   palanque.setAttribute("ondrop", "drop(event)");
   palanque.setAttribute("ondragover", "allowDrop(event)");
@@ -113,11 +113,11 @@ function proccessDiverData(data){
   for(let i = 0; i < data.length; i++){
     countDiver++;
     let diver = document.createElement("div");
-    diver.setAttribute("class", "w-fit h-8 border-2 zone");
-    diver.setAttribute("id", 'item' + countDiver +',' + data[i].PRE_CODE);
+    diver.setAttribute("class", "w-fit h-8 border-2");
+    diver.setAttribute("id", 'item' + countDiver +',' + data[i].PRE_CODE + ',E' + data[i].US_TEACHING_LEVEL + ',' + data[i].US_ID);
     diver.setAttribute("draggable", "true");
     diver.setAttribute("ondragstart", "drag(event)");
-    diver.innerHTML = data[i].US_FIRST_NAME + " " + data[i].US_NAME;
+    diver.innerHTML = data[i].US_FIRST_NAME + " " + data[i].US_NAME + " " + data[i].PRE_CODE + " " + data[i].US_TEACHING_LEVEL;
     zoneStart.appendChild(diver);
   }
 }
@@ -164,23 +164,25 @@ validatePalanque.addEventListener("click", function(){
   sendPalanque();
 });
 
-function returnValueToPhp() {
+function returnValueToPhp(ds_code) {
   let palanque = document.querySelectorAll("div.zone");
+  console.log(palanque);
   let palanqueList = [];
   for (let i = 0; i < palanque.length; i++) {
     let zoneList = [];
     for (let j = 0; j < palanque[i].childElementCount; j++) {
       let item = palanque[i].childNodes[j];
-      zoneList.push(item.id.split(',')[1]);
+      zoneList.push(item.id.split(',')[3]);
     }
     palanqueList.push(zoneList);
   }
+  palanqueList.push(ds_code);
   console.log(palanqueList);
   return palanqueList;
 }
 
 function sendPalanque() {
-  let palanqueList = returnValueToPhp();
+  let palanqueList = returnValueToPhp('DS10');
   let palanqueListJson = JSON.stringify(palanqueList);
   let csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
@@ -194,13 +196,8 @@ function sendPalanque() {
         console.log("Request successful");
         const responseData = JSON.parse(xhr.responseText);
 
-      // Check if a 'redirect' property exists in the response
-        if (responseData.redirect) {
-          // Redirect to the URL specified in the response
-          window.location.href = responseData.redirect;
-        } else {
-          console.error("Invalid response format - missing 'redirect' property");
-        }
+        // Log the additional data in the console
+        console.log("Additional Data:", responseData.additionalData);
       } else {
         console.error("Request failed");
       }

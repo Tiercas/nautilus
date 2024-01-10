@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DivingGroup;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ManualPalanqueeController extends Controller
 {
@@ -16,7 +19,17 @@ class ManualPalanqueeController extends Controller
     }
 
     public function store(Request $request){
-        $data = $request->json()->all();
-        return response()->json(['message' => 'Data received successfully'], 200);
+        try {
+            $data = $request->json()->all();
+            DB::insert('insert into CAR_DIVING_GROUP (DS_CODE, DG_NUMBER) values (?,?)', ['200', '200']);
+            $responseData = ['message' => 'Data received successfully', 'additionalData' => $data[count($data) - 1]];
+            return response()->json($responseData);
+        } catch (\Illuminate\Database\QueryException $e) {
+            return response()->json(['error' => 'Internal Server Error'], 500);
+        }
+    }
+
+    public function test(){
+        
     }
 }

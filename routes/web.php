@@ -88,3 +88,4 @@ Route::middleware('App\Http\Middleware\rightChecker')
     DivingSession::find($id)->disable();
     return redirect('/');
 });
+
