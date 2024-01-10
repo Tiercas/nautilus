@@ -5,7 +5,7 @@
             <h1>Carantec Nautisme, plongeons!</h1>
             <p>
                 Carantec Nautisme vous accompagne dans vos plongées. 
-                Nos adhérent.e.s propose différentes activités pour tout les niveaux !
+                Nos adhérent.e.s propose différentes activités pour tous les niveaux !
             </p>
             <button class="button" onclick="location.href='{{ route('login') }}'">
                 Je me connecte
