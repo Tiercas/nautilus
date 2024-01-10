@@ -5,7 +5,7 @@ use App\Http\Controllers\DivesList;
 use App\Models\DivingSession;
 use App\Http\Controllers\DivingSignUpController;
 use App\Http\Controllers\DiveSessionCreation;
-use App\Http\Controllers\DiveSesssionUpdate;
+use App\Http\Controllers\DiveSessionUpdate;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
@@ -87,7 +87,7 @@ Route::middleware('App\Http\Middleware\rightChecker')
 });
 
 Route::post('/dive/update/{id}', function($id, Request $request){
-        DiveSesssionUpdate::update($request, $id);
+        DiveSessionUpdate::update($request, $id);
         return redirect('/');
 });
 
