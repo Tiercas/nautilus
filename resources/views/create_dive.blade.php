@@ -28,7 +28,7 @@
                                 @endif
                             @endforeach
                             <td>{{ $dive->PRE_CODE }}</td>
-                            <td><form action="/dive/delete/{{ $dive->DS_CODE }}" method="POST"><button type="submit" class="clickable clickableRed">X</button></form></td>
+                            <td><form action="/dive/delete/{{ $dive->DS_CODE }}" method="POST">@csrf<button type="submit" class="clickable clickableRed">X</button></form></td>
                         </tr>
                     @endforeach
                 </table>
@@ -36,6 +36,9 @@
         </div>
         <form action="/create/dive" method="POST" style="width: 70%;">
             @csrf
+            @if(isset($error))
+                <p>{{ $error }}</p>
+            @endif
             <h1 class="text-4xl"
                 style="font-family: 'Space Grotesk', sans-serif; font-weight: bold; margin-bottom: 30px;">Création d'une
                 plongée</h1>
