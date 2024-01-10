@@ -30,4 +30,4 @@ Route::get('/divings', [DivingNumberController::class, 'index']);
 
 Route::get('/alldivings', [DivingNumberController::class, 'allIndex']);
 
-
+Route::get('/alldivings?{afterthe}&{beforethe}', [DivingNumberController::class, 'filteredSearch({afterthe}, {beforethe})']);
