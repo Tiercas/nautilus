@@ -4,7 +4,7 @@
 
     <div style="display : flex; flex-direction: row">
         <div style="width: 50%; margin-right: 50px; height: 100%; display:flex; align-items: center; flex-direction: column">
-            @if(isset($precedent))
+            @if(!isset($precedent))
                 <img src="{{ asset('/images/Diver1.png') }}" alt="Diver illustration">
             @else
                 <p>Plongées crées</p>
