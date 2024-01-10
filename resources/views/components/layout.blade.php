@@ -8,8 +8,8 @@
             box-sizing: border-box
         }</style>
 </head>
-<body class="min-h-[100vh] flex justify-between flex-col">
-<div>
+<body class="min-h-screen flex justify-between flex-col">
+<div class="min-h-[75vh]">
     <x-header/>
     <main class="mx-auto max-w-[1440px] w-full p-4">
         {{ $slot }}
