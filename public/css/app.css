@@ -11,6 +11,7 @@
 
   --good : #00ff04;
   --bad : #dc2323;
+  --badDarker : #c23232;
 
   --BigTitle : 32px;
   --title : 25px;
@@ -29,11 +30,29 @@ h1{
 .clickable{
     background-color: var(--yellow);
     color: var(--black);
-    transition: opacity 0.4s ease-out;
+    transition: all 0.4s ease-out;
 }
 
 .clickable:hover{
     cursor: pointer;
     background-color: var(--yellowDarker);
     color: var(--white)
+}
+
+.clickableRed{
+    background-color: var(--bad);
+    color: var(--black);
+    transition: all 0.4s ease-out;
+}
+
+.clickableRed:hover{
+    cursor: pointer;
+    background-color: var(--badDarker);
+    color: var(--white)
+}
+
+.align{
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

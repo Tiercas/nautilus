@@ -4,20 +4,22 @@
     <link rel="stylesheet" href="{{ asset('/css/create_div.css') }}">
 
     <div style="display : flex; flex-direction: row">
-        <div style="width: 50%; margin-right: 50px; height: 100%; display:flex; align-items: center; flex-direction: column">
+        <div style="width: 50%; margin-right: 50px; height: 100%; display:flex; align-items: center; flex-direction: column;height: 760px;overflow: auto;">
             @if(!isset($previousDives))
                 <img src="{{ asset('/images/Diver1.png') }}" alt="Diver illustration">
             @else
-                <p>Plongées crées</p>
-                <table class="history">
-                    <tr>
+                <p style="font-size: 35px">Historique de plongées crées</p>
+                <hr style="height: 3px;background-color: black;margin-left: 10%;margin-bottom: 15px;margin-top: 5px; width : 80%">
+                <table class="arrayhistory">
+                    <tr class="history">
                         <th>Date et heure</th>
-                        <th>Nombre maximum d'inscrits</th>
-                        <th>Site</th>
+                        <th class="thresize">Max personnes</th>
+                        <th style="width: 25%;">Site</th>
                         <th>Niveau requis</th>
+                        <th>Actions</th>
                     </tr>
                     @foreach ($previousDives as $dive)
-                        <tr>
+                        <tr class="historyLine">
                             <td>{{ $dive->DS_DATE }}</td>
                             <td>{{ $dive->DS_MAX_DIVERS }}</td>
                             @foreach($locations as $location)
@@ -26,12 +28,13 @@
                                 @endif
                             @endforeach
                             <td>{{ $dive->PRE_CODE }}</td>
+                            <td><form action="/dive/delete/{{ $dive->DS_CODE }}" method="POST"><button type="submit" class="clickable clickableRed">X</button></form></td>
                         </tr>
                     @endforeach
                 </table>
             @endif
         </div>
-        <form action="/create/dive" method="POST" style="width: 70%;font-size: 20px;">
+        <form action="/create/dive" method="POST" style="width: 70%;">
             @csrf
             <h1 class="text-4xl"
                 style="font-family: 'Space Grotesk', sans-serif; font-weight: bold; margin-bottom: 30px;">Création d'une

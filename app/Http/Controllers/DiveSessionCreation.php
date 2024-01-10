@@ -28,6 +28,7 @@ class DiveSessionCreation extends Controller
         $dv->PRE_CODE = $request->level;
         $dv->DS_LEVEL = 1;
         $dv->save();
+        error_log($dv->DS_CODE);
         return $dv;
     }
 }

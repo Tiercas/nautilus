@@ -7,6 +7,7 @@ use App\Models\DivingSession;
 use App\Http\Controllers\DivingSignUpController;
 use App\Http\Controllers\DiveSessionCreation;
 use App\Http\Controllers\DiveSessionUpdate;
+use App\Http\Controllers\DiveSessionDelete;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
@@ -71,7 +72,6 @@ Route::middleware('App\Http\Middleware\rightChecker')
     $pre = DiveSessionCreation::add($request);
 
     $previousDives = session('previousDives', []);
-    $previousDives[] = $pre;
 
     session(['previousDives' => $previousDives]);
 
@@ -100,6 +100,18 @@ Route::middleware('App\Http\Middleware\rightChecker')
     ->post('/dive/disable/{id}', function ($id){
     DivingSession::find($id)->disable();
     return redirect('/');
+});
+
+Route::post('/dive/delete/{id}', function ($id, Request $request) {
+    DiveSessionDelete::update($id);
+
+    $previousDives = session('previousDives', []);
+    $previousDives = array_filter($previousDives, function ($dive) use ($id) {
+        return $dive['id'] != $id;
+    });
+    session(['previousDives' => $previousDives]);
+
+    return redirect('/create/dive');
 });
 
 Route::get('/sessions', [DiversBySession::class,'getAllSessions']);
