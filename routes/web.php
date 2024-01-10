@@ -3,6 +3,7 @@
 use App\Http\Controllers\DiversBySession;
 use App\Http\Controllers\DivesList;
 use App\Http\Controllers\HomepageController;
+use App\Http\Controllers\ManageAdherentController;
 use App\Models\DivingSession;
 use App\Http\Controllers\DivingSignUpController;
 use App\Http\Controllers\DiveSessionCreation;
@@ -99,3 +100,7 @@ Route::middleware('App\Http\Middleware\rightChecker')
 Route::get('/sessions', [DiversBySession::class,'getAllSessions']);
 
 Route::get('/session/{ds_code}', [DiversBySession::class,'getDiversBySession']);
+
+Route::middleware('App\Http\Middleware\rightChecker')
+    ->get('manage/members', [ManageAdherentController::class, 'index'])
+    ->name('manage_members');
