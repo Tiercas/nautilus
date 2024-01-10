@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DiversBySession;
 use App\Http\Controllers\DivesList;
 use App\Models\DivingSession;
 use App\Http\Controllers\DivingSignUpController;
@@ -79,3 +80,7 @@ Route::post('/dive/disable/{id}', function ($id){
     DivingSession::find($id)->disable();
     return redirect('/');
 });
+
+Route::get('/sessions', [DiversBySession::class,'getAllSessions']);
+
+Route::get('/session/{ds_code}', [DiversBySession::class,'getDiversBySession']);
