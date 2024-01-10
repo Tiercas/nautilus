@@ -26,5 +26,6 @@ class DiveSessionCreation extends Controller
         $dv->DS_MAX_DIVERS = $request->max;
         $dv->DS_LEVEL = $request->level;
         $dv->save();
+        return $dv;
     }
 }

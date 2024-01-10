@@ -16,7 +16,15 @@
                     <label for="locationInput" style="margin-right: 20px;">Site : </label>
                     <select name="location" id="locationInput" style="width: 200px;">
                         @foreach ($locations as $location)
-                            <option value="{{ $location->DL_ID }}">{{ $location->DL_NAME }}</option>
+                            @if(isset($precedent))
+                                @if($location->DL_ID == $precedent->DL_ID)
+                                    <option value="{{ $location->DL_ID }}" selected>{{ $location->DL_NAME }}</option>
+                                @else
+                                    <option value="{{ $location->DL_ID }}">{{ $location->DL_NAME }}</option>
+                                @endif
+                            @else
+                                <option value="{{ $location->DL_ID }}">{{ $location->DL_NAME }}</option>
+                            @endif
                         @endforeach
                     </select>
                 </div>
@@ -24,7 +32,14 @@
                     <label for="boatInput" style="margin-right: 20px;">Bateau : </label>
                     <select name="boat" id="boatInput" style="width: 200px;">
                         @foreach ($boats as $boat)
-                            <option value="{{ $boat->BO_ID }}">{{ $boat->BO_NAME }}</option>
+                            @if(isset($precedent))
+                                @if($location->BO_ID == $precedent->BO_ID)
+                                    <option value="{{ $boat->BO_ID }}" selected>{{ $boat->BO_NAME }}</option>
+                                @else
+                                    <option value="{{ $boat->BO_ID }}">{{ $boat->BO_NAME }}</option>
+                                @endif
+                            @else
+                                <option value="{{ $boat->BO_ID }}">{{ $boat->BO_NAME }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -42,8 +57,13 @@
                         </div>
                         <div>
                             <label for="minInput">Maximum : </label>
+                            @if(isset($precedent))
+                                <input type="number" name="max" id="maxInput" min="0" placeholder="0"
+                                    style="width: 42px;border: 2px solid black;border-radius: 7px;-moz-appearance: textfield;text-align: center;" value="{{ $precedent->DS_MAX_DIVERS }}">
+                            @else
                             <input type="number" name="max" id="maxInput" min="0" placeholder="0"
                                 style="width: 42px;border: 2px solid black;border-radius: 7px;-moz-appearance: textfield;text-align: center;">
+                            @endif
                         </div>
                     </div>
                     <label for="levelInput">Niveau requis : </label>
@@ -53,9 +73,12 @@
                         @endforeach
                     </select>
                     <label for="levelInput">Niveau : </label>
-                    <input type="number" name="level" id="levelInput" min=1 max=4 style="width: 40px;border: 2px solid black;border-radius: 7px;-moz-appearance: textfield;text-align: center;" placeholder="0">
+                        @if(isset($precedent))
+                            <input type="number" name="level" id="levelInput" min=1 max=4 style="width: 40px;border: 2px solid black;border-radius: 7px;-moz-appearance: textfield;text-align: center;" placeholder="0" value="{{$precedent->DS_LEVEL}}">
+                        @else
+                            <input type="number" name="level" id="levelInput" min=1 max=4 style="width: 40px;border: 2px solid black;border-radius: 7px;-moz-appearance: textfield;text-align: center;" placeholder="0">
+                        @endif
                     <br>
-
                     <label for="maxDepth">Profondeur maximum : </label>
                     <input type="number" name="maxDepth" id="maxDepth" style="width: 40px;border: 2px solid black;border-radius: 7px;-moz-appearance: textfield;text-align: center;" placeholder="0">
                 </div>
@@ -65,8 +88,13 @@
                     <div style="display: flex;flex-direction: column;">
                         <div>
                             <label for="dayInput">Jour : </label>
-                            <input type="date" name="day" id="dayInput"
-                                style="border: 2px solid black;border-radius: 10px;padding: 7px;">
+                            @if(isset($precedent))
+                                <input type="date" name="day" id="dayInput"
+                                    style="border: 2px solid black;border-radius: 10px;padding: 7px;" value="{{ $precedent->DS_DATE }}">
+                            @else
+                                <input type="date" name="day" id="dayInput"
+                                    style="border: 2px solid black;border-radius: 10px;padding: 7px;">
+                            @endif
                         </div>
                         <div style="margin-top: 15px;">
                             <label for="hourInput">Heure de début</label>
