@@ -7,13 +7,11 @@ use Illuminate\Http\Request;
 
 class DiveSesssionUpdate extends Controller
 {
-    //
+    //Update a diving session
     public static function update($request, $id)
     {
         $dv = DivingSession::where('DS_CODE', $id);
 
-        $dv = new DivingSession();
-        $dv->DS_CODE = 'DS'.sizeof(DivingSession::all())+1;
         $dv->US_ID = $request->pilot;
         $dv->DL_ID = $request->location;
         $dv->BO_ID = $request->boat;

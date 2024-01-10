@@ -4,6 +4,7 @@ use App\Http\Controllers\DivesList;
 use App\Models\DivingSession;
 use App\Http\Controllers\DivingSignUpController;
 use App\Http\Controllers\DiveSessionCreation;
+use App\Http\Controllers\DiveSesssionUpdate;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
@@ -82,6 +83,12 @@ Route::middleware('App\Http\Middleware\rightChecker')
                 'boats' => Boat::all(),
                 'levels' => Prerogative::all(),
                 'users' => User::all()]);
+});
+
+Route::middleware('App\Http\Middleware\rightChecker')
+    ->post('/dive/update/{id}', function($request, $id){
+        DiveSesssionUpdate::update($request, $id);
+        redirect('/');
 });
 
 Route::middleware('App\Http\Middleware\rightChecker')

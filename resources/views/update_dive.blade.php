@@ -5,7 +5,7 @@
         <div style="width: 50%; margin-right: 50px; height: 100%; display:flex; align-items: center; flex-direction: column">
             <img src="{{ asset('/images/Diver1.png') }}" alt="Diver illustration">
         </div>
-        <form action="/create/dive" method="POST" style="width: 70%;font-size: 20px;">
+        <form action="/dive/update/{{$dive->DS_CODE}}" method="POST" style="width: 70%;font-size: 20px;">
             @csrf
             <h1 class="text-4xl"
                 style="font-family: 'Space Grotesk', sans-serif; font-weight: bold; margin-bottom: 30px;">Modification d'une
