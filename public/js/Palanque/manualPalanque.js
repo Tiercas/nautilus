@@ -83,7 +83,7 @@ addPalanque.addEventListener("click", function(){
   countZone++;
   let palanque = document.createElement("div");
   palanque.setAttribute("class", "border-2 p-4");
-  palanque.setAttribute("id", "zone" + (countZone));
+  palanque.setAttribute("id", "zone " + (countZone));
   palanque.setAttribute("ondrop", "drop(event)");
   palanque.setAttribute("ondragover", "allowDrop(event)");
   zoneList.push(new DropZoneClass(countZone));
@@ -112,7 +112,7 @@ function proccessDiverData(data){
   for(let i = 0; i < data.length; i++){
     countDiver++;
     let diver = document.createElement("div");
-    diver.setAttribute("class", "w-fit h-8 border-2");
+    diver.setAttribute("class", "w-fit h-8 border-2 zone");
     diver.setAttribute("id", 'item' + countDiver +',' + data[i].PRE_CODE);
     diver.setAttribute("draggable", "true");
     diver.setAttribute("ondragstart", "drag(event)");
@@ -122,18 +122,16 @@ function proccessDiverData(data){
 }
 
 let validatePalanqueCombinate = {
-  'PB': ['E1', 'E2', 'E3', 'E4'],
-  'PA': ['E1', 'E2', 'E3', 'E4'],
-  'PO': ['E1', 'E2', 'E3', 'E4'],
-  'PE-12': ['E2', 'E3', 'E4'],
-  'PE-20': ['E2', 'E3', 'E4'],
-  'PE-40': ['E2', 'E3', 'E4'],
-  'PE-60': ['Director'],
-  'PA-60': ['Director']
+  'PB': ['E1', 'E2', 'E3', 'E4', 'PA-60-GP'],
+  'PA': ['E1', 'E2', 'E3', 'E4', 'PA-60-GP'],
+  'PO': ['E1', 'E2', 'E3', 'E4', 'PA-60-GP'],
+  'PE-12': ['E2', 'E3', 'E4', 'PA-60-GP'],
+  'PE-20': ['E2', 'E3', 'E4', 'PA-60-GP'],
+  'PE-40': ['E2', 'E3', 'E4', 'PA-60-GP']
 };
 
 function validateAllCombination(){
-  zoneList.forEach(element => {
+  let val = zoneList.forEach(element => {
     element = document.getElementById("zone" + element.getZoneNumber());
     if(element.hasChildNodes()){
       let children = element.childNodes;
@@ -149,6 +147,7 @@ function validateAllCombination(){
               if(element.style.backgroundColor === 'red')
                 element.style.backgroundColor = 'white';
               return true;
+              //TODO VERIF E1 -6metres
             }else{
               console.log("ko");
               element.style.backgroundColor = 'red';
@@ -163,12 +162,38 @@ function validateAllCombination(){
         }
     }
   });
+  console.log('vAL' + val);
 }
 validatePalanque.addEventListener("click", function(){
   if(validateAllCombination()){
     console.log("ok");
   }else
     console.log("ko");
+  console.log(returnValueToPhp());
 });
+
+function returnValueToPhp(){
+  let palanque = document.querySelectorAll("div.zone");
+  let palanqueList = [];
+  for(let i = 0; i < palanque.length; i++){
+    let zoneList = [];
+    for(let j = 0; j < palanque[i].childElementCount; j++){
+      let item = palanque[i].childNodes[j];
+      zoneList.push(item.id.split(',')[1]);
+    }
+    palanqueList.push(zoneList);
+  }
+  console.log(palanqueList);
+  return palanqueList;
+}
+
+function sendPalanque(){
+  let palanqueList = returnValueToPhp();
+  let palanqueListJson = JSON.stringify(palanqueList);
+  let xhr = new XMLHttpRequest();
+  xhr.open('POST', '/api/palanques', true);
+  xhr.setRequestHeader("Content-Type", "application/json");
+  xhr.send(palanqueListJson);
+}
 
 getDiver('DS1');
