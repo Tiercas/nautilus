@@ -51,8 +51,31 @@ h1{
     color: var(--white)
 }
 
-.align{
+.aligne{
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.Line{
+    display: flex;
+    flex-direction: row;
+}
+
+.Column{
+    display: flex;
+    flex-direction: column;
+}
+
+.divideFlex{
+    flex-grow: 1;
+    display: flex;
+}
+
+.divideFlexSmall{
+    flex-grow: 0.5;
+}
+
+.divideFlexBig{
+    flex-grow: 1.5;
 }
