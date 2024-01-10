@@ -2,6 +2,7 @@
 
 namespace App\Exceptions;
 
+use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -37,6 +38,10 @@ class Handler extends ExceptionHandler
      */
     public function register()
     {
+        $this->renderable(function(QueryException $queryException, Request $request){
+            if ($queryException->getCode()==45000)
+            return response()->view('erreur-page',['error'=>$queryException->getMessage()]);
+        });
         $this->reportable(function (Throwable $e) {
             //
         });
