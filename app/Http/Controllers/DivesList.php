@@ -20,7 +20,9 @@ class DivesList extends Controller
     }
 
     function show($id) {
-        $divingSession = DivingSession::find($id)->join('CAR_DIVING_LOCATION', 'CAR_DIVING_SESSION.DL_ID', '=', 'CAR_DIVING_LOCATION.DL_ID')->first();
+        $divingSession = DivingSession::join('CAR_DIVING_LOCATION', 'CAR_DIVING_SESSION.DL_ID', '=', 'CAR_DIVING_LOCATION.DL_ID')
+            ->where('DS_CODE', '=', $id)
+            ->first();
         if($divingSession === null) return redirect()->route('homepage');
         $creator = User::find($divingSession->US_ID);
         $security = User::find($divingSession->US_ID_CAR_SECURE);

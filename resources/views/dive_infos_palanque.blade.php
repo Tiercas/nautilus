@@ -1,9 +1,8 @@
-<script src='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js'></script>
-<link href='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css' rel='stylesheet' />
+
+<link href='https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.css' rel='stylesheet' />
+
 <x-layout>
     <x-page-title>Plongée du {{ $dive->DS_DATE }} - {{ $dive->DL_NAME }}</x-page-title>
-    @dump($dive)
-    @dump($divers)
     <div class="flex flex-col md:flex-row gap-2 rounded-lg border shadow">
         <div class="flex-1 border-r p-4">
             <h3 class="text-xl font-bold mb-2">Plongée</h3>
@@ -15,20 +14,33 @@
                         <li>Sécurité de surface : {{ $security->US_FIRST_NAME . " " . strtoupper($security->US_NAME) }}</li>
                     </ul>
                 </li>
-                <li>Profondeur max : {{ $dive->DS_MAX_DEPTH }}m</li>
                 <li>Observation : {{ $dive->DS_OBSERVATION_FIELD }}</li>
                 <li>Nombre de plongeurs : {{ $dive->DS_DIVERS_COUNT }}</li>
             </ul>
-            <div id='map' style='width: 400px; height: 300px;'></div>
-            <script>
-                mapboxgl.accessToken = 'pk.eyJ1IjoiZ290Y2hldXIiLCJhIjoiY2xyOGFyMnlhMHlxMTJqcHF3NHVsdWJiaiJ9.0tkuFzJwXUn1XwTAwaLHng';
-                const map = new mapboxgl.Map({
-                    container: 'map',
-                    style: 'mapbox://styles/gotcheur/clr8b55yw001v01pebzatbczl',
-                    center: [{{ $dive->DL_LATITUDE }}, {{ $dive->DL_LONGITUDE }}],
-                    zoom: 9
-                });
-            </script>
+            @if(preg_match("/[0-9]*\.[0-9]*/", $dive->DL_LONGITUDE) == 1 && preg_match("/[0-9]*\.[0-9]*/", $dive->DL_LATITUDE) == 1)
+                <div id='map' class="rounded-lg w-full mt-4 aspect-video"></div>
+                <script src='https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.js'></script>
+                <style>
+                    div.mapboxgl-ctrl-bottom-right {
+                        display: none;
+                    }
+                </style>
+                <script>
+                    mapboxgl.accessToken = 'pk.eyJ1IjoiZ290Y2hldXIiLCJhIjoiY2xyOGFyMnlhMHlxMTJqcHF3NHVsdWJiaiJ9.0tkuFzJwXUn1XwTAwaLHng';
+                    const map = new mapboxgl.Map({
+                        container: 'map',
+                        style: 'mapbox://styles/gotcheur/clr8b55yw001v01pebzatbczl',
+                        center: [{{ $dive->DL_LONGITUDE }}, {{ $dive->DL_LATITUDE }}],
+                        zoom: 13
+                    });
+                    const diveLocation = new mapboxgl.Marker()
+                        .setLngLat([{{ $dive->DL_LONGITUDE }}, {{ $dive->DL_LATITUDE }}])
+                        .addTo(map);
+                    map.addControl(new mapboxgl.NavigationControl());
+                    map.addControl(new mapboxgl.ScaleControl());
+                </script>
+            @endif
+            <p class="text-xl font-bold my-2">{{ $dive->DL_NAME }} • {{ $dive->DS_MAX_DEPTH }}m</p>
         </div>
         <div class="flex-1 border-r">
             <h3 class="text-xl font-bold">Plongeurs</h3>
