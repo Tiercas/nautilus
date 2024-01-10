@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\View\View;
 
 use App\Models\DivingSession;
+use App\Models\Registration;
 
 class ModificationDives extends Controller
 {
@@ -24,8 +25,10 @@ class ModificationDives extends Controller
         return view('modification_dives', ['dives' => $request]);
     }
 
-    static function removalOfAMemberFromASession(){
-
+    static function removalOfAMemberFromASession(string $ds_code, int $us_id){
+        Registration::where('car_registration.ds_code', '=', $ds_code)
+        ->where('car_registration.us_id', '=', $us_id)
+        ->delete();
     }
 
     static function modificationMembers(string $ds_code){

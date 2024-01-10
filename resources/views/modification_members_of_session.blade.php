@@ -13,8 +13,9 @@
             </tr>
             </thead>
             <tbody>
-                
+            
             @foreach ($persons as $person)
+            <form method="POST" action='/modificationdives/members/{{$sessionplongee[0]['DS_CODE']}}/deletion/{{$person['US_ID']}}'>
                 <tr class="odd:bg-white even:bg-gray-50 border-b">
                     <td class="px-6 py-4">{{ $person['us_name'] }}</td>
                     <td class="px-6 py-4">{{ $person['us_first_name'] }}</td>
@@ -31,13 +32,14 @@
                     </td>
                     <td class="px-6 py-4">{{$person['US_SUB_DATE']}}</td>
                     <td class="px-6 py-4">
-                        <a href='/modificationdives/members/{{$sessionplongee[0]['DS_CODE']}}' method="POST">
-                            <x-button color="bg-red-500" colorHover="hover:bg-red-600">
+                        <a>
+                            <x-button type="submit" color="bg-red-500" colorHover="hover:bg-red-600">
                                 supprimer
                             </x-button>
                         </a>
                     </td>
                 </tr>
+            </form>
             @endforeach
                 <tr class="odd:bg-white even:bg-gray-50 border-b">
                     
