@@ -45,7 +45,7 @@ Route::middleware('App\Http\Middleware\rightChecker')
     ->name('dives');
 
 Route::get('/test', function() {
-    return view('test', ['user' => User::find(1)]);
+    return view('test');
 });
 
 Route::middleware('App\Http\Middleware\rightChecker')
