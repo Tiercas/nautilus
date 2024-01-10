@@ -1,6 +1,6 @@
 <x-layout>
     <link rel="stylesheet" href="/css/drop-down.css">
-    <x-page-title>Inscription aux plongées</x-page-title>
+    <x-page-title>Liste des plongées</x-page-title>
     <div class="shadow-md max-w-full rounded-lg overflow-hidden border-2">
         <table class="text-sm text-left text-gray-500 w-full">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50">
@@ -57,7 +57,7 @@
                     $participants = $dive->getParticipants();
                     @endphp
                     <div class="drop-down">
-                    @foreach($participants as $user)   
+                    @foreach($participants as $user)
                         <p class = "drop-down-items">{{$user->US_NAME}} {{$user->US_FIRST_NAME}}</p>
                     @endforeach
                     </div>

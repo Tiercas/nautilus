@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\DivingSession;
 use Illuminate\Http\Request;
 
-class DiveSesssionUpdate extends Controller
+class DiveSessionUpdate extends Controller
 {
     //Update a diving session
     public static function update($request, $id)
