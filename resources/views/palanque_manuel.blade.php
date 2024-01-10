@@ -10,11 +10,13 @@
     </div>
   </div>
 
-  <div class="p-2 w-32 h-52">
-    <h3>Zone 2</h3>
-    <div class="border-2 p-4" id="zone1" ondrop="drop(event)" ondragover="allowDrop(event)">
-    </div>
+  <div class="p-2 grid grid-cols-2 md:grid-cols-3 gap-4" id="DropZone">
+    <div class="border-2 p-4" id="zone1" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+    <div class="border-2 p-4" id="zone2" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+    <div class="border-2 p-4" id="zone3" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
   </div>
   </div>
+  <button type='button' id="addPal">Add P</button>
+  <button type='button' id="removePal">Remove P</button>
 <script src=" {{ asset('js/manualPalanque.js') }} "></script>
 </x-layout>
