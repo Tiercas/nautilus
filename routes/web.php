@@ -9,6 +9,7 @@ use App\Models\DivingSession;
 use App\Http\Controllers\DivingSignUpController;
 use App\Http\Controllers\DiveSessionCreation;
 use App\Http\Controllers\DiveSessionUpdate;
+use App\Http\Controllers\DiveSessionDelete;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
@@ -65,14 +66,19 @@ Route::middleware('App\Http\Middleware\rightChecker')
 Route::middleware('App\Http\Middleware\rightChecker')
     ->get('/create/dive', function()
 {
-    return view('create_dive', ['locations' => DivingLocation::all(),  'boats' => Boat::all(), 'levels' => Prerogative::all(), 'users' => User::all()]);
+    return view('create_dive', ['locations' => DivingLocation::all(),  'boats' => Boat::all(), 'levels' => Prerogative::all()->skip(3), 'users' => User::all()]);
 })->name('create_dive');
 
 Route::middleware('App\Http\Middleware\rightChecker')
     ->post('/create/dive', function(Request $request)
 {
     $pre = DiveSessionCreation::add($request);
-    return view('create_dive',  ['locations' => DivingLocation::all(),  'boats' => Boat::all(), 'levels' => Prerogative::all(), 'users' => User::all(), 'precedent' => $pre]);
+
+    $previousDives = session('previousDives', []);
+
+    session(['previousDives' => $previousDives]);
+
+    return view('create_dive',  ['locations' => DivingLocation::all(),  'boats' => Boat::all(), 'levels' => Prerogative::all()->skip(3), 'users' => User::all(), 'precedent' => $pre, 'previousDives' => $previousDives]);
 });
 
 Route::get('/tewst2', function(){
@@ -84,7 +90,7 @@ Route::middleware('App\Http\Middleware\rightChecker')
     return view('update_dive', ['dive' => DivingSession::find($id),
                 'locations' => DivingLocation::all(),
                 'boats' => Boat::all(),
-                'levels' => Prerogative::all(),
+                'levels' => Prerogative::all()->skip(4),
                 'users' => User::all()]);
 });
 
@@ -97,6 +103,18 @@ Route::middleware('App\Http\Middleware\rightChecker')
     ->post('/dive/disable/{id}', function ($id){
     DivingSession::find($id)->disable();
     return redirect('/');
+});
+
+Route::post('/dive/delete/{id}', function ($id, Request $request) {
+    DiveSessionDelete::update($id);
+
+    $previousDives = session('previousDives', []);
+    $previousDives = array_filter($previousDives, function ($dive) use ($id) {
+        return $dive['id'] != $id;
+    });
+    session(['previousDives' => $previousDives]);
+
+    return redirect('/create/dive');
 });
 
 Route::get('/sessions', [DiversBySession::class,'getAllSessions']);
