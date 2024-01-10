@@ -1,30 +1,65 @@
+<style>
+    h1{
+        text-align: center;
+    }
+
+    table, th, td{
+        border: solid black 1px;
+        border-collapse: collapse;
+    }
+
+    table{
+        margin-bottom: 5px;
+    }
+
+    td{
+        padding: 2px;
+    }
+
+    .members-header{
+        background-color: lightgrey;
+    }
+
+    .diving-group-header{
+        background-color: #afafaf;
+    }
+</style>
+
 <h1>FICHE DE SÉCURITÉ</h1>
 
-<table id="first-table">
+<table>
+    <colgroup>
+        <col width="135">
+        <col width="225">
+    </colgroup>
     <tr>
-        <td>Date</td>
+        <td><strong>Date</strong></td>
         <td>{{$dive->DS_DATE}}</td>
     </tr>
     <tr>
-        <td>Directeur de plongée</td>
+        <td><strong>Directeur de plongée</strong></td>
         <td>{{$director->US_FIRST_NAME}} {{$director->US_NAME}}</td>
     </tr>
     <tr>
-        <td>Site de plongée</td>
+        <td><strong>Site de plongée</strong></td>
         <td>{{$location->DL_NAME}}</td>
     </tr>
 </table>
 
 <table>
+    <colgroup>
+        <col width="135">
+        <col width="592">
+    </colgroup>
     <tr>
-        <td>Sécurité de surface</td>
+        <td><strong>Sécurité de surface</strong></td>
         <td>{{$surfaceSecurity->US_FIRST_NAME}} {{$surfaceSecurity->US_NAME}}</td>
     </tr>
     <tr>
-        <td>
+        <td><strong>
             Observation
             <br>> météo et marée
-        </td>
+        </strong></td>
         <td>{{$dive->DS_OBSERVATION_FIELD}}</td>
     </tr>
 </table>
@@ -48,7 +83,7 @@
             <td>Temps prévu</td>
             <td>{{$divingGroup['group']->DG_MAX_DURATION}} min</td>
             <td>Profondeur prévue</td>
-            <td>[il manque la profondeur prévue :(]</td>
+            <td>{{$divingGroup['group']->DG_MAX_DEPTH}} m</td>
         </tr>
 
         <!-- Actual time and depth -->
@@ -60,7 +95,7 @@
         </tr>
 
         <!-- Members table header -->
-        <tr>
+        <tr class="members-header">
             <td colspan="2"><strong>Nom Prénom</strong></td>
             <td>Aptitudes</td>
             <td><strong>Fonction</strong></td>
@@ -78,8 +113,12 @@
                         <!--dd($diver->roles)-->
                     @endif
 
-                    @if($diver->hasRole('DIR'))
+                    @if($diver->US_ID === $dive->US_ID_CAR_DIRECT)
                         Directeur de plongée
+                    @elseif ($diver->US_ID === $dive->US_ID)
+                        Pilote
+                    @elseif ($diver->US_ID === $dive->US_ID_CAR_SECURE)
+                        Sécurité de surface
                     @else
                         Plongeur
                     @endif
