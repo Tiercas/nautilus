@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\RoleAttribution;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -23,6 +24,16 @@ class ManageAdherentController extends Controller {
 
     function update(Request $request) {
         @dd($request->all());
+        $uptUser = $request->all();
+        foreach ($uptUser as $key => $value) {
+            if ($key != '_token') {
+                $user = User::find($key);
+                $key =
+                $userRole = RoleAttribution::select('*')->where('US_ID', '=', $key)->get();
+                $user->ROL_CODE = $value;
+                $user->save();
+            }
+        }
         return redirect()->route('manage_members');
     }
 
