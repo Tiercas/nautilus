@@ -41,5 +41,12 @@
             </button>
         </div>
     </form>
+
+    <h2 class="underline">Accéder aux plongées par période :</h2>
+    <a href="{{ route('alldivings') }}">
+        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4">
+            Plongées par période
+        </button>
+    </a>
 </x-layout>
 
