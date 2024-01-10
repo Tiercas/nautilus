@@ -10,7 +10,7 @@ class DiveSessionUpdate extends Controller
     //Update a diving session
     public static function update($request, $id)
     {
-        $dv = DivingSession::where('DS_CODE', $id);
+        $dv = DivingSession::where('DS_CODE', $id)->first();
 
         $dv->US_ID = $request->pilot;
         $dv->DL_ID = $request->location;
@@ -26,3 +26,5 @@ class DiveSessionUpdate extends Controller
         $dv->save();
     }
 }
+
+?>
