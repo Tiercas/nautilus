@@ -104,3 +104,7 @@ Route::get('/session/{ds_code}', [DiversBySession::class,'getDiversBySession']);
 Route::middleware('App\Http\Middleware\rightChecker')
     ->get('manage/members', [ManageAdherentController::class, 'index'])
     ->name('manage_members');
+
+Route::middleware('App\Http\Middleware\rightChecker')
+    ->post('manage/members/roles', [ManageAdherentController::class, 'update'])
+->name('updateMembersRole');
