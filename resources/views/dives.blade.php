@@ -1,5 +1,5 @@
 <x-layout>
-    <x-page-title>Liste des plongées</x-page-title>
+    <x-page-title>Inscription aux plongées</x-page-title>
     <div class="shadow-md max-w-full rounded-lg overflow-hidden border-2">
         <table class="text-sm text-left text-gray-500 w-full">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50">
@@ -19,9 +19,6 @@
                     <td class="px-6 py-4">{{ $dive->DL_DEPTH }}m</td>
                     <td class="px-6 py-4">{{ $dive->DL_NAME }}</td>
                     <td class="px-8 py-4">
-                        @if (Session::has('Success'))
-                            <div class="alert alert-info">{{ Session::get('Success') }}</div>
-                        @endif
                         <a href='/dives/{{$dive->DS_CODE}}'>
                             <x-button color="bg-green-700" colorHover="hover:bg-green-800">
                                 <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
@@ -39,13 +36,18 @@
                             </svg>
                         </x-button>
                         @if ($errors->any())
-                            <div class="alert alert-danger">
+                            <div class="text-red-400">
                                 <ul>
                                     @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
+                                        @if (Session::has('DS_CODE') && Session::get('DS_CODE') == $dive->DS_CODE)
+                                            <li>{{ $error }}</li>
+                                        @endif
                                     @endforeach
                                 </ul>
                             </div>
+                        @endif
+                        @if (Session::has('Success') && Session::get('DS_CODE') == $dive->DS_CODE)
+                            <div class="text-green-500">{{ Session::get('Success') }}</div>
                         @endif
                     </td>
                 </tr>
