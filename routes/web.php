@@ -25,40 +25,48 @@ use App\Models\Boat;
 use App\Models\Prerogative;
 
 
-Route::get('/login', function ()
-{
+Route::get('/login', function () {
     return view('login', ['wrongPassword' => false]);
 })->name('login');
 
 Route::post('/login', [AuthController::class, 'login']);
 
-Route::get('/', function ()
-{
+Route::get('/', function () {
     return view('welcome');
 })->name('homepage');
 
+Route::get('/logout', function () {
+    session()->flush();
+    return redirect('/');
+})->name('logout');
 
-Route::middleware('auth:sanctum')->get('/dives', [DivingSignUpController::class, 'show'])->name('dives');
 
-Route::get('/test', function()
-{
-    return view('test', ['user' => User::find(1)]);
+Route::middleware('App\Http\Middleware\rightChecker')
+    ->get('/dives', [DivingSignUpController::class, 'show'])
+    ->name('dives');
+
+Route::get('/test', function() {
+    return view('test');
 });
 
-Route::get('/dives/list-divers/{id}', function($id){
+Route::middleware('App\Http\Middleware\rightChecker')
+    ->get('/dives/list-divers/{id}', function($id){
     return view('divingSessions.showParticipants', [
         'users' => DivingSession::find($id)->getParticipants()
     ]);
 });
 
-Route::get('/dives/{ds_code}', [DivingSignUpController::class, 'index']);
+Route::middleware('App\Http\Middleware\rightChecker')
+    ->get('/dives/{ds_code}', [DivingSignUpController::class, 'index']);
 
-Route::get('/create/dive', function()
+Route::middleware('App\Http\Middleware\rightChecker')
+    ->get('/create/dive', function()
 {
     return view('create_dive', ['locations' => DivingLocation::all(),  'boats' => Boat::all(), 'levels' => Prerogative::all(), 'users' => User::all()]);
 });
 
-Route::post('/create/dive', function(Request $request)
+Route::middleware('App\Http\Middleware\rightChecker')
+    ->post('/create/dive', function(Request $request)
 {
     DiveSessionCreation::add($request);
     return redirect('/');
@@ -68,7 +76,8 @@ Route::get('/tewst2', function(){
     return view('drag_and_drop');
 });
 
-Route::get('/dive/update/{id}', function($id){
+Route::middleware('App\Http\Middleware\rightChecker')
+    ->get('/dive/update/{id}', function($id){
     return view('update_dive', ['dive' => DivingSession::find($id),
                 'locations' => DivingLocation::all(),
                 'boats' => Boat::all(),
@@ -76,7 +85,8 @@ Route::get('/dive/update/{id}', function($id){
                 'users' => User::all()]);
 });
 
-Route::post('/dive/disable/{id}', function ($id){
+Route::middleware('App\Http\Middleware\rightChecker')
+    ->post('/dive/disable/{id}', function ($id){
     DivingSession::find($id)->disable();
     return redirect('/');
 });

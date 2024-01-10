@@ -20,7 +20,9 @@ class AuthController extends Controller
             return view('login', ['wrongPassword' => true]);
         }
 
-        session()->put('userid', $user->US_ID);
+        session(['user' => $user]);
         return redirect('/');
     }
+
+
 }
