@@ -20,7 +20,7 @@
                     </div>
                     <ul class="py-2" aria-labelledby="user-menu-button">
                         <li>
-                            <a href="{{route('divings')}}" class="block px-4 py-2 text-sm hover:bg-gray-600 text-gray-200 hover:text-white">Historique de mes plongées</a>
+                             <a  href="{{--{{route('divings')}}--}}#" class="block px-4 py-2 text-sm hover:bg-gray-600 text-gray-200 hover:text-white">Historique de mes plongées</a> 
                         </li>
                         <li>
                             <a href="{{ route('logout') }}" class="block px-4 py-2 text-sm hover:bg-gray-600 text-gray-200 hover:text-white">Se déconnecter</a>
