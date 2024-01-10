@@ -1,9 +1,31 @@
-const zoneStart = document.getElementById("zone1");
+class DropZoneClass{
+  counter;
+  zoneNumber;
+
+  constructor(zoneNumber){
+    this.counter = 0;
+    this.zoneNumber = zoneNumber;
+  }
+
+  getCounter(){
+    return this.counter;
+  }
+
+  getZoneNumber(){
+    return this.zoneNumber;
+  }
+
+  updateCounter(number){
+    this.counter += number;
+  }
+}
+
+const zoneStart = document.getElementById("zoneStart");
 const DropZone = document.getElementById("DropZone");
 const removePalanque = document.getElementById("removePal");
 const addPalanque = document.getElementById("addPal");
 let countZone = 3;
-let count = 0;
+let zoneList = [new DropZoneClass(zone1), new DropZoneClass(zone2), new DropZoneClass(zone3)];
 function allowDrop(event) {
   event.preventDefault();
 }
@@ -14,6 +36,7 @@ function drag(event) {
 
 function drop(event) {
   event.preventDefault();
+  console.log(zoneList);
   if(isElementInList('item', event.target.id.split(',')))
     return;
 
@@ -21,10 +44,10 @@ function drop(event) {
   let draggedItem = document.getElementById(data);
   if(event.target === zoneStart){
     zoneStart.appendChild(draggedItem);
-    count -= setDropZoneSize(draggedItem);
+    zoneList[event.target].getCounter -= setDropZoneSize(draggedItem);
   }else
     if(count < 3 && count + setDropZoneSize(draggedItem) <= 3){
-      count += setDropZoneSize(draggedItem);
+      zoneList[event.target].updateCounter(setDropZoneSize(draggedItem));
       event.target.appendChild(draggedItem);
     }else
       zoneStart.appendChild(draggedItem);
@@ -54,6 +77,7 @@ addPalanque.addEventListener("click", function(){
   palanque.setAttribute("id", "zone" + (countZone));
   palanque.setAttribute("ondrop", "drop(event)");
   palanque.setAttribute("ondragover", "allowDrop(event)");
+  zoneList.push(new DropZoneClass("zone"+countZone));
   DropZone.appendChild(palanque);
 });
 
@@ -62,21 +86,3 @@ removePalanque.addEventListener("click", function(){
   countZone--;
   DropZone.removeChild(palanque);
 });
-
-class DropZone{
-  counter;
-  zoneNumber;
-
-  constructor(zoneNumber){
-    this.counter = 0;
-    this.zoneNumber = zoneNumber;
-  }
-
-  getCounter(){
-    return this.counter;
-  }
-
-  getZoneNumber(){
-    return this.zoneNumber;
-  }
-}
