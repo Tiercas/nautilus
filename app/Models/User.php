@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class User extends Model
 {
@@ -59,6 +60,10 @@ class User extends Model
     {
         return $this->roles->contains('ROL_CODE', $roleCode);
     }
+
+
+    
+
 }
 
 
