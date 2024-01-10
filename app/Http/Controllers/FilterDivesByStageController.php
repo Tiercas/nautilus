@@ -11,7 +11,7 @@ class DivesByStageList extends Controller
     {
         $divesByStage = DivingSession::select('DS_CODE', 'car_diving_session.DL_ID', 'DS_DATE', 'DL_DEPTH', 'CAR_SCHEDULE', 'DL_NAME')
             ->join('car_diving_location', 'car_diving_session.DL_ID', '=', 'car_diving_location.DL_ID')
-            ->where('DL_NAME', $stage)
+            ->where('DL_DEPTH', $stage)
             ->get();
         return view('divesByStage', ['divesByStage' => $divesByStage]);
     }
