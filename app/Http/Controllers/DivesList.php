@@ -19,10 +19,13 @@ class DivesList extends Controller
         return view('dives', ['dives' => $dives, 'userPre' => Prerogative::find($user->PRE_CODE)]);
     }
 
-    function show($id): View {
-        $divingSession = DivingSession::find($id);
-        $format = '%d/%m/%Y';
-        $divingSession->DS_DATE = strftime($format, strtotime($divingSession->DS_DATE));
-        return view('dive_infos_palanque', ['dive' => $divingSession, 'users' => $divingSession->getParticipants()]);
+    function show($id) {
+        $divingSession = DivingSession::find($id)->join('CAR_DIVING_LOCATION', 'CAR_DIVING_SESSION.DL_ID', '=', 'CAR_DIVING_LOCATION.DL_ID')->first();
+        if($divingSession === null) return redirect()->route('homepage');
+        $creator = User::find($divingSession->US_ID);
+        $security = User::find($divingSession->US_ID_CAR_SECURE);
+        $director = User::find($divingSession->US_ID_CAR_DIRECT);
+        $divingSession->DS_DATE = strftime('%d/%m/%Y', strtotime($divingSession->DS_DATE));
+        return view('dive_infos_palanque', ['dive' => $divingSession, 'divers' => $divingSession->getParticipants(), 'creator' => $creator, 'security' => $security, 'director' => $director]);
     }
 }
