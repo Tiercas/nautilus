@@ -18,7 +18,8 @@ function drop(event) {
   if(event.target === zoneStart)
     zoneStart.appendChild(draggedItem);
   else
-    if(event.target.childNodes.length - getDropZoneSize(event.target, event.target.children) <= 3){
+    if(event.target.childNodes.length - getDropZoneSize(event.target, event.target.children) <= 0){
+      console.log(event.target.childNodes.length - getDropZoneSize(event.target, event.target.children));
       event.target.appendChild(draggedItem);
     }else
       zoneStart.appendChild(draggedItem);
