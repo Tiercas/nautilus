@@ -31,7 +31,7 @@ use App\Models\DivingLocation;
 use App\Models\Boat;
 use App\Models\Prerogative;
 Route::get('/error', function(){
-    
+
 })->name('error');
 
 Route::get('/login', function () {
@@ -100,6 +100,14 @@ Route::get('/session/{ds_code}', [DiversBySession::class,'getDiversBySession']);
 
 Route::get('/divings', [DivingNumberController::class, 'index'])->name('divings');
 
-Route::get('/alldivings', [DivingNumberController::class, 'allIndex']);
+Route::get('/alldivings', [DivingNumberController::class, 'allIndex'])->name('alldivings');
 
 Route::get('/alldivings?{afterthe}&{beforethe}', [DivingNumberController::class, 'filteredSearch({afterthe}, {beforethe})']);
+
+Route::middleware('App\Http\Middleware\rightChecker')
+    ->get('manage/members', [ManageAdherentController::class, 'index'])
+    ->name('manage_members');
+
+Route::middleware('App\Http\Middleware\rightChecker')
+    ->post('manage/members/roles', [ManageAdherentController::class, 'update'])
+    ->name('updateMembersRole');
