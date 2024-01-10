@@ -6,6 +6,9 @@ use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\ManageAdherentController;
 use App\Http\Controllers\DivingNumberController;
 use App\Models\DivingNumberModel;
+use App\Http\Controllers\DivingNumberController;
+use App\Models\DivingNumberModel;
+use App\Http\Controllers\HomepageController;
 use App\Models\DivingSession;
 use App\Http\Controllers\DivingSignUpController;
 use App\Http\Controllers\DiveSessionCreation;
@@ -29,6 +32,25 @@ use App\Models\User;
 Route::get('/login', function ()
 {
     return view('login', ['wrongPassword' => false]);
+})->name('login');
+
+Route::post('/login', [AuthController::class, 'login']);
+
+
+Route::get('/', [HomepageController::class, 'index'])->name('homepage');
+
+Route::get('/logout', function () {
+    session()->flush();
+    return redirect('/');
+})->name('logout');
+
+
+Route::middleware('App\Http\Middleware\rightChecker')
+    ->get('/dives', [DivingSignUpController::class, 'show'])
+    ->name('dives');
+
+Route::get('/test', function() {
+    return view('test');
 });
 
 Route::post('/login', function (Request $request)
@@ -37,20 +59,40 @@ Route::post('/login', function (Request $request)
         'mail' => 'required|email',
         'password' => 'required',
     ]);
+});
 
-    $user = User::where('US_EMAIL', $request->mail)->first();
-    if($user == null)
-    {
-        return view('login', ['wrongPassword' => true]);
-    }
-    if($user->checkPassword($request->password))
-    {
-        return redirect('/'); // TODO: Redirect to the user's hub page
-    }
-    else
-    {
-        return view('login', ['wrongPassword' => true]);
-    }
+Route::middleware('App\Http\Middleware\rightChecker')
+    ->get('/dives/{ds_code}', [DivingSignUpController::class, 'index']);
+
+Route::middleware('App\Http\Middleware\rightChecker')
+    ->get('/create/dive', function()
+{
+    return view('create_dive', ['locations' => DivingLocation::all(),  'boats' => Boat::all(), 'levels' => Prerogative::all(), 'users' => User::all()]);
+})->name('create_dive');
+
+Route::middleware('App\Http\Middleware\rightChecker')
+    ->post('/create/dive', function(Request $request)
+{
+    $pre = DiveSessionCreation::add($request);
+    return view('create_dive',  ['locations' => DivingLocation::all(),  'boats' => Boat::all(), 'levels' => Prerogative::all(), 'users' => User::all(), 'precedent' => $pre]);
+});
+
+Route::get('/tewst2', function(){
+    return view('drag_and_drop');
+});
+
+Route::middleware('App\Http\Middleware\rightChecker')
+    ->get('/dive/update/{id}', function($id){
+    return view('update_dive', ['dive' => DivingSession::find($id),
+                'locations' => DivingLocation::all(),
+                'boats' => Boat::all(),
+                'levels' => Prerogative::all(),
+                'users' => User::all()]);
+});
+
+Route::post('/dive/update/{id}', function($id, Request $request){
+        DiveSessionUpdate::update($request, $id);
+        return redirect('/');
 });
 
 Route::middleware('App\Http\Middleware\rightChecker')
@@ -65,3 +107,10 @@ Route::get('/test', function()
     return view('test', ['user' => User::find(1)]);
 });
 
+Route::get('/session/{ds_code}', [DiversBySession::class,'getDiversBySession']);
+
+Route::get('/divings', [DivingNumberController::class, 'index'])->name('divings');
+
+Route::get('/alldivings', [DivingNumberController::class, 'allIndex']);
+
+Route::get('/alldivings?{afterthe}&{beforethe}', [DivingNumberController::class, 'filteredSearch({afterthe}, {beforethe})']);
