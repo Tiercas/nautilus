@@ -31,4 +31,8 @@ class DivingSession extends Model
 
         return $participants;
     }
+
+    public function getDivingGroups(){
+        return DivingGroup::where('DS_CODE', $this->DS_CODE)->get();
+    }
 }
