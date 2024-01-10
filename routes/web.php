@@ -4,6 +4,7 @@ use App\Http\Controllers\DiversBySession;
 use App\Http\Controllers\DivesList;
 use App\Http\Controllers\DivingNumberController;
 use App\Models\DivingNumberModel;
+use App\Http\Controllers\HomepageController;
 use App\Models\DivingSession;
 use App\Http\Controllers\DivingSignUpController;
 use App\Http\Controllers\DiveSessionCreation;
@@ -35,9 +36,7 @@ Route::get('/login', function () {
 Route::post('/login', [AuthController::class, 'login']);
 
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('homepage');
+Route::get('/', [HomepageController::class, 'index'])->name('homepage');
 
 Route::get('/logout', function () {
     session()->flush();
@@ -67,7 +66,7 @@ Route::middleware('App\Http\Middleware\rightChecker')
     ->get('/create/dive', function()
 {
     return view('create_dive', ['locations' => DivingLocation::all(),  'boats' => Boat::all(), 'levels' => Prerogative::all(), 'users' => User::all()]);
-});
+})->name('create_dive');
 
 Route::middleware('App\Http\Middleware\rightChecker')
     ->post('/create/dive', function(Request $request)
