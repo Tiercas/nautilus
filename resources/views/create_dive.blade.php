@@ -57,7 +57,7 @@
                                 <input class="inputTime" required type="date" name="day" id="dayInput"
                                     value="{{ $precedent->DS_DATE }}">
                             @else
-                                <input class="inputTime" required type="date" name="day" id="dayInput">
+                                <input class="inputTime" required type="date" name="day" id="dayInput" min="<?php echo date('Y-m-d'); ?>">
                             @endif
                             <select required name="hour" id="hour" style="width: 160px; margin-bottom: 15px;">
                                 <option value="Matin">Matin</option>
