@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap');
+
+
+html{
+    background-image: url("/images/background-homepage.jpg");
+}
+
+.center-box{
+    padding: 30px;
+    background-color: rgba(255, 255, 255, 0.22);
+    width: 60vw;
+    height: auto;
+    border-radius: 30px;
+    margin: auto;
+    margin-top: 7em ;
+    display: block;
+    text-align: center;
+    backdrop-filter: blur(5px);
+}
+
+h1{
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 55px;
+    color: white;
+    font-weight: bold;
+}
+
+p{
+    font-family: 'Montserrat', sans-serif;
+    margin-top: 30px;
+    font-size: 30px;
+    color: white;
+}
+
+.button {
+    margin-top: 50px;
+    background-color: #f7c36f;
+    border-radius: 10px;
+    width: 300px;
+    height: 40px;
+}
+
+@media only screen and (max-width: 768px) {
+    /* For mobile phones: */
+
+    .center-box{
+        padding: 30px;
+        background-color: rgba(255, 255, 255, 0.22);
+        width: 75vw;
+        height: auto;
+        border-radius: 30px;
+        margin: auto;
+        margin-top: 7em ;
+        display: block;
+        text-align: center;
+        backdrop-filter: blur(5px);
+    }
+
+    h1{
+        font-size: 50px;
+    }
+
+  }

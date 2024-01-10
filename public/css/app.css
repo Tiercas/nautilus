@@ -1,0 +1,81 @@
+:root
+{
+  --black : #151414aa;
+  --white: #ffffff;
+  --whiteGrayer : #ebebeb;
+  --grey : #D9D9D9;
+  --blue : #002550;
+  --blueLighter : #4d64b8;
+  --yellow : #ffbe55;
+  --yellowDarker : #daa654;
+
+  --good : #00ff04;
+  --bad : #f94f4f;
+  --badDarker : #cd4b4b;
+
+  --BigTitle : 32px;
+  --title : 25px;
+  --font : 20px;
+}
+
+body{
+    font-family: 'Montserrat', sans-serif;
+}
+
+h1{
+    font-family: 'Space Grotesk', sans-serif; 
+    font-weight: bold;
+}
+
+.clickable{
+    background-color: var(--yellow);
+    color: var(--black);
+    transition: all 0.4s ease-out;
+}
+
+.clickable:hover{
+    cursor: pointer;
+    background-color: var(--yellowDarker);
+    color: var(--white)
+}
+
+.clickableRed{
+    background-color: var(--bad);
+    color: var(--black);
+    transition: all 0.4s ease-out;
+}
+
+.clickableRed:hover{
+    cursor: pointer;
+    background-color: var(--badDarker);
+    color: var(--white)
+}
+
+.aligne{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.Line{
+    display: flex;
+    flex-direction: row;
+}
+
+.Column{
+    display: flex;
+    flex-direction: column;
+}
+
+.divideFlex{
+    flex-grow: 1;
+    display: flex;
+}
+
+.divideFlexSmall{
+    flex-grow: 0.5;
+}
+
+.divideFlexBig{
+    flex-grow: 1.5;
+}

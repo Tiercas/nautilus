@@ -21,13 +21,15 @@
                     <td class="px-6 py-4">{{ $dive->DL_NAME }}</td>
                     <td class="px-8 py-4">
                         <a href='/dives/{{$dive->DS_CODE}}'>
-                            <x-button color="bg-green-700" colorHover="hover:bg-green-800">
-                                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
-                                     xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 12">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                          stroke-width="2" d="M1 5.917 5.724 10.5 15 1.5"/>
-                                </svg>
-                            </x-button>
+                            @if($userPre->PRE_MAX_DEPTH>$dive->DS_MAX_DEPTH)
+                                <x-button color="bg-green-700" colorHover="hover:bg-green-800">
+                                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 12">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="2" d="M1 5.917 5.724 10.5 15 1.5"/>
+                                    </svg>
+                                </x-button>
+                            @endif
                         </a>
                         <x-button diveId="dropdownButton-{{$dive->DS_CODE}}">
                             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
