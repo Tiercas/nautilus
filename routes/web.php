@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DivesList;
+use App\Http\Controllers\ManualPalanqueeController;
 use App\Models\DivingSession;
 use App\Http\Controllers\DivingSignUpController;
 use App\Http\Controllers\DiveSessionCreation;
@@ -82,6 +83,4 @@ Route::post('/create/dive', function(Request $request)
     return redirect('/');
 });
 
-Route::get('/test2', function(){
-    return view('drag_and_drop');
-});
+Route::get('/palanque/manuel', [ManualPalanqueeController::class, 'show'])->name('palanquee');
