@@ -36,7 +36,11 @@ let zoneList = [];
 let counterCheck = 0;
 
 getDiver("DS1").then(data => fillZoneWithAlreadyExistingPalanque(data));
-setZoneSize(DropZone.childNodes);
+
+window.onload = () => {
+  setZoneSize(DropZone.childNodes);
+
+}
 
 function allowDrop(event) {
   event.preventDefault();
@@ -69,12 +73,13 @@ function drop(event) {
 
 function setZoneSize(zone){
   zone.forEach(element => {
-    for(let i = 0; i < children.length; i++){
-      if(children[i].id.split(',')[1] === 'PB')
-        zoneList[element.id.split('zone')[1]].updateCounterPos(2);
+    element.childNodes.forEach(elements => {
+      if(elements.id.split(',')[1] === 'PB')
+        zoneList[element.id.split('zone')[1] ].updateCounterPos(2);
       else
-        zoneList[element.id.split('zone')[1]].updateCounterPos(1);
-    }
+        zoneList[element.id.split('zone')[1] ].updateCounterPos(1);
+      console.log(zoneList[element.id.split('zone')[1] ].getCounter());
+    });
   });
 }
 
@@ -96,7 +101,6 @@ function isElementInList(element, list){
 }
 
 addPalanque.addEventListener("click", function(){
-  console.log(countZone);
   let palanque = document.createElement("div");
   palanque.setAttribute("class", "border-2 p-4 zone");
   palanque.setAttribute("id", "zone" + countZone);
@@ -128,7 +132,6 @@ async function getDiver(ds_code){
 }
 
 function proccessDiverData(data){
-  console.log(data);
   for(let i = 0; i < data.length; i++){
     countDiver++;
     let diver = document.createElement("div");
