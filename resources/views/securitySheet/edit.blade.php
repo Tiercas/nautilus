@@ -1,6 +1,7 @@
 <script defer src="{{asset('js/securitySheets/edit.js')}}"></script>
 
 <meta id="divingSessionId" content="{{$dive->DS_CODE}}">
+<meta id="csrf-token" content="{{csrf_token()}}">
 
 <x-layout>
     <x-security-sheets.table>

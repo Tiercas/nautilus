@@ -90,6 +90,17 @@ Route::get('/dives/{ds_code}/security-sheet/test', function($ds_code){
 Route::get('/dives/{ds_code}/security-sheet/generate', [SecuritySheetController::class, 'generate']);
 
 /**
+ * Leads to a page that allows to edit a security sheet and generate it again.
+ */
+Route::get('/dives/{ds_code}/security-sheet/edit', [SecuritySheetController::class, 'edit']);
+
+/**
+ * Updates the security sheet and generates it again.
+ * @param $ds_code the code of the diving session
+ */
+Route::post('/dives/{ds_code}/security-sheet/update', [SecuritySheetController::class, 'update']);
+
+/**
  * Tries to register the user to a diving session.
  * Redirects to /dives afterhand.
  * Only accessible to a registered diver.
@@ -217,5 +228,3 @@ Route::middleware('App\Http\Middleware\rightChecker')
 Route::middleware('App\Http\Middleware\rightChecker')
     ->get('manage/dives', [DivesList::class, 'showManagementList'])
 ->name('manage_dives_dir');
-
-Route::get('/view/{ds_code}', [SecuritySheetController::class, 'edit']);

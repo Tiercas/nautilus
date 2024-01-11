@@ -10,6 +10,8 @@ class DivingGroup extends Model
 {
     protected $table = 'CAR_DIVING_GROUP';
 
+    public $timestamps = false;
+
     use HasFactory;
 
     public function getDivers(){
