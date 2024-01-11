@@ -100,6 +100,7 @@ removePalanque.addEventListener("click", function(){
       zoneStart.appendChild(children[i]);
     }
   }
+  zoneList.splice(zoneList.length - 1, 1);
   DropZone.removeChild(palanque);
 });
 
