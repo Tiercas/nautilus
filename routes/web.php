@@ -25,8 +25,6 @@ use App\Http\Controllers\ModificationDives;
 use App\Http\Controllers\DiveCreation;
 use App\Http\Controllers\SecuritySheets\PreviewStrategy;
 use App\Http\Controllers\SecuritySheets\SecuritySheetController;
-use App\Http\Controllers\AdherentController;
-use App\Http\Controllers\ModificationDives;
 
 /*
 |--------------------------------------------------------------------------
