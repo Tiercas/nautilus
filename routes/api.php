@@ -20,3 +20,5 @@ Route::get('/dives/{id}/divers', [DivesAPI::class, 'getDivers']);
 Route::middleware('App\Http\Middleware\RightChecker')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::post('/palanques', [App\Http\Controllers\ManualPalanqueeController::class, 'store']);
