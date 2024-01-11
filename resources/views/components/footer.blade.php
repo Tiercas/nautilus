@@ -1,6 +1,6 @@
 <footer class="w-full flex flex-row sm:grid sm:grid-cols-3 bg-[#002550] h-36 items-center">
   <div class='w-full bg-blue-700  h-full flex flex-row items-center px-4'>
-    <img src='../../img/logo.png' class="h-[90%] w-full" alt=''>
+    <img src='{{ asset("/images/logo-cn.png") }}' class="w-full" alt=''>
   </div>
   <div class='text-white bg-blue-700 h-full w-1/2 justify-end'
       style="clip-path: ellipse(75% 75% at 0 33%);">
@@ -14,3 +14,4 @@
   </div>
 </footer>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
+<script src="https://kit.fontawesome.com/8708952b61.js" crossorigin="anonymous"></script>

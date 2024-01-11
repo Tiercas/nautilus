@@ -25,19 +25,24 @@ class DivingSession extends Model
 
         foreach($registrations as $registration){
             if($registration->REG_ACTIVE === 1){
-                $participants[] = User::find($registration->US_ID);
+                $participants[] = User::find($registration->US_ID)->join('CAR_REGISTRATION', 'CAR_REGISTRATION.US_ID', '=', 'CAR_USER.US_ID')->where('CAR_REGISTRATION.DS_CODE', $this->DS_CODE)->first();
             }
         }
 
         return $participants;
     }
 
+    public function getDivingGroups(){
+        return DivingGroup::where('DS_CODE', $this->DS_CODE)->get();
+    }
+
     public function disable()
     {
         $this->DS_ACTIVE = 0;
         $this->save();
-    }
+=========
     public function getDivingGroups(){
         return DivingGroup::where('DS_CODE', $this->DS_CODE)->get();
+>>>>>>>>> Temporary merge branch 2
     }
 }
