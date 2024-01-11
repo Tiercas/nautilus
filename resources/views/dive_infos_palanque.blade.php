@@ -18,7 +18,6 @@
                     <ul class="ps-5 mt-2 space-y-1 list-disc list-inside">
                         <li>Directeur de plongée : {{ $director->US_FIRST_NAME . " " . strtoupper($director->US_NAME) }}</li>
                         <li>Sécurité de surface : {{ $security->US_FIRST_NAME . " " . strtoupper($security->US_NAME) }}</li>
-                        <li>Créateur de la plongée : {{ $creator->US_FIRST_NAME . " " . strtoupper($creator->US_NAME) }}</li>
                     </ul>
                 </li>
                 <li>Nombre de plongeurs : {{ $dive->DS_DIVERS_COUNT }}</li>
