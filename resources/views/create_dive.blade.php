@@ -6,38 +6,42 @@
     <div style="display : flex; flex-direction: row">
         <div
             style="width: 50%; margin-right: 50px;display:flex; align-items: center; flex-direction: column;overflow: auto;">
-            @if (!isset($previousDives))
-                <img src="{{ asset('/images/Diver1.png') }}" alt="Diver illustration">
-            @else
-                <p style="font-size: 35px">Historique de plongées crées</p>
-                <hr style="height: 3px;background-color: black;margin-left: 10%;margin-bottom: 15px;margin-top: 5px; width : 80%">
-                <table class="arrayhistory">
-                    <tr class="history">
-                        <th>Date et heure</th>
-                        <th class="thresize">Max personnes</th>
-                        <th style="width: 25%;">Site</th>
-                        <th>Niveau requis</th>
-                        <th>Actions</th>
-                    </tr>
-                    @foreach ($previousDives as $dive)
-                        <tr class="historyLine">
-                            <td>{{ $dive->DS_DATE }}</td>
-                            <td>{{ $dive->DS_MAX_DIVERS }}</td>
-                            @foreach ($locations as $location)
-                                @if ($location->DL_ID == $dive->DL_ID)
-                                    <td>{{ $location->DL_NAME }}</td>
-                                @endif
-                            @endforeach
-                            <td>{{ $dive->PRE_CODE }}</td>
-                            <td><form action="/dive/delete/{{ $dive->DS_CODE }}" method="POST">@csrf<button type="submit" class="clickable clickableRed"><i class="fa-solid fa-xmark"></i></button></form></td>
+                <img src="{{ asset('/images/Diver1.png') }}" alt="Diver illustration" id="imageDiver">
+                <div id="Historique">
+                    <p style="font-size: 35px">Historique de plongées crées</p>
+                    <hr
+                        style="height: 3px;background-color: black;margin-left: 10%;margin-bottom: 15px;margin-top: 5px; width : 80%">
+                    <table class="arrayhistory">
+                        <tr class="history">
+                            <th>Date</th>
+                            <th class="thresize">Max personnes</th>
+                            <th style="width: 25%;">Site</th>
+                            <th>Niveau</th>
+                            <th>Actions</th>
                         </tr>
-                    @endforeach
-                </table>
-            @endif
+                        @foreach ($previousDives as $dive)
+                            <tr class="historyLine">
+                                <td>{{ $dive->DS_DATE }}</td>
+                                <td>{{ $dive->DS_MAX_DIVERS }}</td>
+                                @foreach ($locations as $location)
+                                    @if ($location->DL_ID == $dive->DL_ID)
+                                        <td>{{ $location->DL_NAME }}</td>
+                                    @endif
+                                @endforeach
+                                <td>{{ $dive->PRE_CODE }}</td>
+                                <td>
+                                    <form action="/dive/delete/{{ $dive->DS_CODE }}" method="POST">@csrf<button
+                                            type="submit" class="clickable clickableRed"><i
+                                                class="fa-solid fa-xmark"></i></button></form>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </table>
+                </div>
         </div>
         <form action="/create/dive" method="POST" style="width: 70%;">
             @csrf
-            @if(isset($error))
+            @if (isset($error))
                 <p>{{ $error }}</p>
             @endif
             <h1 class="text-4xl"
@@ -57,7 +61,8 @@
                                 <input class="inputTime" required type="date" name="day" id="dayInput"
                                     value="{{ $precedent->DS_DATE }}">
                             @else
-                                <input class="inputTime" required type="date" name="day" id="dayInput" min="<?php echo date('Y-m-d'); ?>">
+                                <input class="inputTime" required type="date" name="day" id="dayInput"
+                                    min="<?php echo date('Y-m-d'); ?>">
                             @endif
                             <select required name="hour" id="hour" style="width: 160px; margin-bottom: 15px;">
                                 <option value="Matin">Matin</option>
@@ -99,20 +104,16 @@
                     <hr style="height: 3px;background-color: black;margin-bottom: 15px;margin-top: 5px; width : 60%">
                     <div class="aligne">
                         <div class="divideFlexSmall Column">
-                            <label for="minInput">Minimum :</label>
                             <label for="maxInput">Maximum :</label>
                         </div>
                         <div class="divideFlexBig Column">
-                            <input required type="number" name="min" id="minInput" min="0" placeholder="0"
-                                style="width: 20%;-moz-appearance: textfield;text-align: center;">
                             @if (isset($precedent))
-                                <input required type="number" name="max" id="maxInput" min="0" placeholder="0"
-                                    style="width: 20%;-moz-appearance: textfield;text-align: center;"
+                                <input required type="number" name="max" id="maxInput" min="0"
+                                    placeholder="0" style="width: 20%;-moz-appearance: textfield;text-align: center;"
                                     value="{{ $precedent->DS_MAX_DIVERS }}">
                             @else
                                 <input required type="number" name="max" id="maxInput" min="0"
-                                    placeholder="0"
-                                    style="width: 20%;-moz-appearance: textfield;text-align: center;">
+                                    placeholder="0" style="width: 20%;-moz-appearance: textfield;text-align: center;">
                             @endif
                         </div>
                     </div>

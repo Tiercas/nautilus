@@ -17,8 +17,6 @@ class DiveSessionUpdate extends Controller
         $dv->BO_ID = $request->boat;
         $dv->US_ID_CAR_SECURE = $request->security;
         $dv->US_ID_CAR_DIRECT = $request->manager;
-        $dv->DS_DATE = $request->day;
-        $dv->CAR_SCHEDULE = $request->hour;
         $dv->DS_MAX_DEPTH = $request->maxDepth;
         $dv->DS_ACTIVE = 1;
         $dv->DS_MAX_DIVERS = $request->max;
