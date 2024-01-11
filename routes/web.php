@@ -13,24 +13,18 @@ use App\Http\Controllers\DiversBySession;
 use App\Http\Controllers\DiveSessionUpdate;
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\DivingNumberController;
+use App\Http\Controllers\AdherentController;
 use App\Http\Controllers\DivingSignUpController;
 use App\Http\Controllers\DiveSessionCreation;
 use App\Http\Controllers\ManageAdherentController;
 use App\Http\Controllers\DiveSessionDelete;
 use App\Http\Controllers\DiveDeletion;
 use App\Http\Controllers\DivesListManage;
+use App\Http\Controllers\ModificationDives;
 use App\Http\Controllers\DiveCreation;
 use App\Http\Controllers\SecuritySheets\PreviewStrategy;
 use App\Http\Controllers\SecuritySheets\SecuritySheetController;
 
-use App\Http\Controllers\AdherentController;
-use App\Http\Controllers\DivingSignUpController;
-use App\Http\Controllers\DiveSessionCreation;
-use App\Http\Controllers\DiveSessionUpdate;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\ModificationDives;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Http\Request;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -185,7 +179,6 @@ Route::get('/sessions', [DiversBySession::class,'getAllSessions']);
 
 Route::get('/session/{ds_code}', [DiversBySession::class,'getDiversBySession']);
 
-<<<<<<< HEAD
 /**
  * List all the diving sessions of the user, as well as its remaining sessions for the current year.
  */
@@ -226,7 +219,48 @@ Route::middleware('App\Http\Middleware\rightChecker')
 Route::middleware('App\Http\Middleware\rightChecker')
     ->get('manage/dives', [DivesList::class, 'showManagementList'])
 ->name('manage_dives_dir');
-=======
+
+/**
+ * List all the diving sessions of the user, as well as its remaining sessions for the current year.
+ */
+Route::get('/divings', [DivingNumberController::class, 'index'])->name('divings');
+
+/**
+ * Leads to a page that shows each divers and their number and allows to select a period.
+ */
+Route::get('/alldivings', [DivingNumberController::class, 'allIndex'])->name('alldivings');
+
+/**
+ * Leads to a page that show each divers and their number of diving sessions for the selected period (not set by default).
+ * @param $afterthe the first day of the filtering period (if unset, the page will show divings until the "before" date)
+ * @param $beforethe the last day of the filtering period (if unset, the page will show divings starting from the "after" date)
+ */
+Route::get('/alldivings?{afterthe}&{beforethe}', [DivingNumberController::class, 'filteredSearch({afterthe}, {beforethe})']);
+
+/**
+ * Leads to a page that allows to manage every member and change their roles.
+ * Only accessible to the diving section manager.
+ */
+Route::middleware('App\Http\Middleware\rightChecker')
+    ->get('manage/members', [ManageAdherentController::class, 'index'])
+    ->name('manage_members');
+
+/**
+ * Updates every user's roles.
+ * Only accessible to the diving section manager.
+ */
+Route::middleware('App\Http\Middleware\rightChecker')
+    ->post('manage/members/roles', [ManageAdherentController::class, 'update'])
+    ->name('updateMembersRole');
+
+Route::middleware('App\Http\Middleware\rightChecker')
+    ->get('dive/{id}', [DivesList::class, 'show'])
+    ->name('dives_show');
+
+Route::middleware('App\Http\Middleware\rightChecker')
+    ->get('manage/dives', [DivesList::class, 'showManagementList'])
+->name('manage_dives_dir');
+
 Route::get('/modificationdives', [ModificationDives::class, 'index']);
 
 Route::get('modificationdives/members/{ds_code}', function($ds_code){
@@ -250,4 +284,3 @@ Route::post('/modificationdives/members/{ds_code}/ajoutadherent/{us_id}', functi
 });
 
 Route::get('/modificationdives/members/{ds_code}/ajoutadherent/{level}', [AdherentController::class, 'searchByName']);
->>>>>>> creation-adherent-sur-creneau-de-plongee
