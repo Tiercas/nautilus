@@ -8,6 +8,7 @@ use App\Models\Prerogative;
 use Illuminate\Http\Request;
 use App\Models\DivingSession;
 use App\Models\DivingLocation;
+use App\Http\Controllers\fileSecurityController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DiversBySession;
@@ -276,3 +277,6 @@ Route::get('/modificationdives/members/{ds_code}/ajoutadherent/{pre_code}', [Adh
 
 Route::get('/palanque/manuelle', [ManualPalanqueeController::class, 'show'])->name('palanque_manuelle');
 
+
+
+Route::get('/sessions/filesecurity', [fileSecurityController::class,'index'])->name('sessionsecurity');
