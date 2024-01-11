@@ -7,6 +7,7 @@
                 <tr>
                     <th scope="col" class="px-6 py-4">Prénom</th>
                     <th scope="col" class="px-6 py-4">Nom</th>
+                    <th scope="col" class="px-6 py-4">Rôle</th>
                     <th scope="col" class="px-6 py-4">N° Licence</th>
                 </tr>
             </thead>
@@ -16,6 +17,7 @@
                         <td class="px-6 py-4">{{ $adherent->US_NAME }}</td>
                         <td class="px-6 py-4">{{ $adherent->US_FIRST_NAME }}</td>
                         <td class="px-6 py-4">{{ $adherent->US_LICENCE_ID }}</td>
+                        <td class="px-6 py-4">{{ $adherent->ROL_LABEL }}</td>
 
                     </tr>
                 @endforeach
