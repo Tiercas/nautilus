@@ -22,15 +22,9 @@ use App\Http\Controllers\DivesListManage;
 use App\Http\Controllers\DiveCreation;
 use App\Http\Controllers\SecuritySheets\PreviewStrategy;
 use App\Http\Controllers\SecuritySheets\SecuritySheetController;
-
 use App\Http\Controllers\AdherentController;
-use App\Http\Controllers\DivingSignUpController;
-use App\Http\Controllers\DiveSessionCreation;
-use App\Http\Controllers\DiveSessionUpdate;
-use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ModificationDives;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Http\Request;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -185,7 +179,6 @@ Route::get('/sessions', [DiversBySession::class,'getAllSessions']);
 
 Route::get('/session/{ds_code}', [DiversBySession::class,'getDiversBySession']);
 
-<<<<<<< HEAD
 /**
  * List all the diving sessions of the user, as well as its remaining sessions for the current year.
  */
@@ -226,7 +219,6 @@ Route::middleware('App\Http\Middleware\rightChecker')
 Route::middleware('App\Http\Middleware\rightChecker')
     ->get('manage/dives', [DivesList::class, 'showManagementList'])
 ->name('manage_dives_dir');
-=======
 Route::get('/modificationdives', [ModificationDives::class, 'index']);
 
 Route::get('modificationdives/members/{ds_code}', function($ds_code){
@@ -250,4 +242,3 @@ Route::post('/modificationdives/members/{ds_code}/ajoutadherent/{us_id}', functi
 });
 
 Route::get('/modificationdives/members/{ds_code}/ajoutadherent/{pre_code}', [AdherentController::class, 'searchByName']);
->>>>>>> creation-adherent-sur-creneau-de-plongee

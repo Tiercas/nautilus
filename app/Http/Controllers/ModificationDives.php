@@ -7,6 +7,7 @@ use Illuminate\View\View;
 use App\Models\DivingSession;
 use App\Models\Registration;
 use App\Models\User;
+use League\CommonMark\Extension\Footnote\Event\NumberFootnotesListener;
 
 class ModificationDives extends Controller
 {
@@ -44,6 +45,8 @@ class ModificationDives extends Controller
         from car_diving_session
         join car_diving_location using(DL_ID)
         where car_diving_session.DS_ACTIVE = 1;*/
+
+        
 
 
         return view('modification_dives', ['dives' => $request]);
@@ -131,12 +134,25 @@ class ModificationDives extends Controller
         ->get();
 
 
+
+        $numberOfSubscribedPeople = DivingSession::selectRaw('DS_MAX_DIVERS, DS_DIVERS_COUNT')
+        ->where('DS_CODE', '=', $ds_code)
+        ->get();
+
+        $full = false;
+
+        if(!($numberOfSubscribedPeople[0]['DS_MAX_DIVERS'] == null)){
+            $full = $numberOfSubscribedPeople[0]['DS_MAX_DIVERS'] <= $numberOfSubscribedPeople[0]['DS_DIVERS_COUNT'];
+        }
+
+
         return view('modification_members_of_session', [
             'persons' => $adherents,
             'sessionplongee' => $sessionplongee[0],
             'directeurpresent' => ModificationDives::sessionContainsDirector($ds_code),
             'pilotepresent' => ModificationDives::sessionContainsPilot($ds_code),
-            'securitepresent' => ModificationDives::sessionContainsSecurity($ds_code)
+            'securitepresent' => ModificationDives::sessionContainsSecurity($ds_code),
+            'full' => $full
         ]);    
     }
 }
