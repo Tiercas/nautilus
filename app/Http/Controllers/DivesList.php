@@ -22,7 +22,7 @@ class DivesList extends Controller
             ->get();
         $user = session()->get('user');
         $locations = DivingLocation::all();
-        $levels = Prerogative::all();
+        $levels = Prerogative::select('PRE_MAX_DEPTH')->groupby('PRE_MAX_DEPTH')->get();
         return view('dives', ['dives' => $dives, 'userPre' => Prerogative::find($user->PRE_CODE), 'locations' => $locations, 'levels' => $levels]);
     }
 
@@ -68,7 +68,7 @@ class DivesList extends Controller
             $dives = $dives->where('CAR_SCHEDULE', $creneau);
         }
         if ($level != null && $level != 'default') {
-            $dives = $dives->where('DS_MAX_DEPTH', '<=', $level);
+            $dives = $dives->where('DS_MAX_DEPTH', '<=', intval($level));
         }
         if ($date != null && $date != 'default') {
             $dives = $dives->where('DS_DATE', '>=', $date);
@@ -76,7 +76,7 @@ class DivesList extends Controller
         $dives = $dives->orderBy('DS_DATE', 'asc')->get();
         $user = session()->get('user');
         $locations = DivingLocation::all();
-        $levels = Prerogative::all();
+        $levels = Prerogative::select('PRE_MAX_DEPTH')->groupby('PRE_MAX_DEPTH')->get();
         return view('dives', ['dives' => $dives, 'userPre' => Prerogative::find($user->PRE_CODE), 'locations' => $locations, 'levels' => $levels]);
     }
 }

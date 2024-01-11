@@ -83,7 +83,7 @@
                         <tr class="odd:bg-white even:bg-gray-50 border-b">
                             <td class="px-6 py-4">{{ strftime('%d/%m/%Y', strtotime($dive->DS_DATE)) }}</td>
                             <td class="px-6 py-4">{{ $dive->CAR_SCHEDULE }}</td>
-                            <td class="px-6 py-4">{{ $dive->DL_DEPTH }}m</td>
+                            <td class="px-6 py-4">@if ($dive->DS_MAX_DEPTH != null) {{$dive->DS_MAX_DEPTH}}m @else Profondeur inconnue @endif</td>
                             <td class="px-6 py-4">{{ $dive->DL_NAME }}</td>
                             <td class="px-8 py-4">
                                 <a href='/dives/{{$dive->DS_CODE}}'>
