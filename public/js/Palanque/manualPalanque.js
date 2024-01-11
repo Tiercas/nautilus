@@ -160,8 +160,10 @@ function validateAllCombination(){
   zoneList.forEach(element => {
     element = document.getElementById("zone" + element.getZoneNumber());
     if(element.hasChildNodes()){
-      if(element.childElementCount < 2)
+      if(element.childElementCount < 2){
+        element.style.backgroundColor = 'red';
         return false;
+      }
       let children = element.childNodes;
       for(let i = 0; i < children.length; i++){
         for(let j = 0; j < children.length; j++){
@@ -197,24 +199,32 @@ function validateAllCombination(){
         }
         
       }
+    }else {
+      element.style.backgroundColor = 'white';
+      return false;
     }
   });
-  if(counterCheck == countZone){
+  if(DropZone.childElementCount === counterCheck){
     disableVal = false;
     return true;
+  }else {
+    disableVal = true;
+    return false;
   }
 }
 
 
-let interval = setInterval(() => {
-  validateAllCombination();
-}, 2000);
 
+let interval = setInterval(function(){
+  validateAllCombination();
+}, 250);
 
 validatePalanque.addEventListener("click", function(){
-  if(!disableVal)
+  if(!disableVal){
     sendPalanque();
     clearInterval(interval);
+  }
+    
 });
 
 function returnValueToPhp(ds_code) {
