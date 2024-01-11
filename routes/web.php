@@ -123,3 +123,5 @@ Route::get('/modificationdives/members/{ds_code}/ajoutadherent/{level}', functio
 Route::post('/modificationdives/members/{ds_code}/ajoutadherent/{us_id}', function($ds_code, $us_id){
     return AdherentController::addUserToDive($ds_code, $us_id);
 });
+
+Route::get('/modificationdives/members/{ds_code}/ajoutadherent/{level}', [AdherentController::class, 'searchByName']);

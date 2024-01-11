@@ -49,4 +49,24 @@ class AdherentController extends Controller
 
     }
 
+
+
+    function searchByName(Request $request){
+
+        $search = $request['searchbar'];
+        $terms = explode(' ', $search);
+
+        $results = array();
+
+        foreach($terms as $term){
+            
+            $query = User::selectRaw('*')
+            ->where('US_NAME', '=', $term)
+            ->orwhere('US_FIRST_NAME', $term)
+            ->get();
+
+        }
+
+    }
+
 }
