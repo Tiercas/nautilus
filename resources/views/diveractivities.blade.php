@@ -26,6 +26,7 @@
                     <tr>
                         <th scope="col" class="px-6 py-3">Lieu</th>
                         <th scope="col" class="px-6 py-3">Date</th>
+                        <th scope="col" class="px-6 py-3">Heure</th>
                         <th scope="col" class="px-6 py-3">Rôle</th>
                     </tr>
                 </thead>
@@ -34,6 +35,13 @@
                         <tr class="odd:bg-white even:bg-gray-50 border-b">
                             <td class="px-6 py-4">{{ $dateA->DL_NAME }}</td>
                             <td class="px-6 py-4">{{ $dateA->DS_DATE }}</td>
+                            @if($dateA->CAR_SCHEDULE == 'Matin')
+                                <td class="px-6 py-4">9:00 - 12:00</td>
+                            @elseif($dateA->CAR_SCHEDULE == 'Apres-midi')
+                                <td class="px-6 py-4">13:00 - 17:00</td>
+                            @elseif($dateA->CAR_SCHEDULE == 'Soir')
+                                <td class="px-6 py-4">18:00 - 21:00</td>
+                            @endif
                             <td class="px-6 py-4">{{ $dateA->ROL_LABEL }}</td>
                         </tr>
                     @endforeach
@@ -48,6 +56,7 @@
                     <tr>
                         <th scope="col" class="px-6 py-3">Lieu</th>
                         <th scope="col" class="px-6 py-3">Date</th>
+                        <th scope="col" class="px-6 py-3">Heure</th>
                         <th scope="col" class="px-6 py-3">Rôle</th>
                     </tr>
                 </thead>
@@ -56,6 +65,13 @@
                         <tr class="odd:bg-white even:bg-gray-50 border-b">
                             <td class="px-6 py-4">{{ $dateB->DL_NAME }}</td>
                             <td class="px-6 py-4">{{ $dateB->DS_DATE }}</td>
+                            @if($dateB->CAR_SCHEDULE == 'Matin')
+                                <td class="px-6 py-4">9:00 - 12:00</td>
+                            @elseif($dateB->CAR_SCHEDULE == 'Apres-midi')
+                                <td class="px-6 py-4">13:00 - 17:00</td>
+                            @elseif($dateB->CAR_SCHEDULE == 'Soir')
+                                <td class="px-6 py-4">18:00 - 21:00</td>
+                            @endif
                             <td class="px-6 py-4">{{ $dateB->ROL_LABEL }}</td>
                         </tr>
                     @endforeach
