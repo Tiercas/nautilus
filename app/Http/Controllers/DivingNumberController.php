@@ -37,16 +37,11 @@ class DivingNumberController extends Controller
         ->get();
 
 
-        $usersCount = DivingNumberModel::join('CAR_REGISTRATION', 'CAR_USER.us_id', '=', 'CAR_REGISTRATION.us_id')
-            ->join('CAR_DIVING_GROUP', function ($dg) {
-                $dg->on('CAR_REGISTRATION.ds_code', '=', 'CAR_DIVING_GROUP.ds_code')
-                    ->on('CAR_REGISTRATION.dg_number', '=', 'CAR_DIVING_GROUP.dg_number');
-            })
-            ->join('CAR_DIVING_SESSION','CAR_REGISTRATION.ds_code','=','CAR_DIVING_SESSION.ds_code')
-            ->where('CAR_DIVING_SESSION.ds_date','>=',date("Y").'-00-00')
-            ->where('CAR_USER.US_ID', $userId)
-            ->orderBy('ds_date','desc')
-            ->count();
+        $usersCount = DivingNumberModel::join('car_registration', 'car_user.us_id', '=', 'car_registration.us_id')
+        ->join('car_diving_session', 'car_registration.ds_code', '=', 'car_diving_session.ds_code')
+        ->where('car_user.us_id', $userId)
+        ->whereYear('car_diving_session.ds_date', '=', now()->year)
+        ->count();         
         $usersCount = 99 - $usersCount ;
 
         return view('diveractivities', compact('usersCount'), ['datesB' => $dateDivesBefore,
