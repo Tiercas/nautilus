@@ -1,5 +1,5 @@
 <x-layout>
-    <x-page-title>Historique des plongées de @session('user')-></x-page-title>
+    <x-page-title>Historique des plongées de {{ session('user')->US_FIRST_NAME . " " . session('user')->US_NAME }}</x-page-title>
     <x-page-subtitle> Plongées restantes </x-page-subtitle>
     <div class="shadow-md max-w-full w-1/3 rounded-lg overflow-hidden border-2 mx-auto">
         <table class="text-sm text-left text-gray-500 w-full">
