@@ -13,11 +13,6 @@ class DiveSessionUpdate extends Controller
     {
         $dv = DivingSession::where('DS_CODE', $id)->first();
 
-        if(intval($dv->DS_MAX_DIVERS) > Boat::find($request->boat)->BO_NUMBER_OF_SEATS)
-        {
-            return "Le nombre de plongeurs est supérieur au nombre de places du bateau";
-        }
-
         $dv->US_ID = $request->pilot;
         $dv->DL_ID = $request->location;
         $dv->BO_ID = $request->boat;
@@ -27,6 +22,12 @@ class DiveSessionUpdate extends Controller
         $dv->DS_ACTIVE = 1;
         $dv->DS_MAX_DIVERS = $request->max;
         $dv->PRE_CODE = $request->level;
+
+        if(intval($dv->DS_MAX_DIVERS) > Boat::find($request->boat)->BO_NUMBER_OF_SEATS)
+        {
+            return "Le nombre de plongeurs est supérieur au nombre de places du bateau";
+        }
+
         $dv->save();
     }
 }
