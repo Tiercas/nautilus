@@ -6,7 +6,7 @@
     <div style="display : flex; flex-direction: row">
         <div
             style="width: 50%; margin-right: 50px;display:flex; align-items: center; flex-direction: column;overflow: auto;">
-            @if(isset($previousDives))
+            @if (isset($previousDives))
                 <div id="Historique">
                     <p style="font-size: 35px">Historique de plongées crées</p>
                     <hr
@@ -39,15 +39,11 @@
                     </table>
                 </div>
             @else
-            <img src="{{ asset('/images/Diver1.png') }}" alt="Diver illustration" id="imageDiver">
+                <img src="{{ asset('/images/Diver1.png') }}" alt="Diver illustration" id="imageDiver">
             @endif
         </div>
         <form action="/create/dive" method="POST" style="width: 70%;">
             @csrf
-            @if (isset($error))
-                <p>{{ $error }}</p>
-            @endif
-            
             <x-page-title hrSize="70%">Création d'une plongée</x-page-title>
             <div class="Line">
                 <div class="divideFlex Column">
@@ -64,7 +60,7 @@
                                     value="{{ $precedent->DS_DATE }}">
                             @else
                                 <input class="inputTime" required type="date" name="day" id="dayInput"
-                                    min="<?php echo date('Y-m-d'); ?>">
+                                    min="<?php echo date('Y-m-d'); ?>" max="" />
                             @endif
                             <select required name="hour" id="hour" style="width: 160px; margin-bottom: 15px;">
                                 <option value="Matin">Matin</option>
@@ -106,9 +102,12 @@
                     <hr style="height: 3px;background-color: black;margin-bottom: 15px;margin-top: 5px; width : 60%">
                     <div class="aligne">
                         <div class="divideFlexSmall Column">
+                            <label for="minInput">Minimum :</label>
                             <label for="maxInput">Maximum :</label>
                         </div>
                         <div class="divideFlexBig Column">
+                            <input required type="number" name="min" id="minInput" min="0" placeholder="0"
+                                style="width: 20%;-moz-appearance: textfield;text-align: center;">
                             @if (isset($precedent))
                                 <input required type="number" name="max" id="maxInput" min="0"
                                     placeholder="0" style="width: 20%;-moz-appearance: textfield;text-align: center;"
@@ -133,7 +132,8 @@
                                 @foreach ($boats as $boat)
                                     @if (isset($precedent))
                                         @if ($location->BO_ID == $precedent->BO_ID)
-                                            <option value="{{ $boat->BO_ID }}" selected>{{ $boat->BO_NAME }}</option>
+                                            <option value="{{ $boat->BO_ID }}" selected>{{ $boat->BO_NAME }}
+                                            </option>
                                         @else
                                             <option value="{{ $boat->BO_ID }}">{{ $boat->BO_NAME }}</option>
                                         @endif
@@ -212,6 +212,24 @@
                         type="submit" value="CREER">
                 </div>
             </div>
+            @if (isset($error))
+                <div id="toast-default"
+                    class="flex items-center p-6 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800"
+                    role="alert" style="background-color: var(--badDarker);color: white;">
+                    <div class="ms-3 text-sm font-normal"><i class="fa-solid fa-triangle-exclamation"
+                            style="margin-right: 10px"></i> Attention, {{ $error }} !</div>
+                    <button type="button" style="background-color: var(--badDarker);color: white;"
+                        class="ms-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700"
+                        data-dismiss-target="#toast-default" aria-label="Close">
+                        <span class="sr-only">Close</span>
+                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 14 14">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                        </svg>
+                    </button>
+                </div>
+            @endif
             @if (isset($precedent))
                 <div id="toast-default"
                     class="flex items-center w-full max-w-xs p-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800"
@@ -233,4 +251,5 @@
     </div>
 
     <script src="https://kit.fontawesome.com/8708952b61.js" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="/js/create_dive.js"></script>
 </x-layout>
