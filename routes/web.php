@@ -18,6 +18,7 @@ use App\Http\Controllers\DiveSessionCreation;
 use App\Http\Controllers\ManageAdherentController;
 use App\Http\Controllers\DiveSessionDelete;
 use App\Http\Controllers\DiveDeletion;
+use App\Http\Controllers\DivesListManage;
 use App\Http\Controllers\DiveCreation;
 use App\Http\Controllers\SecuritySheets\PreviewStrategy;
 use App\Http\Controllers\SecuritySheets\SecuritySheetController;
