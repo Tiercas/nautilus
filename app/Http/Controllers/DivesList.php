@@ -18,7 +18,7 @@ class DivesList extends Controller
             ->orderBy('DS_DATE', 'asc')
             ->get();
         $user = session()->get('user');
-        return view('dives', ['dives' => $dives, 'userPre' => Prerogative::find($user->PRE_CODE)]);
+        return view('dives', ['dives' => $dives, 'userPre' => Prerogative::find($user->PRE_CODE), 'user' => $user]);
     }
 
     function show($id) {
