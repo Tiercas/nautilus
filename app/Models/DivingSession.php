@@ -25,7 +25,7 @@ class DivingSession extends Model
 
         foreach($registrations as $registration){
             if($registration->REG_ACTIVE === 1){
-                $participants[] = User::find($registration->US_ID);
+                $participants[] = User::find($registration->US_ID)->join('CAR_REGISTRATION', 'CAR_REGISTRATION.US_ID', '=', 'CAR_USER.US_ID')->where('CAR_REGISTRATION.DS_CODE', $this->DS_CODE)->first();
             }
         }
 
@@ -62,7 +62,7 @@ class DivingSession extends Model
         if(strpos($user->PRE_CODE, 'GP')){
             return "Guide de palanquée";
         }
-        
+
         return "Plongeur";
     }
 }
