@@ -62,9 +62,12 @@
                     <hr style="height: 3px;background-color: black;margin-bottom: 15px;margin-top: 5px; width : 60%">
                     <div class="aligne">
                         <div class="divideFlexSmall Column">
+                            <label for="minInput">Minimum :</label>
                             <label for="maxInput">Maximum :</label>
                         </div>
                         <div class="divideFlexBig Column">
+                            <input required type="number" name="min" id="minInput" min="0" placeholder="0"
+                            style="width: 20%;-moz-appearance: textfield;text-align: center;">
                             @if (isset($precedent))
                                 <input required type="number" name="max" id="maxInput" min="0" placeholder="0"
                                     style="width: 20%;-moz-appearance: textfield;text-align: center;"
