@@ -1,3 +1,3 @@
-<td class="border-2 border-solid border-black" colspan="{{$colspan ?? ''}}">
+<td colspan="{{$colspan ?? ''}}" style="padding: 10px; border: 1px solid black;">
     {{$slot}}
 </td>
