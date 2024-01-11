@@ -7,6 +7,7 @@ use App\Models\Prerogative;
 use Illuminate\Http\Request;
 use App\Models\DivingSession;
 use App\Models\DivingLocation;
+use App\Http\Controllers\fileSecurityController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DiversBySession;
@@ -284,3 +285,5 @@ Route::post('/modificationdives/members/{ds_code}/ajoutadherent/{us_id}', functi
 });
 
 Route::get('/modificationdives/members/{ds_code}/ajoutadherent/{level}', [AdherentController::class, 'searchByName']);
+
+Route::get('/sessions/filesecurity', [fileSecurityController::class,'index'])->name('sessionsecurity');

@@ -21,10 +21,10 @@ class DivingSession extends Model
 
     use HasFactory;
 
-    public function sessionsWithFilledFile():array
+    static public function sessionsWithFilledFile():array
     {
-        $res =  DB::table('CAR_REGISTRATION')->where('DS_FILE_FILLED', 1)->get();
-        return $res;
+        $res =  DB::table('CAR_DIVING_SESSION')->where('DS_FILE_FILLED', 1)->get();
+        return $res->toArray();
     }
 
     public function getParticipants(): array{

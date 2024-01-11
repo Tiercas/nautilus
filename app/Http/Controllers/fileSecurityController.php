@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\DivingSession;
+use Illuminate\View\View;
+
 
 class fileSecurityController extends Controller
 {
@@ -11,6 +13,6 @@ class fileSecurityController extends Controller
     {
         $files = DivingSession::sessionsWithFilledFile();
 
-        return view('sessionlist',['sessions' => $files]);
+        return view('sessionslist',['sessions' => $files]);
     }
 }
