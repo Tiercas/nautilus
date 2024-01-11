@@ -9,17 +9,15 @@
 
     document.getElementById('dayInput').addEventListener('change', function () {
         var selectedDate = new Date(this.value);
-        var dayOfWeek = selectedDate.getDay(); // 0 = Dimanche, 1 = Lundi, ..., 6 = Samedi
+        var dayOfWeek = selectedDate.getDay();
 
         var selectHour = document.getElementById('SelectHour');
 
-        // Réinitialisez les options
-        selectHour.options[1].disabled = false; // Après-midi
-        selectHour.options[2].disabled = false; // Soir
+        selectHour.options[1].disabled = false;
+        selectHour.options[2].disabled = false;
 
-        // Si la date sélectionnée est un dimanche (jour 0), désactivez les options Après-midi et Soir
         if (dayOfWeek === 0) {
-            selectHour.options[1].disabled = true; // Après-midi
-            selectHour.options[2].disabled = true; // Soir
+            selectHour.options[1].disabled = true;
+            selectHour.options[2].disabled = true;
         }
     });
