@@ -64,11 +64,17 @@ function drop(event) {
     zoneStart.appendChild(draggedItem);
   }else
     if(zoneList[index].getCounter() <= 3 && zoneList[index].getCounter() + setDropZoneSize(draggedItem) <= 3){
+      if(draggedItem.parentElement !== zoneStart && draggedItem.parentElement !== undefined
+        && draggedItem.parentElement !== zoneList[index])
+        zoneList[draggedItem.parentElement.id.split('zone')[1]].updateCounterNeg(setDropZoneSize(draggedItem));
       zoneList[index].updateCounterPos(setDropZoneSize(draggedItem));
       console.log("Count" + zoneList[index].getCounter());
       event.target.appendChild(draggedItem);
-    }else
+    }else{
       zoneStart.appendChild(draggedItem);
+      zoneList[index].updateCounterNeg(setDropZoneSize(draggedItem));
+      console.log("Count" + zoneList[index].getCounter());
+    }
 }
 
 function setZoneSize(zone){
@@ -112,11 +118,12 @@ addPalanque.addEventListener("click", function(){
 
 removePalanque.addEventListener("click", function(){
   countZone--;
-  let palanque = document.getElementById("zone" + (countZone));
+  let palanque = document.getElementById("zone" + countZone);
   if(palanque.childElementCount > 0){
-    let children = palanque.childNodes;
-    for(let i = 0; i < children.length; i++){
-      zoneStart.appendChild(children[i]);
+    console.log(palanque.childNodes[1]);
+    for(let i = 0; i < palanque.childElementCount; i++){
+      console.log(palanque.childNodes[i]);
+      zoneStart.appendChild(palanque.childNodes[i]);
     }
   }
   zoneList.splice(zoneList.length - 1, 1);
