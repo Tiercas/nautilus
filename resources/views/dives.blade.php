@@ -3,8 +3,7 @@
     <link rel="stylesheet" href="{{ asset('/css/app.css') }}">
     <div>
         <div id="Historique">
-            <x-page-title>Liste des plongées</x-page-title>
-            <hr style="height: 3px;background-color: black;margin-bottom: 70px;margin-top: 5px; width : 30%">
+            <x-page-title hrSize="30%">Liste des plongées</x-page-title>
             <table style="text-align: left">
                 <thead class="text-xs text-gray-700 bg-gray-50" style="border-bottom: 1px solid black; font-size: 15px;">
                     <tr>
@@ -78,6 +77,7 @@
             </table>
         </div>
 
+        <!-- 
         <div id="toast-default"
             class="flex items-center w-full max-w-xs p-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800"
             role="alert" style="background-color: var(--badDarker);color: white;">
@@ -94,6 +94,7 @@
                 </svg>
             </button>
         </div>
+        -->
     </div>
     <script type="text/javascript" src="/js/drop-down.js"></script>
 </x-layout>

@@ -2,7 +2,7 @@
     @if(!session()->has('user'))
             Vous devez être connecté pour accéder à cette page.
     @else
-    <x-page-title>Historique des plongées de {{ session('user')->US_FIRST_NAME . " " . session('user')->US_NAME }}</x-page-title>
+    <x-page-title hrSize="70%">Historique des plongées de {{ session('user')->US_FIRST_NAME . " " . session('user')->US_NAME }}</x-page-title>
     <div class="shadow-md max-w-full w-1/3 rounded-lg overflow-hidden border-2 mx-auto">
         <table class="text-sm text-left text-gray-500 w-full">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50">

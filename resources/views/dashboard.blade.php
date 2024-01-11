@@ -12,7 +12,7 @@
             </button>
         </div>
     @else
-        <x-page-title>Tableau de bord</x-page-title>
+        <x-page-title hrSize="30%">Tableau de bord</x-page-title>
         <h2 class="text-2xl font-semibold text-gray-800">Bonjour
             {{ session('user')->US_FIRST_NAME . ' ' . session('user')->US_NAME . ',' }}</h2>
         <div class="flex flex-row justify-evenly mt-10">
