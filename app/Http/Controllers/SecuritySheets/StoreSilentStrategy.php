@@ -21,7 +21,7 @@ class StoreSilentStrategy implements SecuritySheetStrategy{
 
         $html2pdf->writeHTML($html);
 
-        $path = defined('PUBLIC_PATH') ? PUBLIC_PATH : '../www-dev/';
+        $path = defined('PUBLIC_PATH') ? PUBLIC_PATH : 'public/';
         
         $fileName = 'security-sheets/fiche-securite-' . $ds_code . '.pdf';
 
