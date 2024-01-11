@@ -77,3 +77,18 @@ input, select, label{
     padding: 7px;
     width: 60% !important;
 }
+
+.clickableDelete{
+    width: auto !important;
+    height: auto !important;
+    background-color: var(--bad) !important;
+    color: var(--black) !important;
+    transition: all 0.4s ease-out;
+}
+
+
+.clickableDelete:hover{
+    cursor: pointer;
+    background-color: var(--badDarker) !important;
+    color: var(--white) !important;
+}
