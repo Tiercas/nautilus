@@ -11,21 +11,29 @@ class DivingNumberController extends Controller
 {
     public function index(): View
     {
-        if (session()->has('user')) {
-            $userId = session('user')->US_ID; // Récupérer l'ID de l'utilisateur connecté
 
-            // Faire quelque chose avec l'utilisateur ou son ID
-        } else {
-            $userId = NULL;
+        if(session()->has('user')){
+            $user = session('user');
+            $userId = session('user')->US_ID;
+        }else{
+            $userId = null;
         }
+        
 
-        $dateDives = DivingNumberModel::join('CAR_REGISTRATION', 'CAR_USER.us_id', '=', 'CAR_REGISTRATION.us_id')
-        ->join('CAR_DIVING_SESSION','CAR_REGISTRATION.ds_code','=','CAR_DIVING_SESSION.ds_code')
-        ->join('CAR_DIVING_LOCATION','CAR_DIVING_SESSION.dl_id','=','CAR_DIVING_LOCATION.dl_id')
-        ->join('CAR_ROLE_ATTRIBUTION','CAR_USER.us_id','=','CAR_ROLE_ATTRIBUTION.Us_id')
-        ->join('CAR_ROLE','CAR_ROLE_ATTRIBUTION.rol_code','=','CAR_ROLE.rol_code')
+        $dateDivesBefore = DivingNumberModel::join('car_registration', 'car_user.us_id', '=', 'car_registration.us_id')
+        ->join('car_diving_session','car_registration.ds_code','=','car_diving_session.ds_code')
+        ->join('car_diving_location','car_diving_session.DL_ID','=','car_diving_location.DL_ID')
+        ->where('car_user.US_ID',$userId)
+        ->where('CAR_DIVING_SESSION.DS_DATE','<',now())
+        ->get();
 
-        ->where('CAR_USER.US_ID',$userId)
+        $dateDivesAfter = DivingNumberModel::join('car_registration', 'car_user.us_id', '=', 'car_registration.us_id')
+        ->join('car_diving_session','car_registration.ds_code','=','car_diving_session.ds_code')
+        ->join('car_diving_location','car_diving_session.dl_id','=','car_diving_location.dl_id')
+        ->join('car_role_attribution','car_user.us_id','=','car_role_attribution.Us_id')
+        ->join('car_role','car_role_attribution.rol_code','=','car_role.rol_code')
+        ->where('CAR_DIVING_SESSION.DS_DATE','>=',now())
+        ->where('car_user.US_ID',$userId)
         ->get();
 
 
@@ -41,7 +49,8 @@ class DivingNumberController extends Controller
             ->count();
         $usersCount = 99 - $usersCount ;
 
-        return view('diveractivities', compact('usersCount'), ['dates' => $dateDives]);
+        return view('diveractivities', compact('usersCount'), ['datesB' => $dateDivesBefore,
+                                                                'datesA' => $dateDivesAfter]);
     }
 
     public function allIndex(Request $request): View
