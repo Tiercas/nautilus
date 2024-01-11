@@ -23,7 +23,7 @@ class DivingSession extends Model
 
     static public function sessionsWithFilledFile():array
     {
-        $res =  DB::table('CAR_DIVING_SESSION')->where('DS_FILE_FILLED', 1)->get();
+        $res =  DB::table('CAR_DIVING_SESSION')->get();
         return $res->toArray();
     }
 
