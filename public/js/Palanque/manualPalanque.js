@@ -246,7 +246,7 @@ function returnValueToPhp(ds_code) {
 function sendPalanque() {
   let palanqueList = returnValueToPhp("DS1");
   let palanqueListJson = JSON.stringify(palanqueList);
-  let csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+  let csrfToken = document.getElementById('csrfToken').textContent;
 
   let xhr = new XMLHttpRequest();
   xhr.open('POST', '/api/palanques', true);

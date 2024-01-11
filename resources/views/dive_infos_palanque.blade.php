@@ -1,6 +1,5 @@
 <link href='https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.css' rel='stylesheet' />
-
-<meta name="csrf-token" content="@csrf" />
+<textarea name="csrfToken" id="csrfToken" class="hidden">@csrf</textarea>
 <x-layout>
     <x-page-title>Plongée du {{ $dive->DS_DATE }} - {{ $dive->DL_NAME }}</x-page-title>
     <div class="text-right mb-4">
