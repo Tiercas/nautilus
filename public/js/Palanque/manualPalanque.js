@@ -70,11 +70,12 @@ function drop(event) {
       zoneList[index].updateCounterPos(setDropZoneSize(draggedItem));
       console.log("Count" + zoneList[index].getCounter());
       event.target.appendChild(draggedItem);
-    }else{
-      zoneStart.appendChild(draggedItem);
-      zoneList[index].updateCounterNeg(setDropZoneSize(draggedItem));
-      console.log("Count" + zoneList[index].getCounter());
     }
+    // else{
+    //   zoneStart.appendChild(draggedItem);
+    //   zoneList[index].updateCounterNeg(setDropZoneSize(draggedItem));
+    //   console.log("Count" + zoneList[index].getCounter());
+    // }
 }
 
 function setZoneSize(zone){
@@ -163,7 +164,7 @@ function validateAllCombination(){
   zoneList.forEach(element => {
     element = document.getElementById("zone" + element.getZoneNumber());
     if(element.hasChildNodes()){
-      if(element.childElementCount < 2){
+      if(element.childElementCount < 2 || element.childElementCount > 3){
         element.style.backgroundColor = 'red';
         return false;
       }
