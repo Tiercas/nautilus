@@ -8,9 +8,9 @@ use App\Models\User;
 use Error;
 use Illuminate\View\View;
 
-class DivesList extends Controller
+class DivesListManage extends Controller
 {
-    function index(): View
+    public static function index(): View
     {
         $dives = DivingSession::select('DS_CODE', 'DS_ACTIVE', 'CAR_DIVING_SESSION.DL_ID', 'DS_DATE', 'DL_DEPTH', 'CAR_SCHEDULE', 'DL_NAME', 'DS_MAX_DEPTH')
             ->join('CAR_DIVING_LOCATION', 'CAR_DIVING_SESSION.DL_ID', '=', 'CAR_DIVING_LOCATION.DL_ID')
@@ -18,10 +18,10 @@ class DivesList extends Controller
             ->orderBy('DS_DATE', 'asc')
             ->get();
         $user = session()->get('user');
-        return view('dives', ['dives' => $dives, 'userPre' => Prerogative::find($user->PRE_CODE)]);
+        return view('manage_dives', ['dives' => $dives, 'userPre' => Prerogative::find($user->PRE_CODE)]);
     }
 
-    function show($id) {
+    public static function show($id) {
         $divingSession = DivingSession::join('CAR_DIVING_LOCATION', 'CAR_DIVING_SESSION.DL_ID', '=', 'CAR_DIVING_LOCATION.DL_ID')
             ->join('CAR_BOAT', 'CAR_DIVING_SESSION.BO_ID', '=', 'CAR_BOAT.BO_ID')
             ->where('DS_CODE', '=', $id)
@@ -32,15 +32,5 @@ class DivesList extends Controller
         $director = User::find($divingSession->US_ID_CAR_DIRECT);
         $divingSession->DS_DATE = strftime('%d/%m/%Y', strtotime($divingSession->DS_DATE));
         return view('dive_infos_palanque', ['dive' => $divingSession, 'divers' => $divingSession->getParticipants(), 'creator' => $creator, 'security' => $security, 'director' => $director]);
-    }
-
-    function showManagementList() {
-        $userID = session('user')->US_ID;
-        $dives = DivingSession::select('DS_CODE', 'DS_ACTIVE', 'CAR_DIVING_SESSION.DL_ID', 'DS_DATE', 'DL_DEPTH', 'CAR_SCHEDULE', 'DL_NAME', 'DS_MAX_DEPTH')
-            ->join('CAR_DIVING_LOCATION', 'CAR_DIVING_SESSION.DL_ID', '=', 'CAR_DIVING_LOCATION.DL_ID')
-            ->where('DS_ACTIVE', '=', 1, 'and', 'DS_DATE', '>=', date('Y-m-d'), 'and', 'US_ID_CAR_DIRECT', '=', $userID)
-            ->orderBy('DS_DATE', 'asc')
-            ->get();
-        return view('dives_list_management', ['dives' => $dives]);
     }
 }

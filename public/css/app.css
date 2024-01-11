@@ -9,9 +9,10 @@
   --yellow : #ffbe55;
   --yellowDarker : #daa654;
 
-  --good : #00ff04;
-  --bad : #dc2323;
-  --badDarker : #c23232;
+  --good : #46ee70;
+  --goodDarker : #3fd442;
+  --bad : #f94f4f;
+  --badDarker : #cd4b4b;
 
   --BigTitle : 32px;
   --title : 25px;
@@ -39,6 +40,30 @@ h1{
     color: var(--white)
 }
 
+.clickableGrey{
+    background-color: var(--yellow);
+    color: var(--black);
+    transition: all 0.4s ease-out;
+}
+
+.clickableGrey:hover{
+    cursor: pointer;
+    background-color: var(--yellowDarker);
+    color: var(--white)
+}
+
+.clickableGreen{
+    background-color: var(--good);
+    color: var(--black);
+    transition: all 0.4s ease-out;
+}
+
+.clickableGreen:hover{
+    cursor: pointer;
+    background-color: var(--goodDarker);
+    color: var(--white)
+}
+
 .clickableRed{
     background-color: var(--bad);
     color: var(--black);
@@ -51,8 +76,31 @@ h1{
     color: var(--white)
 }
 
-.align{
+.aligne{
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.Line{
+    display: flex;
+    flex-direction: row;
+}
+
+.Column{
+    display: flex;
+    flex-direction: column;
+}
+
+.divideFlex{
+    flex-grow: 1;
+    display: flex;
+}
+
+.divideFlexSmall{
+    flex-grow: 0.5;
+}
+
+.divideFlexBig{
+    flex-grow: 1.5;
 }

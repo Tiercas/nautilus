@@ -13,30 +13,30 @@ class DivingNumberController extends Controller
     {
         if (session()->has('user')) {
             $userId = session('user')->US_ID; // Récupérer l'ID de l'utilisateur connecté
-    
+
             // Faire quelque chose avec l'utilisateur ou son ID
         } else {
             $userId = NULL;
         }
 
-        $dateDives = DivingNumberModel::join('car_registration', 'car_user.us_id', '=', 'car_registration.us_id')
-        ->join('car_diving_session','car_registration.ds_code','=','car_diving_session.ds_code')
-        ->join('car_diving_location','car_diving_session.dl_id','=','car_diving_location.dl_id')
-        ->join('car_role_attribution','car_user.us_id','=','car_role_attribution.Us_id')
-        ->join('car_role','car_role_attribution.rol_code','=','car_role.rol_code')
+        $dateDives = DivingNumberModel::join('CAR_REGISTRATION', 'CAR_USER.us_id', '=', 'CAR_REGISTRATION.us_id')
+        ->join('CAR_DIVING_SESSION','CAR_REGISTRATION.ds_code','=','CAR_DIVING_SESSION.ds_code')
+        ->join('CAR_DIVING_LOCATION','CAR_DIVING_SESSION.dl_id','=','CAR_DIVING_LOCATION.dl_id')
+        ->join('CAR_ROLE_ATTRIBUTION','CAR_USER.us_id','=','CAR_ROLE_ATTRIBUTION.Us_id')
+        ->join('CAR_ROLE','CAR_ROLE_ATTRIBUTION.rol_code','=','CAR_ROLE.rol_code')
 
-        ->where('car_user.US_ID',$userId)
+        ->where('CAR_USER.US_ID',$userId)
         ->get();
 
 
-        $usersCount = DivingNumberModel::join('car_registration', 'car_user.us_id', '=', 'car_registration.us_id')
-            ->join('car_diving_group', function ($dg) {
-                $dg->on('car_registration.ds_code', '=', 'car_diving_group.ds_code')
-                    ->on('car_registration.dg_number', '=', 'car_diving_group.dg_number');
+        $usersCount = DivingNumberModel::join('CAR_REGISTRATION', 'CAR_USER.us_id', '=', 'CAR_REGISTRATION.us_id')
+            ->join('CAR_DIVING_GROUP', function ($dg) {
+                $dg->on('CAR_REGISTRATION.ds_code', '=', 'CAR_DIVING_GROUP.ds_code')
+                    ->on('CAR_REGISTRATION.dg_number', '=', 'CAR_DIVING_GROUP.dg_number');
             })
-            ->join('car_diving_session','car_registration.ds_code','=','car_diving_session.ds_code')
-            ->where('car_diving_session.ds_date','>=',date("Y").'-00-00')
-            ->where('car_user.US_ID', $userId)
+            ->join('CAR_DIVING_SESSION','CAR_REGISTRATION.ds_code','=','CAR_DIVING_SESSION.ds_code')
+            ->where('CAR_DIVING_SESSION.ds_date','>=',date("Y").'-00-00')
+            ->where('CAR_USER.US_ID', $userId)
             ->orderBy('ds_date','desc')
             ->count();
         $usersCount = 99 - $usersCount ;
@@ -57,13 +57,13 @@ class DivingNumberController extends Controller
             return DivingNumberController::before($request['beforethe']);
         }
 
-        $usersDatas = DivingNumberModel::selectRaw('COUNT(*) as aggregate, car_user.US_FIRST_NAME, car_user.US_NAME')
-    ->join('car_registration', 'car_user.us_id', '=', 'car_registration.us_id')
-    ->join('car_diving_group', function ($join) {
-        $join->on('car_registration.ds_code', '=', 'car_diving_group.ds_code')
-            ->on('car_registration.dg_number', '=', 'car_diving_group.dg_number');
+        $usersDatas = DivingNumberModel::selectRaw('COUNT(*) as aggregate, CAR_USER.US_FIRST_NAME, CAR_USER.US_NAME')
+    ->join('CAR_REGISTRATION', 'CAR_USER.us_id', '=', 'CAR_REGISTRATION.us_id')
+    ->join('CAR_DIVING_GROUP', function ($join) {
+        $join->on('CAR_REGISTRATION.ds_code', '=', 'CAR_DIVING_GROUP.ds_code')
+            ->on('CAR_REGISTRATION.dg_number', '=', 'CAR_DIVING_GROUP.dg_number');
     })
-    ->groupBy('car_user.us_id', 'car_user.US_NAME', 'car_user.US_FIRST_NAME')
+    ->groupBy('CAR_USER.us_id', 'CAR_USER.US_NAME', 'CAR_USER.US_FIRST_NAME')
     ->get();
 
         return view('alldiversactivities', ['datas' => $usersDatas]);
@@ -74,12 +74,12 @@ class DivingNumberController extends Controller
     {
 
 
-        $usersDatas = DivingNumberModel::selectRaw('COUNT(*) as aggregate, car_user.US_FIRST_NAME, car_user.US_NAME')
-        ->join('car_registration', 'car_user.us_id', '=', 'car_registration.us_id')
-        ->join('car_diving_session', 'car_registration.DS_CODE', '=', 'car_diving_session.DS_CODE')
-        ->where('car_diving_session.DS_DATE', '>=', $after)
-                ->where('car_diving_session.DS_DATE', '<=', $before)
-        ->groupBy('car_user.us_id', 'car_user.US_NAME', 'car_user.US_FIRST_NAME')
+        $usersDatas = DivingNumberModel::selectRaw('COUNT(*) as aggregate, CAR_USER.US_FIRST_NAME, CAR_USER.US_NAME')
+        ->join('CAR_REGISTRATION', 'CAR_USER.us_id', '=', 'CAR_REGISTRATION.us_id')
+        ->join('CAR_DIVING_SESSION', 'CAR_REGISTRATION.DS_CODE', '=', 'CAR_DIVING_SESSION.DS_CODE')
+        ->where('CAR_DIVING_SESSION.DS_DATE', '>=', $after)
+                ->where('CAR_DIVING_SESSION.DS_DATE', '<=', $before)
+        ->groupBy('CAR_USER.us_id', 'CAR_USER.US_NAME', 'CAR_USER.US_FIRST_NAME')
         ->get();
 
 
@@ -92,11 +92,11 @@ class DivingNumberController extends Controller
     {
 
 
-        $usersDatas = DivingNumberModel::selectRaw('COUNT(*) as aggregate, car_user.US_FIRST_NAME, car_user.US_NAME')
-        ->join('car_registration', 'car_user.us_id', '=', 'car_registration.us_id')
-        ->join('car_diving_session', 'car_registration.DS_CODE', '=', 'car_diving_session.DS_CODE')
-        ->where('car_diving_session.DS_DATE', '>=', $after)
-        ->groupBy('car_user.us_id', 'car_user.US_NAME', 'car_user.US_FIRST_NAME')
+        $usersDatas = DivingNumberModel::selectRaw('COUNT(*) as aggregate, CAR_USER.US_FIRST_NAME, CAR_USER.US_NAME')
+        ->join('CAR_REGISTRATION', 'CAR_USER.us_id', '=', 'CAR_REGISTRATION.us_id')
+        ->join('CAR_DIVING_SESSION', 'CAR_REGISTRATION.DS_CODE', '=', 'CAR_DIVING_SESSION.DS_CODE')
+        ->where('CAR_DIVING_SESSION.DS_DATE', '>=', $after)
+        ->groupBy('CAR_USER.us_id', 'CAR_USER.US_NAME', 'CAR_USER.US_FIRST_NAME')
         ->get();
 
 
@@ -109,11 +109,11 @@ class DivingNumberController extends Controller
     {
 
 
-        $usersDatas = DivingNumberModel::selectRaw('COUNT(*) as aggregate, car_user.US_FIRST_NAME, car_user.US_NAME')
-        ->join('car_registration', 'car_user.us_id', '=', 'car_registration.us_id')
-        ->join('car_diving_session', 'car_registration.DS_CODE', '=', 'car_diving_session.DS_CODE')
-        ->where('car_diving_session.DS_DATE', '<=', $before)
-        ->groupBy('car_user.us_id', 'car_user.US_NAME', 'car_user.US_FIRST_NAME')
+        $usersDatas = DivingNumberModel::selectRaw('COUNT(*) as aggregate, CAR_USER.US_FIRST_NAME, CAR_USER.US_NAME')
+        ->join('CAR_REGISTRATION', 'CAR_USER.us_id', '=', 'CAR_REGISTRATION.us_id')
+        ->join('CAR_DIVING_SESSION', 'CAR_REGISTRATION.DS_CODE', '=', 'CAR_DIVING_SESSION.DS_CODE')
+        ->where('CAR_DIVING_SESSION.DS_DATE', '<=', $before)
+        ->groupBy('CAR_USER.us_id', 'CAR_USER.US_NAME', 'CAR_USER.US_FIRST_NAME')
         ->get();
 
 
