@@ -10,6 +10,8 @@ use App\Http\Controllers\DiveSessionCreation;
 use App\Http\Controllers\DiveSessionUpdate;
 use App\Http\Controllers\ManageAdherentController;
 use App\Http\Controllers\DiveSessionDelete;
+use App\Http\Controllers\DiveDeletion;
+use App\Http\Controllers\DiveCreation;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
@@ -64,27 +66,12 @@ Route::middleware('App\Http\Middleware\rightChecker')
 Route::middleware('App\Http\Middleware\rightChecker')
     ->post('/create/dive', function(Request $request)
 {
-    $pre = DiveSessionCreation::add($request);
-
-    error_log($pre);
-
-    if(is_string($pre))
-    {
-        return view('create_dive', ['locations' => DivingLocation::all(),  'boats' => Boat::all(), 'levels' => Prerogative::all()->skip(3), 'users' => User::all(), 'error' => $pre, 'previousDives' => session()->get('previousDives')]);
-    }
-    else
-    {
-        $previousDives = session('previousDives', []);
-        $previousDives[] = $pre;
-
-        session(['previousDives' => $previousDives]);
-        return view('create_dive',  ['locations' => DivingLocation::all(),  'boats' => Boat::all(), 'levels' => Prerogative::all()->skip(3), 'users' => User::all(), 'precedent' => $pre, 'previousDives' => $previousDives]);
-    }
-
+    return DiveCreation::index($request);
 });
 Route::get('/tewst2', function(){
     return view('drag_and_drop');
 });
+
 Route::middleware('App\Http\Middleware\rightChecker')
     ->get('/dive/update/{id}', function($id){
     return view('update_dive', ['dive' => DivingSession::find($id),
@@ -93,6 +80,7 @@ Route::middleware('App\Http\Middleware\rightChecker')
                 'levels' => Prerogative::all()->skip(4),
                 'users' => User::all()]);
 });
+
 Route::post('/dive/update/{id}', function($id, Request $request){
         DiveSessionUpdate::update($request, $id);
         return redirect('/');
@@ -104,19 +92,10 @@ Route::middleware('App\Http\Middleware\rightChecker')
 });
 
 Route::post('/dive/delete/{id}', function ($id, Request $request){
-    DiveSessionDelete::update($id);
-    $previousDives = session('previousDives', []);
-
-    $indexToRemove = array_search($id, array_column($previousDives, 'DS_CODE'));
-
-    if ($indexToRemove !== false) {
-        unset($previousDives[$indexToRemove]);
-        $previousDives = array_values($previousDives);
-        session(['previousDives' => $previousDives]);
-    }
-
+    DiveDeletion::delete($id);
     return redirect('/create/dive');
 });
+
 Route::get('/sessions', [DiversBySession::class,'getAllSessions']);
 Route::get('/session/{ds_code}', [DiversBySession::class,'getDiversBySession']);
 Route::get('/divings', [DivingNumberController::class, 'index'])->name('divings');
