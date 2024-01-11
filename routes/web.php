@@ -237,6 +237,11 @@ Route::middleware('App\Http\Middleware\rightChecker')
     ->post('manage/members/roles', [ManageAdherentController::class, 'update'])
     ->name('updateMembersRole');
 
+/** Unsuscribe the user from a diving session
+ */
+Route::middleware('App\Http\Middleware\RightChecker')
+->get('/unsubscribe/{ds_code}', [DivingUnsubscribeController::class, 'index']);
+
 Route::middleware('App\Http\Middleware\rightChecker')
     ->get('dive/{id}', [DivesList::class, 'show'])
     ->name('dives_show');

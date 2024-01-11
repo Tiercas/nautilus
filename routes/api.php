@@ -22,3 +22,5 @@ Route::middleware('App\Http\Middleware\RightChecker')->get('/user', function (Re
 });
 
 Route::post('/palanques', [App\Http\Controllers\ManualPalanqueeController::class, 'store']);
+
+Route::get('/boat', [App\Http\Controllers\DataBoatController::class, 'fetch']);
