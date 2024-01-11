@@ -11,15 +11,6 @@ use Illuminate\Support\Facades\Log;
 
 class ManualPalanqueeController extends Controller
 {
-    public function show(){
-        $token = csrf_token();
-        return view('palanque_manuel', compact('token'));
-    }
-
-    public function index(){
-        
-    }
-
     public function store(Request $request){
         try {
             $divingGroups = $request->json()->all();
@@ -29,7 +20,7 @@ class ManualPalanqueeController extends Controller
                 $maxDG = 1;
             else
                 $maxDG += 1;
-            
+
             for($i = 0; $i < count($divingGroups) - 1; $i++) {
                 $divingNumber = $i + 1;
                 if($divingNumber >= $maxDG){
@@ -37,7 +28,7 @@ class ManualPalanqueeController extends Controller
                     DivingGroup::insert(['DS_CODE' => $ds_code, 'DG_NUMBER' => $maxDG]);
                     $maxDG += 1;
                 }
-                
+
                 foreach($divingGroups[$i] as $diver){
                     Log::info('Adding diver ' . $diver . ' to diving group ' . $divingNumber . ' for diving session ' . $ds_code);
                     $update = DivingSignUpModel::where('US_ID', $diver)
