@@ -3,7 +3,7 @@
     <link rel="stylesheet" href="{{ asset('/css/app.css') }}">
     <div>
         <div id="Historique">
-            <p style="font-size: 35px">Liste des plongées</p>
+            <x-page-title>Liste des plongées</x-page-title>
             <hr style="height: 3px;background-color: black;margin-bottom: 70px;margin-top: 5px; width : 30%">
             <table style="text-align: left">
                 <thead class="text-xs text-gray-700 bg-gray-50" style="border-bottom: 1px solid black; font-size: 15px;">
