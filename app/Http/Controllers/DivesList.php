@@ -77,6 +77,6 @@ class DivesList extends Controller
         $user = session()->get('user');
         $locations = DivingLocation::all();
         $levels = Prerogative::select('PRE_MAX_DEPTH')->groupby('PRE_MAX_DEPTH')->get();
-        return view('dives', ['dives' => $dives, 'userPre' => Prerogative::find($user->PRE_CODE), 'locations' => $locations, 'levels' => $levels]);
+        return view('dives', ['dives' => $dives, 'userPre' => Prerogative::find($user->PRE_CODE), 'locations' => $locations, 'levels' => $levels, 'user' => $user]);
     }
 }
