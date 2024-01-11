@@ -347,7 +347,7 @@ Route::post('/modificationdives/members/{ds_code}/ajoutadherent/{us_id}', functi
     return AdherentController::addUserToDive($ds_code, $us_id);
 });
 
-Route::get('/modificationdives/members/{ds_code}/ajoutadherent/{level}', [AdherentController::class, 'searchByName']);
+Route::get('/modificationdives/members/{ds_code}/ajoutadherent/{level}', [AdherentController::class, 'searchByName'])
     ->name('manage_dives_dir');
 
 Route::middleware('App\Http\Middleware\RightChecker')
