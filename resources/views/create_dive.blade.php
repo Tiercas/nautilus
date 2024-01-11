@@ -4,8 +4,9 @@
     <link rel="stylesheet" href="{{ asset('/css/create_div.css') }}">
 
     <div style="display : flex; flex-direction: row">
-        <div style="width: 50%; margin-right: 50px; height: 100%; display:flex; align-items: center; flex-direction: column;height: 760px;overflow: auto;">
-            @if(!isset($previousDives))
+        <div
+            style="width: 50%; margin-right: 50px;display:flex; align-items: center; flex-direction: column;overflow: auto;">
+            @if (!isset($previousDives))
                 <img src="{{ asset('/images/Diver1.png') }}" alt="Diver illustration">
             @else
                 <p style="font-size: 35px">Historique de plongées crées</p>
@@ -22,13 +23,13 @@
                         <tr class="historyLine">
                             <td>{{ $dive->DS_DATE }}</td>
                             <td>{{ $dive->DS_MAX_DIVERS }}</td>
-                            @foreach($locations as $location)
-                                @if($location->DL_ID == $dive->DL_ID)
+                            @foreach ($locations as $location)
+                                @if ($location->DL_ID == $dive->DL_ID)
                                     <td>{{ $location->DL_NAME }}</td>
                                 @endif
                             @endforeach
                             <td>{{ $dive->PRE_CODE }}</td>
-                            <td><form action="/dive/delete/{{ $dive->DS_CODE }}" method="POST"><button type="submit" class="clickable clickableRed">X</button></form></td>
+                            <td><form action="/dive/delete/{{ $dive->DS_CODE }}" method="POST">@csrf<button type="submit" class="clickable clickableRed"><i class="fa-solid fa-xmark"></i></button></form></td>
                         </tr>
                     @endforeach
                 </table>
@@ -36,55 +37,28 @@
         </div>
         <form action="/create/dive" method="POST" style="width: 70%;">
             @csrf
+            @if(isset($error))
+                <p>{{ $error }}</p>
+            @endif
             <h1 class="text-4xl"
                 style="font-family: 'Space Grotesk', sans-serif; font-weight: bold; margin-bottom: 30px;">Création d'une
                 plongée</h1>
-            <div style="display: flex;">
-                <div style="width: 58%; margin-bottom: 40px;margin-top: 40px;">
-                    <h2>Nombres d'inscrits</h2>
-                    <hr style="height: 3px;background-color: black;margin-bottom: 15px;margin-top: 5px; width : 50%">
-                    <div style="display: flex; margin-bottom: 15px">
-                        <div style="margin-right: 20px;">
-                            <label for="maxInput">Minimum : </label>
-                            <input required type="number" name="max" id="maxInput" min="0" placeholder="0"
-                                style="width: 40px;border: 2px solid black;border-radius: 7px;-moz-appearance: textfield;text-align: center;">
-                        </div>
-                        <div>
-                            <label for="minInput">Maximum : </label>
-                            @if(isset($precedent))
-                                <input type="number" name="max" id="maxInput" min="0" placeholder="0"
-                                    style="width: 42px;border: 2px solid black;border-radius: 7px;-moz-appearance: textfield;text-align: center;" value="{{ $precedent->DS_MAX_DIVERS }}">
-                            @else
-                            <input required type="number" name="max" id="maxInput" min="0" placeholder="0"
-                                style="width: 42px;border: 2px solid black;border-radius: 7px;-moz-appearance: textfield;text-align: center;">
-                            @endif
-                        </div>
-                    </div>
-                    <label for="levelInput">Niveau requis : </label>
-                    <select required name="level" id="levelInput" style="width: 260px; margin-bottom: 15px;">
-                        @foreach ($levels as $level)
-                            <option value="{{ $level->PRE_CODE }}">{{ $level->PRE_CODE }}</option>
-                        @endforeach
-                    </select>
-                    <label for="maxDepth">Profondeur maximum : </label>
-                    <input required type="number" min=1 name="maxDepth" id="maxDepth" style="width: 40px;border: 2px solid black;border-radius: 7px;-moz-appearance: textfield;text-align: center;" placeholder="0">
-                </div>
-                <div style="width: 40%;margin-bottom: 40px;margin-top: 40px;">
+            <div class="Line">
+                <div class="divideFlex Column">
                     <h2>Créneau</h2>
-                    <hr style="height: 3px;background-color: black;margin-bottom: 15px;margin-top: 5px; width : 100%">
-                    <div style="display: flex;flex-direction: column;">
-                        <div>
+                    <hr style="height: 3px;background-color: black;margin-bottom: 15px;margin-top: 5px; width : 40%">
+                    <div class="aligne">
+                        <div class="divideFlexSmall Column">
                             <label for="dayInput">Jour : </label>
-                            @if(isset($precedent))
-                                <input required type="date" name="day" id="dayInput"
-                                    style="border: 2px solid black;border-radius: 10px;padding: 7px;" value="{{ $precedent->DS_DATE }}">
-                            @else
-                                <input required type="date" name="day" id="dayInput"
-                                    style="border: 2px solid black;border-radius: 10px;padding: 7px;">
-                            @endif
+                            <label for="hourInput">Heure de début :</label>
                         </div>
-                        <div style="margin-top: 15px;">
-                            <label for="hourInput">Heure de début</label>
+                        <div class="divideFlexBig Column">
+                            @if (isset($precedent))
+                                <input class="inputTime" required type="date" name="day" id="dayInput"
+                                    value="{{ $precedent->DS_DATE }}">
+                            @else
+                                <input class="inputTime" required type="date" name="day" id="dayInput" min="<?php echo date('Y-m-d'); ?>">
+                            @endif
                             <select required name="hour" id="hour" style="width: 160px; margin-bottom: 15px;">
                                 <option value="Matin">Matin</option>
                                 <option value="Apres-midi">Après midi</option>
@@ -93,81 +67,141 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <hr style="height: 3px;background-color: black;margin-bottom: 30px;margin-top: 5px; width : 50%;">
-            <div style="display: flex; margin-bottom: 50px;">
-                <div style="width: 50%">
-                    <label for="locationInput" style="margin-right: 20px;">Site : </label>
-                    <select required name="location" id="locationInput" style="width: 200px;">
-                        @foreach ($locations as $location)
-                            @if(isset($precedent))
-                                @if($location->DL_ID == $precedent->DL_ID)
-                                    <option value="{{ $location->DL_ID }}" selected>{{ $location->DL_NAME }}</option>
-                                @else
-                                    <option value="{{ $location->DL_ID }}">{{ $location->DL_NAME }}</option>
-                                @endif
-                            @else
-                                <option value="{{ $location->DL_ID }}">{{ $location->DL_NAME }}</option>
-                            @endif
-                        @endforeach
-                    </select>
+                <div class="divideFlex Column">
+                    <h2>Lieu</h2>
+                    <hr style="height: 3px;background-color: black;margin-bottom: 15px;margin-top: 5px; width : 40%">
+                    <div class="aligne">
+                        <div class="divideFlexSmall Column">
+                            <label for="locationInput" style="margin-right: 20px;">Site :</label>
+                        </div>
+                        <div class="divideFlexBig Column">
+                            <select required name="location" id="locationInput">
+                                @foreach ($locations as $location)
+                                    @if (isset($precedent))
+                                        @if ($location->DL_ID == $precedent->DL_ID)
+                                            <option value="{{ $location->DL_ID }}" selected>{{ $location->DL_NAME }}
+                                            </option>
+                                        @else
+                                            <option value="{{ $location->DL_ID }}">{{ $location->DL_NAME }}</option>
+                                        @endif
+                                    @else
+                                        <option value="{{ $location->DL_ID }}">{{ $location->DL_NAME }}</option>
+                                    @endif
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
                 </div>
-                <div style="width: 50%">
-                    <label for="boatInput" style="margin-right: 20px;">Bateau : </label>
-                    <select required name="boat" id="boatInput" style="width: 200px;">
-                        @foreach ($boats as $boat)
-                            @if(isset($precedent))
-                                @if($location->BO_ID == $precedent->BO_ID)
-                                    <option value="{{ $boat->BO_ID }}" selected>{{ $boat->BO_NAME }}</option>
-                                @else
-                                    <option value="{{ $boat->BO_ID }}">{{ $boat->BO_NAME }}</option>
-                                @endif
+            </div>
+            <div class="Line">
+                <div class="divideFlex Column">
+                    <h2>Nombre de personnes</h2>
+                    <hr style="height: 3px;background-color: black;margin-bottom: 15px;margin-top: 5px; width : 60%">
+                    <div class="aligne">
+                        <div class="divideFlexSmall Column">
+                            <label for="minInput">Minimum :</label>
+                            <label for="maxInput">Maximum :</label>
+                        </div>
+                        <div class="divideFlexBig Column">
+                            <input required type="number" name="min" id="minInput" min="0" placeholder="0"
+                                style="width: 20%;-moz-appearance: textfield;text-align: center;">
+                            @if (isset($precedent))
+                                <input required type="number" name="max" id="maxInput" min="0" placeholder="0"
+                                    style="width: 20%;-moz-appearance: textfield;text-align: center;"
+                                    value="{{ $precedent->DS_MAX_DIVERS }}">
                             @else
-                                <option value="{{ $boat->BO_ID }}">{{ $boat->BO_NAME }}</option>
+                                <input required type="number" name="max" id="maxInput" min="0"
+                                    placeholder="0"
+                                    style="width: 20%;-moz-appearance: textfield;text-align: center;">
                             @endif
+                        </div>
+                    </div>
+                </div>
+                <div class="divideFlex Column">
+                    <h2>Transport et niveau</h2>
+                    <hr style="height: 3px;background-color: black;margin-bottom: 15px;margin-top: 5px; width : 60%">
+                    <div class="aligne">
+                        <div class="divideFlexSmall Column">
+                            <label for="boatInput">Bateau :</label>
+                            <label for="levelInput">Niveau requis :</label>
+                        </div>
+                        <div class="divideFlexBig Column">
+                            <select required name="boat" id="boatInput">
+                                @foreach ($boats as $boat)
+                                    @if (isset($precedent))
+                                        @if ($location->BO_ID == $precedent->BO_ID)
+                                            <option value="{{ $boat->BO_ID }}" selected>{{ $boat->BO_NAME }}</option>
+                                        @else
+                                            <option value="{{ $boat->BO_ID }}">{{ $boat->BO_NAME }}</option>
+                                        @endif
+                                    @else
+                                        <option value="{{ $boat->BO_ID }}">{{ $boat->BO_NAME }}</option>
+                                    @endif
+                                @endforeach
+                            </select>
+                            <select required name="level" id="levelInput">
+                                @foreach ($levels as $level)
+                                    <option value="{{ $level->PRE_CODE }}">{{ $level->PRE_CODE }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="Line">
+                <div class="divideFlex Column">
+                    <h2>Sécurité de Surface</h2>
+                    <hr style="height: 3px;background-color: black;margin-bottom: 15px;margin-top: 5px; width : 60%">
+                    <div class="aligne">
+                        <div class="divideFlexBig Column">
+                            <select required name="security" id="securityInput">
+                                @foreach ($users as $user)
+                                    @if ($user->hasRole('SEC'))
+                                        <option value="{{ $user->US_ID }}" />{{ $user->US_NAME }}
+                                        {{ $user->US_FIRST_NAME }}
+                                        </option>
+                                    @endif
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="divideFlex Column">
+                    <h2>Directeur</h2>
+                    <hr style="height: 3px;background-color: black;margin-bottom: 15px;margin-top: 5px; width : 60%">
+                    <div class="aligne">
+                        <div class="divideFlexBig Column">
+                            <select required name="manager" id="managerInput">
+                                @foreach ($users as $user)
+                                    @if ($user->hasRole('DIR'))
+                                        <option value="{{ $user->US_ID }}" />{{ $user->US_NAME }}
+                                        {{ $user->US_FIRST_NAME }}
+                                        </option>
+                                    @endif
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="divideFlex Column">
+                    <h2>Pilote</h2>
+                    <hr style="height: 3px;background-color: black;margin-bottom: 15px;margin-top: 5px; width : 60%">
+                    <div class="aligne">
+                        <div class="divideFlexBig Column">
+                            <select required name="pilot" id="pilotInput">
+                                @foreach ($users as $user)
+                                    @if ($user->hasRole('PIL'))
+                                        <option value="{{ $user->US_ID }}" />{{ $user->US_NAME }}
+                                        {{ $user->US_FIRST_NAME }}
+                                        </option>
+                                    @endif
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-                        @endforeach
-                    </select>
-                </div>
-            </div>
-            <div style="display: flex; margin-bottom: 50px;">
-                <div style="display: flex;flex-direction: column;width: 30%; margin-right: 2%; margin-bottom: 30px;">
-                    <label for="securityInput">Sécurité de surface</label>
-                    <hr style="height: 3px;background-color: black;margin-bottom: 15px;margin-top: 5px;">
-                    <select required name="security" id="securityInput">
-                        @foreach ($users as $user)
-                            @if ($user->hasRole('SEC'))
-                                <option value="{{ $user->US_ID }}" />{{ $user->US_NAME }} {{ $user->US_FIRST_NAME }}
-                                </option>
-                            @endif
-                        @endforeach
-                    </select>
-                </div>
-                <div style="display: flex;flex-direction: column;width: 30%; margin-right: 2%;">
-                    <label for="managerInput">Directeur</label>
-                    <hr style="height: 3px;background-color: black;margin-bottom: 15px;margin-top: 5px;">
-                    <select required name="manager" id="managerInput">
-                        @foreach ($users as $user)
-                            @if ($user->hasRole('DIR'))
-                                <option value="{{ $user->US_ID }}" />{{ $user->US_NAME }} {{ $user->US_FIRST_NAME }}
-                                </option>
-                            @endif
-                        @endforeach
-                    </select>
-                </div>
-                <div style="display: flex;flex-direction: column;width: 30%; margin-right: 2%;">
-                    <label for="pilotInput">Pilote</label>
-                    <hr style="height: 3px;background-color: black;margin-bottom: 15px;margin-top: 5px;">
-                    <select required name="pilot" id="pilotInput">
-                        @foreach ($users as $user)
-                            @if ($user->hasRole('PIL'))
-                                <option value="{{ $user->US_ID }}" />{{ $user->US_NAME }} {{ $user->US_FIRST_NAME }}
-                                </option>
-                            @endif
-                        @endforeach
-                    </select>
-                </div>
-            </div>
             <div class="flex -mx-3" style="margin-top: 50px;">
                 <div class="w-full px-3 mb-5">
                     <input
@@ -175,17 +209,26 @@
                         type="submit" value="CREER">
                 </div>
             </div>
-            @if(isset($precedent))
-                <div id="toast-default" class="flex items-center w-full max-w-xs p-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800" role="alert">
-                    <div class="ms-3 text-sm font-normal">Plongée créée !</div>
-                    <button type="button" class="ms-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700" data-dismiss-target="#toast-default" aria-label="Close">
+            @if (isset($precedent))
+                <div id="toast-default"
+                    class="flex items-center w-full max-w-xs p-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800"
+                    role="alert">
+                    <div class="ms-3 text-sm font-normal">Plongée crée !</div>
+                    <button type="button"
+                        class="ms-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700"
+                        data-dismiss-target="#toast-default" aria-label="Close">
                         <span class="sr-only">Close</span>
-                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 14 14">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
                         </svg>
                     </button>
                 </div>
             @endif
         </form>
     </div>
+
+    <script src="https://kit.fontawesome.com/8708952b61.js" crossorigin="anonymous"></script>
+    <script src="{{ asset('/js/create_div.js') }}"></script>
 </x-layout>

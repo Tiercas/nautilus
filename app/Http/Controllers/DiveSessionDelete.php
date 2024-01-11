@@ -11,7 +11,7 @@ class DiveSessionDelete extends Controller
 
     public static function update($id)
     {
-        $dv = DivingSession::where('DS_CODE', $id)->first();
+        $dv = DivingSession::find($id);
         $dv->DS_ACTIVE = 0;
         $dv->save();
     }

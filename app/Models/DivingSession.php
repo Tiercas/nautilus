@@ -32,9 +32,37 @@ class DivingSession extends Model
         return $participants;
     }
 
+    public function getDivingGroups(){
+        return DivingGroup::where('DS_CODE', $this->DS_CODE)->get();
+    }
+
     public function disable()
     {
         $this->DS_ACTIVE = 0;
         $this->save();
+    }
+
+    public function getRoleForUser(User $user){
+        if($user->US_ID === $this->US_ID_CAR_DIRECT){
+            return "Directeur de plongée";
+        }
+
+        if($user->US_ID === $this->US_ID){
+            return "Pilote";
+        }
+
+        if($user->US_ID === $this->US_ID_CAR_SECURE){
+            return "Sécurité de surface";
+        }
+
+        if($user->US_TEACHING_LEVEL > 0){
+            return "Encadrant";
+        }
+
+        if(strpos($user->PRE_CODE, 'GP')){
+            return "Guide de palanquée";
+        }
+        
+        return "Plongeur";
     }
 }
