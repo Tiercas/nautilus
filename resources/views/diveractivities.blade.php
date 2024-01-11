@@ -21,16 +21,14 @@
         <table class="text-sm text-left text-gray-500 w-full">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50">
             <tr>
-                <th scope="col" class="px-6 py-3">Nom</th>
-                <th scope="col" class="px-6 py-3">Prénom</th>
+                <th scope="col" class="px-6 py-3">Lieu</th>
                 <th scope="col" class="px-6 py-3">Date</th>
             </tr>
             </thead>
             <tbody>
                 @foreach($datesA as $dateA)
                 <tr class="odd:bg-white even:bg-gray-50 border-b">
-                <td class="px-6 py-4">{{ $dateA->US_NAME }}</td>
-                    <td class="px-6 py-4">{{ $dateA->US_FIRST_NAME }}</td>
+                <td class="px-6 py-4">{{ $dateA->DL_NAME }}</td>
                     <td class="px-6 py-4">{{ $dateA->DS_DATE }}</td>
                 </tr>
                 @endforeach
@@ -43,16 +41,14 @@
         <table class="text-sm text-left text-gray-500 w-full">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50">
             <tr>
-                <th scope="col" class="px-6 py-3">Nom</th>
-                <th scope="col" class="px-6 py-3">Prénom</th>
+                <th scope="col" class="px-6 py-3">Lieu</th>
                 <th scope="col" class="px-6 py-3">Date</th>
             </tr>
             </thead>
             <tbody>
                 @foreach($datesB as $dateB)
                 <tr class="odd:bg-white even:bg-gray-50 border-b">
-                <td class="px-6 py-4">{{ $dateB->US_NAME }}</td>
-                    <td class="px-6 py-4">{{ $dateB->US_FIRST_NAME }}</td>
+                    <td class="px-6 py-4">{{ $dateB->DL_NAME }}</td>
                     <td class="px-6 py-4">{{ $dateB->DS_DATE }}</td>
                 </tr>
                 @endforeach
