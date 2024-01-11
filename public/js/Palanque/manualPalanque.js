@@ -1,4 +1,3 @@
-
 class DropZoneClass{
   counter;
   zoneNumber;
@@ -71,11 +70,12 @@ function drop(event) {
       zoneList[index].updateCounterPos(setDropZoneSize(draggedItem));
       console.log("Count" + zoneList[index].getCounter());
       event.target.appendChild(draggedItem);
-    }else{
-      zoneStart.appendChild(draggedItem);
-      zoneList[index].updateCounterNeg(setDropZoneSize(draggedItem));
-      console.log("Count" + zoneList[index].getCounter());
     }
+    // else{
+    //   zoneStart.appendChild(draggedItem);
+    //   zoneList[index].updateCounterNeg(setDropZoneSize(draggedItem));
+    //   console.log("Count" + zoneList[index].getCounter());
+    // }
 }
 
 function setZoneSize(zone){
@@ -121,14 +121,13 @@ removePalanque.addEventListener("click", function(){
   countZone--;
   let palanque = document.getElementById("zone" + countZone);
   if(palanque.childElementCount > 0){
-    console.log(palanque.childNodes[1]);
-    for(let i = 0; i < palanque.childElementCount; i++){
-      console.log(palanque.childNodes[i]);
-      zoneStart.appendChild(palanque.childNodes[i]);
+    sizeT = palanque.childElementCount;
+    for(let i = 0; i < sizeT; i++){
+      zoneStart.appendChild(palanque.childNodes[0]);
     }
   }
   zoneList.splice(zoneList.length - 1, 1);
-  DropZone.removeChild(palanque);
+  palanque.parentElement.removeChild(palanque);
 });
 
 async function getDiver(ds_code){
@@ -165,7 +164,7 @@ function validateAllCombination(){
   zoneList.forEach(element => {
     element = document.getElementById("zone" + element.getZoneNumber());
     if(element.hasChildNodes()){
-      if(element.childElementCount < 2){
+      if(element.childElementCount < 2 || element.childElementCount > 3){
         element.style.backgroundColor = 'red';
         return false;
       }
