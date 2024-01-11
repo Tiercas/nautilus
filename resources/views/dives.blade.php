@@ -1,18 +1,17 @@
 <x-layout>
     <link rel="stylesheet" href="/css/drop-down.css">
     <link rel="stylesheet" href="/css/button-filter.css">
-            <span>
             <x-page-title>Liste des plongées</x-page-title>
 
             <div class="container">
                 <input type="checkbox" id="toggle" checked />
                 <label class="button" for="toggle">
                     <svg class="change-my-color" xmlns="http://www.w3.org/2000/svg" height="19" width="19" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M3.9 54.9C10.5 40.9 24.5 32 40 32H472c15.5 0 29.5 8.9 36.1 22.9s4.6 30.5-5.2 42.5L320 320.9V448c0 12.1-6.8 23.2-17.7 28.6s-23.8 4.3-33.5-3l-64-48c-8.1-6-12.8-15.5-12.8-25.6V320.9L9 97.3C-.7 85.4-2.8 68.8 3.9 54.9z"/></svg>
-                <nav class="nav">
+                <div class="nav">
                     <ul>
                         <li>
                             <label for="underline_select" class="sr-only">Choisir un lieux</label>
-                            <select id="underline_select" class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-orange-200 appearance-none focus:outline-none focus:ring-0 focus:border-orange-600 peer">
+                            <select id="underline_select" class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent appearance-none focus:outline-none focus:ring-0 focus:border-orange-600 peer">
                                 <option selected>Lieux</option>
                                 @foreach ($dives as $dive)
                                     <option value="{{$dive->DL_NAME}}">{{$dive->DL_NAME}}</option>
@@ -21,7 +20,7 @@
                         </li>
                         <li>
                             <label for="underline_select" class="sr-only">Choisir un créneau</label>
-                            <select id="underline_select" class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-orange-600 peer">
+                            <select id="underline_select" class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent appearance-none focus:outline-none focus:ring-0 focus:border-orange-600 peer">
                                 <option selected>Créneau</option>
                                 @foreach ($dives as $dive)
                                     <option value="{{$dive->CAR_SCHEDULE}}">{{$dive->CAR_SCHEDULE}}</option>
@@ -42,7 +41,7 @@
                             <input type="date" name="date-dive" />
                         </li>
                     </ul>
-                </nav>
+                </div>
                 </label>
             </div>
 
@@ -114,7 +113,7 @@
             </table>
         </div>
 
-        <!-- 
+        <!--
         <div id="toast-default"
             class="flex items-center w-full max-w-xs p-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800"
             role="alert" style="background-color: var(--badDarker);color: white;">
