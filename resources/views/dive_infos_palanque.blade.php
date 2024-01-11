@@ -17,7 +17,7 @@
                 </li>
                 <li>Nombre de plongeurs : {{ $dive->DS_DIVERS_COUNT }}</li>
                 <li>Bateau : {{ $dive->BO_NAME }}</li>
-                <li>Observation : {{ $dive->DS_OBSERVATION_FIELD }}</li>
+                <!--<li>Observation : {{ $dive->DS_OBSERVATION_FIELD }}</li>-->
             </ul>
             @if(preg_match("/[0-9]*\.[0-9]*/", $dive->DL_LONGITUDE) == 1 && preg_match("/[0-9]*\.[0-9]*/", $dive->DL_LATITUDE) == 1)
                 <div id='map' class="shadow rounded-lg w-full mt-4 aspect-video"></div>
