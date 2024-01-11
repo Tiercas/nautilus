@@ -278,7 +278,8 @@ Route::post('/modificationdives/members/{ds_code}/ajoutadherent/{us_id}', functi
 });
 
 Route::get('/modificationdives/members/{ds_code}/ajoutadherent/{level}', [AdherentController::class, 'searchByName']);
- * Unsuscribe the user from a diving session.
+
+/** Unsuscribe the user from a diving session
  */
 Route::middleware('App\Http\Middleware\rightChecker')
     ->get('/unsubscribe/{ds_code}', [DivingUnsubscribeController::class, 'index']);
