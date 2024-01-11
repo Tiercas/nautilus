@@ -18,6 +18,8 @@ class User extends Model
 
     protected $primaryKey = 'US_ID';
 
+    public $timestamps = false;
+
     /**
      * Check if a given password matches the stored password.
      *

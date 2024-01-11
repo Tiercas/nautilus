@@ -50,13 +50,14 @@ class ManageAdherentController extends Controller {
 
     function updatePassword(Request $request){
         $user = session('user');
-        if ($request->OldPassword == $user->US_PASSWORD){
+        dd( $request->OldPassword , $user->US_PASSWORD ,$user->checkPassword($request->OldPassword) );
+        if ($user->checkPassword($request->OldPassword)){
             $user->US_PASSWORD = $request->newPassword;
+            $user->save();
         }else{
-            return redirect()->route('/error');
+            return redirect('/error');
         }
         return redirect('/');
     }
-
 }
 

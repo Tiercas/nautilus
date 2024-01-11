@@ -80,6 +80,7 @@
 <link rel="stylesheet" href="/css/pop-up-psw-changer.css">
     <div class="form-popup" id="popupForm">
       <form action="/modification/password-changer" class="form-container" method="post">
+        @csrf
         <button onclick="closeForm()" type="button" class=" w-full flex items-center justify-center w-1/2 px-5 py-2 text-sm text-gray-700 transition-colors duration-200 border rounded-full gap-x-2 sm:w-auto dark:hover:bg-[#002550] dark:bg-[#002550] hover:bg-[#002550] dark:text-gray-200 dark:border-gray-700">
             <svg xmlns="http://www.w3.org/2000/svg" height="16" width="12" viewBox="0 0 384 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#ffffff" d="M376.6 84.5c11.3-13.6 9.5-33.8-4.1-45.1s-33.8-9.5-45.1 4.1L192 206 56.6 43.5C45.3 29.9 25.1 28.1 11.5 39.4S-3.9 70.9 7.4 84.5L150.3 256 7.4 427.5c-11.3 13.6-9.5 33.8 4.1 45.1s33.8 9.5 45.1-4.1L192 306 327.4 468.5c11.3 13.6 31.5 15.4 45.1 4.1s15.4-31.5 4.1-45.1L233.7 256 376.6 84.5z"/></svg>
         </button>
