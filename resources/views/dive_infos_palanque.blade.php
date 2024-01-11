@@ -3,8 +3,14 @@
 
 <x-layout>
     <x-page-title>Plongée du {{ $dive->DS_DATE }} - {{ $dive->DL_NAME }}</x-page-title>
+    <div class="text-right mb-4">
+        <a href="javascript:history. back()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            Revenir en arrière
+        </a>
+    </div>
+
     <div class="flex flex-col md:flex-row gap-2 rounded-lg border shadow">
-        <div class="flex-1 border-r p-4">
+        <div class="flex-1 p-4">
             <h3 class="text-xl font-bold mb-2">Plongée</h3>
             <ul class="space-y-2 list-disc list-inside">
                 <li>Date : {{ $dive->DS_DATE }} ({{ $dive->CAR_SCHEDULE }})</li>
@@ -48,7 +54,7 @@
             @endif
             <p class="text-xl font-bold my-2">{{ $dive->DL_NAME }} • {{ $dive->DS_MAX_DEPTH }}m</p>
         </div>
-        <div class="flex-1 border-r p-4">
+        <div class="flex-1 p-4">
             <h3 class="text-xl font-bold mb-2">Plongeurs</h3>
         </div>
         <div class="flex-1 p-4">

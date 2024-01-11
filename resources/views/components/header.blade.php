@@ -16,7 +16,7 @@
                         id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown"
                         data-dropdown-placement="bottom">
                     <span
-                        class="w-8 h-8 rounded-full py-1 font-bold text-white">{{ substr(session('user')->US_FIRST_NAME, 0, 1) . substr(session('user')->US_NAME, 0, 1) }}</span>
+                        class="w-8 h-8 rounded-full py-2 font-bold text-white">{{ substr(session('user')->US_FIRST_NAME, 0, 1) . substr(session('user')->US_NAME, 0, 1) }}</span>
                 </button>
                 <!-- Dropdown menu -->
                 <div class="z-50 hidden my-4 text-base list-none divide-y rounded-lg shadow bg-blue-700 divide-blue-500"
@@ -28,7 +28,7 @@
                     </div>
                     <ul class="py-2" aria-labelledby="user-menu-button">
                         <li>
-                             <a  href="{{route('divings')}}" class="block px-4 py-2 text-sm hover:bg-gray-600 text-gray-200 hover:text-white">Historique de mes plongées</a> 
+                             <a  href="{{route('divings')}}" class="block px-4 py-2 text-sm hover:bg-gray-600 text-gray-200 hover:text-white">Historique de mes plongées</a>
                         </li>
                         <li>
                             <a href="{{ route('logout') }}"
@@ -55,8 +55,9 @@
                     <a href="{{ route('homepage') }}"
                        @if(request()->routeIs('homepage')) class="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500"
                        aria-current="page"
-                       @else class="block py-2 px-3 rounded hover:bg-blue-700 md:p-0 text-white md:hover:text-blue-500 hover:text-white md:hover:bg-transparent border-gray-700" @endif>Page
-                        d'accueil</a>
+                       @else class="block py-2 px-3 rounded hover:bg-blue-700 md:p-0 text-white md:hover:text-blue-500 hover:text-white md:hover:bg-transparent border-gray-700" @endif>
+                        Tableau de bord
+                    </a>
                 </li>
                 @if (session()->has('user'))
                 <li class="py-2 @if(request()->routeIs('dives'))border-b border-b-[#FFBE55]@endif">
