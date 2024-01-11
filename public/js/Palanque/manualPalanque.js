@@ -53,8 +53,8 @@ function drop(event) {
   let draggedItem = document.getElementById(data);
   console.log(draggedItem);
   if(event.target === zoneStart){
+    zoneList[draggedItem.parentElement.id.split('zone')[1]].updateCounterNeg(setDropZoneSize(draggedItem));
     zoneStart.appendChild(draggedItem);
-    zoneList[index].updateCounterNeg(setDropZoneSize(draggedItem));
   }else
     if(zoneList[index].getCounter() < 3 && zoneList[index].getCounter() + setDropZoneSize(draggedItem) <= 3){
       zoneList[index].updateCounterPos(setDropZoneSize(draggedItem));
