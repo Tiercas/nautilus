@@ -22,6 +22,7 @@
                         <th scope="col" class="px-6 py-3">Sécurité surface</th>
                         <th scope="col" class="px-6 py-3">Pilote</th>
                         <th scope="col" class="px-6 py-3">Directeur de plongée</th>
+                        <th scope="col" class="px-6 py-3">Nombre de plongées</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -47,6 +48,16 @@
                                 <input type="checkbox" id="checkbox{{ $users[0][$i][0] }}"
                                     name="checkbox_{{ $users[0][$i][0] }}_DIR" value="DIR"
                                     @if (array_search('DIR', $users[1][$i]) !== false) checked @endif>
+                            </td>
+                            <td class="px-6 py-4">
+                                <?php
+                                    $usersCount = DivingNumberModel::join('CAR_REGISTRATION', 'CAR_USER.us_id', '=', 'CAR_REGISTRATION.us_id')
+                                        ->join('CAR_DIVING_SESSION', 'CAR_REGISTRATION.ds_code', '=', 'CAR_DIVING_SESSION.ds_code')
+                                        ->where('CAR_USER.us_id', $userId)
+                                        ->whereYear('CAR_DIVING_SESSION.ds_date', '=', now()->year)
+                                        ->count();
+                                ?>
+                                {{ $usersCount }}
                             </td>
                         </tr>
                     @endforeach
