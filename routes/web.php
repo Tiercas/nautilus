@@ -210,3 +210,8 @@ Route::middleware('App\Http\Middleware\RightChecker')
 Route::middleware('App\Http\Middleware\RightChecker')
     ->get('manage/dives', [DivesList::class, 'showManagementList'])
     ->name('manage_dives_dir');
+
+Route::middleware('App\Http\Middleware\RightChecker')
+    ->get('dodo', function () {
+        return view('dodo');
+    });
