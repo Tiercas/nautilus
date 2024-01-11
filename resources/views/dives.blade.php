@@ -13,34 +13,34 @@
                     <ul>
                         <li>
                             <label for="location_filter" class="sr-only">Choisir un lieux</label>
-                            <select id="location_filter" class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent appearance-none focus:outline-none focus:ring-0 focus:border-orange-600 peer">
+                            <select id="location_filter" name="location_filter" class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent appearance-none focus:outline-none focus:ring-0 focus:border-orange-600 peer">
                                 <option selected value="default">Lieux</option>
-                                @foreach ($dives as $dive)
+                                @foreach ($locations as $dive)
                                     <option value="{{$dive->DL_NAME}}">{{$dive->DL_NAME}}</option>
                                 @endforeach
                             </select>
                         </li>
                         <li>
                             <label for="creneau_filter" class="sr-only">Choisir un créneau</label>
-                            <select id="creneau_filter" class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent appearance-none focus:outline-none focus:ring-0 focus:border-orange-600 peer">
+                            <select id="creneau_filter" name="creneau_filter" class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent appearance-none focus:outline-none focus:ring-0 focus:border-orange-600 peer">
                                 <option selected value="default">Créneau</option>
-                                @foreach ($dives as $dive)
-                                    <option value="{{$dive->CAR_SCHEDULE}}">{{$dive->CAR_SCHEDULE}}</option>
-                                @endforeach
+                                <option value="matin">Matin</option>
+                                <option value="apres-midi">Après-midi</option>
+                                <option value="soir">Soir</option>
                             </select>
                         </li>
                         <li>
                             <label for="level_filter" class="sr-only">Choisir un niveau</label>
-                            <select id="level_filter" class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent appearance-none focus:outline-none focus:ring-0 focus:border-orange-600 peer">
+                            <select id="level_filter" name="level_filter" class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent appearance-none focus:outline-none focus:ring-0 focus:border-orange-600 peer">
                                 <option selected value="default">Niveau</option>
-                                @foreach ($dives as $dive)
-                                    <option value="{{$dive->CAR_SCHEDULE}}">{{$dive->DL_DEPTH}}</option>
+                                @foreach ($levels as $level)
+                                    <option value="{{$level->PRE_MAX_DEPTH}}">{{$level->PRE_MAX_DEPTH}}</option>
                                 @endforeach
                             </select>
                         </li>
                         <li>
                             <label class="hidden" for="start">Date de départ</label>
-                            <input type="date" id="date_filter" name="date-dive"/>
+                            <input type="date" id="date_filter" name="date_filter"/>
                         </li>
                         <!--<li>
                             <label class="hidden" for="participant_filter">Participant</label>
@@ -74,9 +74,14 @@
                     </tr>
                     </thead>
                     <tbody>
+                    @if (count($dives) == 0)
+                        <tr class="odd:bg-white even:bg-gray-50 border-b">
+                            <td class="px-6 py-4 text-center" colspan="5">Aucune plongée n'est disponible</td>
+                        </tr>
+                    @endif
                     @foreach ($dives as $dive)
                         <tr class="odd:bg-white even:bg-gray-50 border-b">
-                            <td class="px-6 py-4">{{ $dive->DS_DATE }}</td>
+                            <td class="px-6 py-4">{{ strftime('%d/%m/%Y', strtotime($dive->DS_DATE)) }}</td>
                             <td class="px-6 py-4">{{ $dive->CAR_SCHEDULE }}</td>
                             <td class="px-6 py-4">{{ $dive->DL_DEPTH }}m</td>
                             <td class="px-6 py-4">{{ $dive->DL_NAME }}</td>
