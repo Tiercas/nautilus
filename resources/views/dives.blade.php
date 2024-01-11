@@ -21,7 +21,6 @@
                         @php
                             $participants = $dive->getParticipants();
                         @endphp
-                    @foreach ($dives as $dive)
                         <tr class="odd:bg-white even:bg-gray-50">
                             <td class="px-12 py-4">{{ $dive->DS_DATE }}</td>
                             @if( $dive->CAR_SCHEDULE=='Matin')
