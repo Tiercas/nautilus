@@ -2,9 +2,12 @@
 
 namespace App\Exceptions;
 
+use Error;
+use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 use Illuminate\Http\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Throwable;
@@ -30,6 +33,9 @@ class Handler extends ExceptionHandler
         'password',
         'password_confirmation',
     ];
+    public function render($request, Throwable $exception){
+        return view('error-page',['message'=>$exception->getMessage()]);
+    }
 
     /**
      * Register the exception handling callbacks for the application.
@@ -38,10 +44,6 @@ class Handler extends ExceptionHandler
      */
     public function register()
     {
-        $this->renderable(function(QueryException $queryException, Request $request){
-            if ($queryException->getCode()==45000)
-            return response()->view('erreur-page',['message'=>$queryException->getMessage()]);
-        });
         $this->reportable(function (Throwable $e) {
             //
         });
