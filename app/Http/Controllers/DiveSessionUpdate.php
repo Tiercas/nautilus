@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\DivingSession;
+use App\Models\Boat;
 use Illuminate\Http\Request;
 
 class DiveSessionUpdate extends Controller
@@ -22,6 +23,10 @@ class DiveSessionUpdate extends Controller
         $dv->DS_MAX_DEPTH = $request->maxDepth;
         $dv->DS_ACTIVE = 1;
         $dv->DS_MAX_DIVERS = $request->max;
+        if(intval($dv->DS_MAX_DIVERS) > Boat::find($request->boat)->BO_NUMBER_OF_SEATS)
+        {
+            return "Le nombre de plongeurs est supérieur au nombre de places du bateau";
+        }
         $dv->PRE_CODE = $request->level;
         $dv->save();
     }

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Error;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -36,9 +37,18 @@ class DivingSession extends Model
         return DivingGroup::where('DS_CODE', $this->DS_CODE)->get();
     }
 
-    public function disable()
+    public static function disable($id)
     {
-        $this->DS_ACTIVE = 0;
-        $this->save();
+        $ds = DivingSession::find($id);
+
+        if(($ds->DS_DATE < date('Y-m-d')) == 1)
+        {
+            return "Impossible de supprimer une plongée passée";
+        }
+        else
+        {
+            $ds->DS_ACTIVE = 0;
+            $ds->save();
+        }
     }
 }
