@@ -36,9 +36,9 @@
                     </div>
                 </div>
                 <div class="divideFlex Column">
-                    @if(isset($msg))
+                    @if(isset($error))
                     {
-                        <p>{{$msg}}</p>
+                        <p>{{$error}}</p>
                     }
                     @endif
                     <h2>Lieu</h2>
