@@ -81,6 +81,7 @@ function drop(event) {
 function setZoneSize(zone){
   zone.forEach(element => {
     element.childNodes.forEach(elements => {
+      console.log(elements);
       if(elements.id.split(',')[1] === 'PB')
         zoneList[element.id.split('zone')[1] ].updateCounterPos(2);
       else
