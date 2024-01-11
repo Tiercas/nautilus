@@ -48,6 +48,15 @@ class ManageAdherentController extends Controller {
         return redirect()->route('manage_members');
     }
 
+    function updatePassword(Request $request){
+        $user = session('user');
+        if ($request->OldPassword == $user->US_PASSWORD){
+            $user->US_PASSWORD = $request->newPassword;
+        }else{
+            return redirect()->route('/error');
+        }
+        return redirect('/');
+    }
 
 }
 

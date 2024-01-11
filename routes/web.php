@@ -284,3 +284,5 @@ Route::post('/modificationdives/members/{ds_code}/ajoutadherent/{us_id}', functi
 });
 
 Route::get('/modificationdives/members/{ds_code}/ajoutadherent/{level}', [AdherentController::class, 'searchByName']);
+
+Route::post('/modification/password-changer', [ManageAdherentController::class, 'updatePassword']);
