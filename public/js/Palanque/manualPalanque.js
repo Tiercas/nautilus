@@ -109,7 +109,7 @@ function isElementInList(element, list){
 
 addPalanque.addEventListener("click", function(){
   let palanque = document.createElement("div");
-  palanque.setAttribute("class", "border-2 p-4 zone");
+  palanque.setAttribute("class", "border text-center bg-gray-200 rounded-lg p-3 pb-20 zone");
   palanque.setAttribute("id", "zone" + countZone);
   palanque.setAttribute("ondrop", "drop(event)");
   palanque.setAttribute("ondragover", "allowDrop(event)");
@@ -119,17 +119,28 @@ addPalanque.addEventListener("click", function(){
 });
 
 removePalanque.addEventListener("click", function(){
-  countZone--;
-  let palanque = document.getElementById("zone" + countZone);
-  if(palanque.childElementCount > 0){
-    sizeT = palanque.childElementCount;
-    for(let i = 0; i < sizeT; i++){
-      zoneStart.appendChild(palanque.childNodes[0]);
-    }
-  }
-  zoneList.splice(zoneList.length - 1, 1);
-  palanque.parentElement.removeChild(palanque);
+    let nbZone = prompt("Veuillez entrer le numéro de la palanque à supprimer", "1") - 1;
+    removePalanqueZone(nbZone);
 });
+
+function removePalanqueZone(nbZone){
+    countZone--;
+    let palanque = document.getElementById("zone" + nbZone);
+    if(palanque.childElementCount > 0){
+        sizeT = palanque.childElementCount;
+        for(let i = 0; i < sizeT; i++){
+            zoneStart.appendChild(palanque.childNodes[0]);
+        }
+    }
+    zoneList.splice(zoneList.length - 1, 1);
+    palanque.parentElement.removeChild(palanque);
+    let dropZones = document.querySelectorAll("div.zone");
+    dropZones.forEach(element => {
+        if(element.id.split('zone')[1] > nbZone){
+            element.id = "zone" + (element.id.split('zone')[1] - 1);
+        }
+    })
+}
 
 async function getDiver(ds_code){
   let response = await fetch(`/api/dives/${ds_code}/divers`);
@@ -142,11 +153,11 @@ function proccessDiverData(data){
   for(let i = 0; i < data.length; i++){
     countDiver++;
     let diver = document.createElement("div");
-    diver.setAttribute("class", "w-fit h-8 border-2");
+    diver.setAttribute("class", "w-full h-8 border rounded p-1 m-1 bg-gray-300");
     diver.setAttribute("id", 'item' + data[i].US_ID +',' + data[i].PRE_CODE + ',E' + data[i].US_TEACHING_LEVEL + ',' + data[i].US_ID);
     diver.setAttribute("draggable", "true");
     diver.setAttribute("ondragstart", "drag(event)");
-    diver.innerHTML = data[i].US_FIRST_NAME + " " + data[i].US_NAME + " " + data[i].PRE_CODE + " " + data[i].US_TEACHING_LEVEL;
+    diver.innerHTML = data[i].US_FIRST_NAME + " " + data[i].US_NAME.toUpperCase() + " - " + data[i].PRE_CODE + " - E" + data[i].US_TEACHING_LEVEL;
     zoneStart.appendChild(diver);
   }
   return data;
@@ -167,7 +178,7 @@ function validateAllCombination(){
     element = document.getElementById("zone" + element.getZoneNumber());
     if(element.hasChildNodes()){
       if(element.childElementCount < 2 || element.childElementCount > 3){
-        element.style.backgroundColor = 'red';
+        element.style.backgroundColor = 'rgb(254 202 202)';
         return false;
       }
       let children = element.childNodes;
@@ -175,8 +186,8 @@ function validateAllCombination(){
         for(let j = 0; j < children.length; j++){
           if(children[j].id.split(',')[1] === 'PA-60-GP'){
             counterCheck++;
-            if(element.style.backgroundColor === 'red')
-              element.style.backgroundColor = 'white';
+            if(element.style.backgroundColor === 'rgb(254 202 202)')
+              element.style.backgroundColor = 'rgb(229 231 235)';
             return true;
           }
         }
@@ -189,19 +200,19 @@ function validateAllCombination(){
               let targetItemsSplit2 = children[j].id.split(',')[2];
               if(validatePalanqueCombinate[targetItemsSplit].includes(targetItemsSplit2)){
                 counterCheck++;
-                if(element.style.backgroundColor === 'red')
-                  element.style.backgroundColor = 'white';
+                if(element.style.backgroundColor === 'rgb(254 202 202)')
+                  element.style.backgroundColor = 'rgb(229 231 235)';
                 return true;
               }
             }
-            element.style.backgroundColor = 'red';
+            element.style.backgroundColor = 'rgb(254 202 202)';
             return false;
           }
         }
-        
+
       }
     }else {
-      element.style.backgroundColor = 'white';
+      element.style.backgroundColor = 'rgb(229 231 235)';
       return false;
     }
   });
@@ -225,7 +236,7 @@ validatePalanque.addEventListener("click", function(){
     sendPalanque();
     clearInterval(interval);
   }
-    
+
 });
 
 function returnValueToPhp(ds_code) {
@@ -279,7 +290,7 @@ function fillZoneWithAlreadyExistingPalanque(diverList) {
           zoneStart.removeChild(diver);
       }else{
         let palanque = document.createElement("div");
-        palanque.setAttribute("class", "border-2 p-4 zone");
+        palanque.setAttribute("class", "border text-center bg-gray-200 rounded-lg p-3 pb-20 zone");
         palanque.setAttribute("id", "zone" + dgNumber);
         palanque.setAttribute("ondrop", "drop(event)");
         palanque.setAttribute("ondragover", "allowDrop(event)");

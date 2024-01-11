@@ -57,18 +57,27 @@
             <p class="text-xl font-bold my-2">{{ $dive->DL_NAME }}@if (isset($dive->DS_MAX_DEPTH)) • {{
                 $dive->DS_MAX_DEPTH }}m @endif</p>
         </div>
-        <div class="flex-1 p-4" id="zoneStart" ondrop="drop(event)" ondragover="allowDrop(event)">
+        <div class="flex-1 p-4">
             <h3 class="text-xl font-bold mb-2">Plongeurs</h3>
+            <div class="sticky top-6">
+                <p class="text-center italic">Déplacez les plongeurs vers les palanquées correspondantes</p>
+                <div id="zoneStart" ondrop="drop(event)" ondragover="allowDrop(event)" class="text-center w-full p-4 pb-20 min-h-16 border rounded-lg bg-gray-200">
+
+                </div>
+            </div>
+
         </div>
         <div class="flex-1 p-4">
             <h3 class="text-xl font-bold mb-2">Palanquées</h3>
-            <div class="p-2 grid grid-cols-2 md:grid-cols-3 gap-4" id="DropZone">
+            <div class="grid grid-cols-2 md:grid-cols-1 gap-4" id="DropZone">
 
             </div>
 
-            <button type='button' id="addPal">Add P</button>
-            <button type='button' id="removePal">Remove P</button>
-            <button type='button' id="validatePal">Val</button>
+            <div class="my-3 text-center">
+                <button type='button' id="addPal" class="mt-1 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Ajouter une palanquée</button>
+                <button type='button' id="validatePal" class="mt-1 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Valider</button>
+                <button type='button' id="removePal" class="mt-1 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Supprimer une palanquée</button>
+            </div>
         </div>
     </div>
 </x-layout>

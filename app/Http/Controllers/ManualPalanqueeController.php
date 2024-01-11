@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\DivingGroup;
 use App\Models\DivingSignUpModel;
 use App\Models\User;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -37,7 +38,7 @@ class ManualPalanqueeController extends Controller
             }
             $responseData = ['message' => 'Data received successfully', 'additionalData' => $divingGroups];
             return response()->json($responseData);
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (QueryException $e) {
             return response()->json(['error' => 'Internal Server Error', 'errData' => $e], 500);
         }
     }
