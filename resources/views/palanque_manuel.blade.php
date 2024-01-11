@@ -7,7 +7,7 @@
     </div>
   </div>
 
-  <div class="p-2 grid grid-cols-2 md:grid-cols-3 gap-4" id="DropZone">
+  <div class="p-2 grid grid-cols-2 md:grid-cols-3 gap-4" id="DropZone"></div>
   </div>
   </div>
   <button type='button' id="addPal">Add P</button>

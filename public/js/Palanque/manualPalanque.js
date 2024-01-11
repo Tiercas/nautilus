@@ -28,7 +28,7 @@ const zoneStart = document.getElementById("zoneStart");
 const DropZone = document.getElementById("DropZone");
 const removePalanque = document.getElementById("removePal");
 const addPalanque = document.getElementById("addPal");
-const validatePalanque = document.getElementById("validatePal");
+const validatePalanque = document.getElementById("validatePal").disabled = true;
 
 let countZone = 0;
 let countDiver = 0;
@@ -36,6 +36,7 @@ let zoneList = [];
 let counterCheck = 0;
 
 getDiver("DS1").then(data => fillZoneWithAlreadyExistingPalanque(data));
+setZoneSize(DropZone.childNodes);
 
 function allowDrop(event) {
   event.preventDefault();
@@ -48,14 +49,15 @@ function drag(event) {
 function drop(event) {
   event.preventDefault();
   let index = event.target.id.split('zone')[1];
+  console.log(index);
   if(isElementInList('item', event.target.id.split(',')))
     return;
 
   let data = event.dataTransfer.getData("draggable");
   let draggedItem = document.getElementById(data);
-  console.log(draggedItem);
   if(event.target === zoneStart){
     zoneList[draggedItem.parentElement.id.split('zone')[1]].updateCounterNeg(setDropZoneSize(draggedItem));
+    console.log(zoneList[draggedItem.parentElement.id.split('zone')[1]].getCounter());
     zoneStart.appendChild(draggedItem);
   }else
     if(zoneList[index].getCounter() < 3 && zoneList[index].getCounter() + setDropZoneSize(draggedItem) <= 3){
@@ -63,6 +65,17 @@ function drop(event) {
       event.target.appendChild(draggedItem);
     }else
       zoneStart.appendChild(draggedItem);
+}
+
+function setZoneSize(zone){
+  zone.forEach(element => {
+    for(let i = 0; i < children.length; i++){
+      if(children[i].id.split(',')[1] === 'PB')
+        zoneList[element.id.split('zone')[1]].updateCounterPos(2);
+      else
+        zoneList[element.id.split('zone')[1]].updateCounterPos(1);
+    }
+  });
 }
 
 function setDropZoneSize(element){
@@ -83,20 +96,22 @@ function isElementInList(element, list){
 }
 
 addPalanque.addEventListener("click", function(){
-  countZone++;
+  console.log(countZone);
   let palanque = document.createElement("div");
   palanque.setAttribute("class", "border-2 p-4 zone");
-  palanque.setAttribute("id", "zone " + (countZone));
+  palanque.setAttribute("id", "zone" + countZone);
   palanque.setAttribute("ondrop", "drop(event)");
   palanque.setAttribute("ondragover", "allowDrop(event)");
   zoneList.push(new DropZoneClass(countZone));
   DropZone.appendChild(palanque);
+  countZone++;
 });
 
 removePalanque.addEventListener("click", function(){
-  let palanque = document.getElementById("zone" + (countZone));
   countZone--;
-  if(palanque.hasChildNodes()){
+  let palanque = document.getElementById("zone" + (countZone));
+  console.log(palanque);
+  if(palanque.childElementCount > 0){
     let children = palanque.childNodes;
     for(let i = 0; i < children.length; i++){
       zoneStart.appendChild(children[i]);
@@ -137,6 +152,7 @@ let validatePalanqueCombinate = {
 };
 
 function validateAllCombination(){
+  let counterCheck = 0;
   zoneList.forEach(element => {
     element = document.getElementById("zone" + element.getZoneNumber());
     if(element.hasChildNodes()){
@@ -144,17 +160,17 @@ function validateAllCombination(){
         return false;
       let children = element.childNodes;
       for(let i = 0; i < children.length; i++){
-        let targetItemsSplit = children[i].id.split(',')[1];
+        let targetItemsSplit = children[i].id.split(',')[2];
         for(targetItemsSplit in validatePalanqueCombinate){
           for(let j = 0; j < children.length; j++){
-            let targetItemsSplit2 = children[j].id.split(',')[1];
+            let targetItemsSplit2 = children[j].id.split(',')[2];
             console.log(targetItemsSplit2);
             if(validatePalanqueCombinate[targetItemsSplit].includes(targetItemsSplit2)){
               console.log("ok");
+              counterCheck++;
               if(element.style.backgroundColor === 'red')
                 element.style.backgroundColor = 'white';
               return true;
-              //TODO VERIF E1 -6metres
             }
           }
           console.log("ko");
@@ -164,12 +180,16 @@ function validateAllCombination(){
       }
     }
   });
+  if(counterCheck == countZone){
+    validatePalanque.disable = false;
+    return true;
+  }
 }
 
 
 let interval = setInterval(() => {
   validateAllCombination();
-}, 1000);
+}, 2000);
 
 
 validatePalanque.addEventListener("click", function(){
@@ -223,7 +243,8 @@ function fillZoneWithAlreadyExistingPalanque(diverList) {
   diverList.forEach(element => {
     let diver = document.getElementById('item' + element.US_ID + ',' + element.PRE_CODE + ',E' + element.US_TEACHING_LEVEL + ',' + element.US_ID);
     if (element.DG_NUMBER !== 0 && element.DG_NUMBER !== null) {
-      let zone = document.getElementById("zone" + element.DG_NUMBER);
+      let dgNumber = element.DG_NUMBER - 1;
+      let zone = document.getElementById("zone" + dgNumber);
       if (zone) {
         zone.appendChild(diver);
         if(zoneStart.contains(diver))
@@ -231,15 +252,16 @@ function fillZoneWithAlreadyExistingPalanque(diverList) {
       }else{
         let palanque = document.createElement("div");
         palanque.setAttribute("class", "border-2 p-4 zone");
-        palanque.setAttribute("id", "zone" + element.DG_NUMBER);
+        palanque.setAttribute("id", "zone" + dgNumber);
         palanque.setAttribute("ondrop", "drop(event)");
         palanque.setAttribute("ondragover", "allowDrop(event)");
-        zoneList.push(new DropZoneClass(element.DG_NUMBER));
+        zoneList.push(new DropZoneClass(dgNumber));
         DropZone.appendChild(palanque);
         palanque.appendChild(diver);
         if(zoneStart.contains(diver))
           zoneStart.removeChild(diver);
         countZone++;
+        console.log(countZone);
       }
     }
   });
