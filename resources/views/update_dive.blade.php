@@ -185,7 +185,7 @@
             </div>
         </form>
     </div>
-    
+
     <script src="https://kit.fontawesome.com/8708952b61.js" crossorigin="anonymous"></script>
     <script src="{{ asset('/js/create_div.js') }}"></script>
 </x-layout>

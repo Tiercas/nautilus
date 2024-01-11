@@ -1,13 +1,23 @@
-if(document.querySelector('.clickableDelete')){
-  var deleteButton = document.querySelector('.clickableDelete');
-    function checkHistoryLines() {
-        var historyLines = document.querySelectorAll('.historyLine');
-        var Historique = document.getElementById("Historique");
-        if (historyLines.length > 0) {
-            Historique.style.display = 'table';
+document.addEventListener('DOMContentLoaded', function () {
+    function checkButtons() {
+        var deleteButtons = document.querySelectorAll('.clickableRed');
+        var historiqueContainer = document.getElementById('Historique');
+        var DiverImage = document.getElementById('imageDiver');
+
+        if (deleteButtons.length > 0) {
+            historiqueContainer.style.display = 'block';
+            DiverImage.style.display = 'none';
         } else {
-            Historique.style.display = 'none';
+            historiqueContainer.style.display = 'none';
+            DiverImage.style.display = 'block';
         }
     }
-    deleteButton.addEventListener('click', checkHistoryLines);
-}
+
+    checkButtons();
+
+    document.addEventListener('click', function (event) {
+        if (event.target.classList.contains('clickableRed')) {
+            setTimeout(checkButtons, 100);
+        }
+    });
+});
