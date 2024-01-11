@@ -9,8 +9,7 @@
             @if (isset($previousDives))
                 <div id="Historique">
                     <p style="font-size: 35px">Historique de plongées crées</p>
-                    <hr
-                        style="height: 3px;background-color: black;margin-left: 10%;margin-bottom: 15px;margin-top: 5px; width : 80%">
+                    <hr style="height: 3px;background-color: black;margin-left: 10%;margin-bottom: 15px;margin-top: 5px; width : 80%">
                     <table class="arrayhistory">
                         <tr class="history">
                             <th>Date</th>
@@ -56,13 +55,11 @@
                         </div>
                         <div class="divideFlexBig Column">
                             @if (isset($precedent))
-                                <input class="inputTime" required type="date" name="day" id="dayInput"
-                                    value="{{ $precedent->DS_DATE }}">
+                                <input class="inputTime" required type="date" name="day" id="dayInput" value="{{ $precedent->DS_DATE }}">
                             @else
-                                <input class="inputTime" required type="date" name="day" id="dayInput"
-                                    min="<?php echo date('Y-m-d'); ?>" max="" />
+                                <input class="inputTime" required type="date" name="day" id="dayInput" min="<?php echo date('Y-m-d'); ?>" max="" />
                             @endif
-                            <select required name="hour" id="hour" style="width: 160px; margin-bottom: 15px;">
+                            <select id="SelectHour" required name="hour" id="hour" style="width: 160px; margin-bottom: 15px;">
                                 <option value="Matin">Matin</option>
                                 <option value="Apres-midi">Après midi</option>
                                 <option value="Soir">Soir</option>
