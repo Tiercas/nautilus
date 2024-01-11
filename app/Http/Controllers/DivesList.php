@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DivingGroup;
 use App\Models\DivingSession;
 use App\Models\Prerogative;
 use App\Models\User;
