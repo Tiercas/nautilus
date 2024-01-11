@@ -5,6 +5,11 @@
     <div style="display : flex; flex-direction: row">
         <div style="width: 50%; margin-right: 50px; height: 100%; display:flex; align-items: center; flex-direction: column">
             <img src="{{ asset('/images/Diver1.png') }}" alt="Diver illustration">
+            <div style="width: 100%">
+                @if(isset($error))
+                    <x-popup bgPopup="var(--bad)">{{$error}}</x-popup>
+                @endif
+            </div>
         </div>
 
         <form action="/dive/update/{{$dive->DS_CODE}}" method="POST" style="width: 70%;">
@@ -187,9 +192,6 @@
                 </form>
             </div>
         </form>
-        @if(isset($error))
-            <x-popup>{{$error}}</x-popup>
-        @endif
     </div>
 
     <script src="{{ asset('/js/create_div.js') }}"></script>
