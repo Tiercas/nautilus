@@ -197,6 +197,10 @@ Route::post('/dive/delete/{id}', function ($id, Request $request) {
     return redirect('/create/dive');
 });
 
+Route::get('/dodo', function () {
+    return view('dodo');
+});
+
 /**
  * List all the diving sessions of all the users.
  */
@@ -244,6 +248,7 @@ Route::middleware('App\Http\Middleware\rightChecker')
 Route::middleware('App\Http\Middleware\rightChecker')
     ->get('manage/dives', [DivesList::class, 'showManagementList'])
 ->name('manage_dives_dir');
+
 Route::get('/modificationdives', [ModificationDives::class, 'index']);
 
 Route::get('modificationdives/members/{ds_code}', function($ds_code){
@@ -269,3 +274,4 @@ Route::post('/modificationdives/members/{ds_code}/ajoutadherent/{us_id}', functi
 Route::get('/modificationdives/members/{ds_code}/ajoutadherent/{pre_code}', [AdherentController::class, 'searchByName']);
 
 Route::get('/palanque/manuelle', [ManualPalanqueeController::class, 'show'])->name('palanque_manuelle');
+
