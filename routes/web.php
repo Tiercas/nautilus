@@ -17,6 +17,7 @@ use App\Http\Controllers\DivingSignUpController;
 use App\Http\Controllers\DiveSessionCreation;
 use App\Http\Controllers\ManageAdherentController;
 use App\Http\Controllers\DiveSessionDelete;
+use App\Http\Controllers\DivingUnsubscribeController;
 use App\Http\Controllers\DiveDeletion;
 use App\Http\Controllers\DivesListManage;
 use App\Http\Controllers\DiveCreation;
@@ -217,3 +218,9 @@ Route::middleware('App\Http\Middleware\rightChecker')
 Route::middleware('App\Http\Middleware\rightChecker')
     ->get('manage/dives', [DivesList::class, 'showManagementList'])
 ->name('manage_dives_dir');
+
+/**
+ * Unsuscribe the user from a diving session.
+ */
+Route::middleware('App\Http\Middleware\rightChecker')
+    ->get('/unsubscribe/{ds_code}', [DivingUnsubscribeController::class, 'index']);

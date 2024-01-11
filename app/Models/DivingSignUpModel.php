@@ -9,5 +9,8 @@ class DivingSignUpModel extends Model
 {
     protected $table = 'CAR_REGISTRATION';
     protected $fillable = ['US_ID', 'DS_CODE', 'REG_ACTIVE'];
+
+    public $timestamps = false;
+
     use HasFactory;
 }
