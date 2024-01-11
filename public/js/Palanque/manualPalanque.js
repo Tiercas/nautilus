@@ -165,7 +165,7 @@ function validateAllCombination(){
 
 let interval = setInterval(() => {
   validateAllCombination();
-}, 5000);
+}, 1000);
 
 
 validatePalanque.addEventListener("click", function(){
