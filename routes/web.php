@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DivesList;
+use App\Http\Controllers\ManualPalanqueeController;
 use App\Models\Boat;
 use App\Models\User;
 use App\Models\Prerogative;
@@ -236,3 +237,5 @@ Route::post('/modificationdives/members/{ds_code}/ajoutadherent/{us_id}', functi
 });
 
 Route::get('/modificationdives/members/{ds_code}/ajoutadherent/{pre_code}', [AdherentController::class, 'searchByName']);
+
+Route::get('/palanque/manuelle', [ManualPalanqueeController::class, 'show'])->name('palanque_manuelle');
