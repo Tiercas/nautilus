@@ -257,7 +257,7 @@ Route::get('/modificationdives/members/{ds_code}/ajoutadherent/{level}', [Adhere
 
 /** Unsuscribe the user from a diving session
  */
-Route::middleware('App\Http\Middleware\rightChecker')
+Route::middleware('App\Http\Middleware\RightChecker')
     ->get('/unsubscribe/{ds_code}', [DivingUnsubscribeController::class, 'index']);
 
 /**
@@ -281,7 +281,7 @@ Route::get('/alldivings?{afterthe}&{beforethe}', [DivingNumberController::class,
  * Leads to a page that allows to manage every member and change their roles.
  * Only accessible to the diving section manager.
  */
-Route::middleware('App\Http\Middleware\rightChecker')
+Route::middleware('App\Http\Middleware\RightChecker')
     ->get('manage/members', [ManageAdherentController::class, 'index'])
     ->name('manage_members');
 
@@ -289,15 +289,15 @@ Route::middleware('App\Http\Middleware\rightChecker')
  * Updates every user's roles.
  * Only accessible to the diving section manager.
  */
-Route::middleware('App\Http\Middleware\rightChecker')
+Route::middleware('App\Http\Middleware\RightChecker')
     ->post('manage/members/roles', [ManageAdherentController::class, 'update'])
     ->name('updateMembersRole');
 
-Route::middleware('App\Http\Middleware\rightChecker')
+Route::middleware('App\Http\Middleware\RightChecker')
     ->get('dive/{id}', [DivesList::class, 'show'])
     ->name('dives_show');
 
-Route::middleware('App\Http\Middleware\rightChecker')
+Route::middleware('App\Http\Middleware\RightChecker')
     ->get('manage/dives', [DivesList::class, 'showManagementList'])
 ->name('manage_dives_dir');
 
