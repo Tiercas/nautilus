@@ -4,13 +4,13 @@ namespace App\Http\Controllers\DataController;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Boat;
+use App\Models\DivingGroup;
 
-class DataBoatController extends Controller
+class DataDivingGroupController extends Controller
 {
     public static function fetch()
     {
-        $boatData = Boat::all();
-        return $boatData;
+        $divingGroupData = DivingGroup::all();
+        return $divingGroupData;
     }
 }
