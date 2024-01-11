@@ -154,8 +154,18 @@ Route::middleware('App\Http\Middleware\RightChecker')
  * Updates a diving session.
  * @param $id the code of the diving session
  */
-Route::post('/dive/update/{id}', function ($id, Request $request) {
-    DiveSessionUpdate::update($request, $id);
+Route::post('/dive/update/{id}', function ($id, Request $request){
+    $error = DiveSessionUpdate::update($request, $id);
+
+    if($error != null)
+    {
+        return view('update_dive', ['dive' => DivingSession::find($id),
+                    'locations' => DivingLocation::all(),
+                    'boats' => Boat::all(),
+                    'levels' => Prerogative::all(),
+                    'users' => User::all(),
+                    'error' => $error]);
+    }
     return redirect('/');
 });
 
@@ -164,8 +174,18 @@ Route::post('/dive/update/{id}', function ($id, Request $request) {
  * @param $id the code of the diving session
  */
 Route::middleware('App\Http\Middleware\RightChecker')
-    ->post('/dive/disable/{id}', function ($id) {
-        DivingSession::find($id)->disable();
+    ->post('/dive/disable/{id}', function ($id)
+    {
+        $res = DivingSession::disable($id);
+        if($res !== null)
+        {
+            return view('update_dive', ['dive' => DivingSession::find($id),
+            'locations' => DivingLocation::all(),
+            'boats' => Boat::all(),
+            'levels' => Prerogative::all(),
+            'users' => User::all(),
+            'error' => $res]);
+        }
         return redirect('/');
     });
 
@@ -174,7 +194,6 @@ Route::middleware('App\Http\Middleware\RightChecker')
  * @param $id the code of the diving session
  */
 Route::post('/dive/delete/{id}', function ($id, Request $request) {
-    DiveDeletion::delete($id);
     return redirect('/create/dive');
 });
 

@@ -71,8 +71,15 @@
                             <label for="maxInput">Maximum :</label>
                         </div>
                         <div class="divideFlexBig Column">
-                            <input required type="number" name="min" id="minInput" min="0" placeholder="0"
-                            style="width: 20%;-moz-appearance: textfield;text-align: center;">
+                            @if (isset($precedent))
+                                <input required type="number" name="max" id="maxInput" min="0" placeholder="0"
+                                style="width: 20%;-moz-appearance: textfield;text-align: center;"
+                                    value="{{ $precedent->DS_MIN_DIVERS }}">
+                            @else
+                                <input required type="number" name="max" id="maxInput" min="0"
+                                    placeholder="0" value="{{$dive->DS_MIN_DIVERS}}"
+                                    style="width: 20%;-moz-appearance: textfield;text-align: center;">
+                            @endif
                             @if (isset($precedent))
                                 <input required type="number" name="max" id="maxInput" min="0" placeholder="0"
                                     style="width: 20%;-moz-appearance: textfield;text-align: center;"
@@ -182,14 +189,14 @@
                         class="clickable block w-full max-w-xs mx-auto bg-yellow-400 hover:bg-yellow-500 focus:bg-yellow-500 text-black rounded-lg px-3 py-3 font-semibold"
                         type="submit" value="Mettre à jour">
                 </div>
-                <form method="POST" action="/dive/disable/{{$dive->DS_CODE}}">
-                    @csrf
-                    <div class="w-full px-3 mb-5">
-                        <input
-                            class="clickableDelete clickable block w-full max-w-xs mx-auto bg-red-400 hover:bg-red-500 focus:bg-red-500 text-black rounded-lg px-3 py-3 font-semibold"
-                            type="submit" value="Supprimer">
-                    </div>
-                </form>
+            </div>
+        </form>
+        <form method="POST" action="/dive/disable/{{$dive->DS_CODE}}">
+            @csrf
+            <div class="w-full px-3 mb-5">
+                <input
+                    class="clickableDelete clickable block w-full max-w-xs mx-auto bg-red-400 hover:bg-red-500 focus:bg-red-500 text-black rounded-lg px-3 py-3 font-semibold"
+                    type="submit" value="Supprimer">
             </div>
         </form>
     </div>
