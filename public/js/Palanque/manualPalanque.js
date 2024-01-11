@@ -28,12 +28,13 @@ const zoneStart = document.getElementById("zoneStart");
 const DropZone = document.getElementById("DropZone");
 const removePalanque = document.getElementById("removePal");
 const addPalanque = document.getElementById("addPal");
-const validatePalanque = document.getElementById("validatePal").disabled = true;
+const validatePalanque = document.getElementById("validatePal");
 
 let countZone = 0;
 let countDiver = 0;
 let zoneList = [];
 let counterCheck = 0;
+let disableVal = true;
 
 getDiver("DS1").then(data => fillZoneWithAlreadyExistingPalanque(data));
 
@@ -163,28 +164,43 @@ function validateAllCombination(){
         return false;
       let children = element.childNodes;
       for(let i = 0; i < children.length; i++){
-        let targetItemsSplit = children[i].id.split(',')[2];
-        for(targetItemsSplit in validatePalanqueCombinate){
-          for(let j = 0; j < children.length; j++){
-            let targetItemsSplit2 = children[j].id.split(',')[2];
-            console.log(targetItemsSplit2);
-            if(validatePalanqueCombinate[targetItemsSplit].includes(targetItemsSplit2)){
-              console.log("ok");
-              counterCheck++;
-              if(element.style.backgroundColor === 'red')
-                element.style.backgroundColor = 'white';
-              return true;
-            }
+        for(let j = 0; j < children.length; j++){
+          if(children[j].id.split(',')[1] === 'PA-60-GP'){
+            console.log("ok");
+            counterCheck++;
+            if(element.style.backgroundColor === 'red')
+              element.style.backgroundColor = 'white';
+            return true;
           }
-          console.log("ko");
-          element.style.backgroundColor = 'red';
-          return false;
         }
+      }
+      for(let i = 0; i < children.length; i++){
+        console.log(children[i].id.split(',')[1]);
+        {
+          let targetItemsSplit = children[i].id.split(',')[2];
+          for(targetItemsSplit in validatePalanqueCombinate){
+            for(let j = 0; j < children.length; j++){
+              let targetItemsSplit2 = children[j].id.split(',')[2];
+              console.log(targetItemsSplit2);
+              if(validatePalanqueCombinate[targetItemsSplit].includes(targetItemsSplit2)){
+                console.log("ok");
+                counterCheck++;
+                if(element.style.backgroundColor === 'red')
+                  element.style.backgroundColor = 'white';
+                return true;
+              }
+            }
+            console.log("ko");
+            element.style.backgroundColor = 'red';
+            return false;
+          }
+        }
+        
       }
     }
   });
   if(counterCheck == countZone){
-    validatePalanque.disable = false;
+    disableVal = false;
     return true;
   }
 }
@@ -196,8 +212,9 @@ let interval = setInterval(() => {
 
 
 validatePalanque.addEventListener("click", function(){
-  sendPalanque();
-  clearInterval(interval);
+  if(!disableVal)
+    sendPalanque();
+    clearInterval(interval);
 });
 
 function returnValueToPhp(ds_code) {
@@ -241,7 +258,6 @@ function sendPalanque() {
   xhr.send(palanqueListJson);
   console.log("send");
 }
-
 function fillZoneWithAlreadyExistingPalanque(diverList) {
   diverList.forEach(element => {
     let diver = document.getElementById('item' + element.US_ID + ',' + element.PRE_CODE + ',E' + element.US_TEACHING_LEVEL + ',' + element.US_ID);
