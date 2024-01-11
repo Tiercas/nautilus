@@ -50,14 +50,7 @@
                                     @if (array_search('DIR', $users[1][$i]) !== false) checked @endif>
                             </td>
                             <td class="px-6 py-4">
-                                <?php
-                                    $usersCount = DivingNumberModel::join('CAR_REGISTRATION', 'CAR_USER.us_id', '=', 'CAR_REGISTRATION.us_id')
-                                        ->join('CAR_DIVING_SESSION', 'CAR_REGISTRATION.ds_code', '=', 'CAR_DIVING_SESSION.ds_code')
-                                        ->where('CAR_USER.us_id', $userId)
-                                        ->whereYear('CAR_DIVING_SESSION.ds_date', '=', now()->year)
-                                        ->count();
-                                ?>
-                                {{ $usersCount }}
+                                {{$usersDives[$i]}}
                             </td>
                         </tr>
                     @endforeach

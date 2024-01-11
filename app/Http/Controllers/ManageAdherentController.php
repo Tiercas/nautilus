@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\RoleAttribution;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Models\DivingNumberModel;
 
 class ManageAdherentController extends Controller {
     function index() {
@@ -12,6 +13,7 @@ class ManageAdherentController extends Controller {
 
         $user_role = array();
         $usersInfos = array();
+        $userDives = array();
 
         foreach ($users as $user) {
             $usersInfos[$user->US_ID] = [$user->US_ID, $user->US_FIRST_NAME, $user->US_NAME];
@@ -19,10 +21,17 @@ class ManageAdherentController extends Controller {
                 $user_role[$user->US_ID] = array();
             }
             $user_role[$user->US_ID][] = $user->ROL_CODE;
+            $usersCount = DivingNumberModel::join('CAR_REGISTRATION', 'CAR_USER.us_id', '=', 'CAR_REGISTRATION.us_id')
+                ->join('CAR_DIVING_SESSION', 'CAR_REGISTRATION.ds_code', '=', 'CAR_DIVING_SESSION.ds_code')
+                ->where('CAR_USER.us_id', $user->US_ID)
+                ->whereYear('CAR_DIVING_SESSION.ds_date', '=', now()->year)
+                ->count();
+            $userDives[$user->US_ID] = $usersCount;
         }
+
         $users = [$usersInfos, $user_role];
 
-        return view('manageAdherent', ['users' => $users]);
+        return view('manageAdherent', ['users' => $users, 'usersDives' => $userDives]);
     }
 
     function update(Request $request) {
