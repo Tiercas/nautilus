@@ -1,5 +1,6 @@
 <link href='https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.css' rel='stylesheet' />
 
+<meta name="csrf-token" content="@csrf" />
 <x-layout>
     <x-page-title>Plongée du {{ $dive->DS_DATE }} - {{ $dive->DL_NAME }}</x-page-title>
     <div class="text-right mb-4">
@@ -60,7 +61,7 @@
         <div class="flex-1 p-4" id="zoneStart" ondrop="drop(event)" ondragover="allowDrop(event)">
             <h3 class="text-xl font-bold mb-2">Plongeurs</h3>
         </div>
-        <div class="flex-1 p-4" id="DropZone">
+        <div class="flex-1 p-4">
             <h3 class="text-xl font-bold mb-2">Palanquées</h3>
             <div class="p-2 grid grid-cols-2 md:grid-cols-3 gap-4" id="DropZone">
 
