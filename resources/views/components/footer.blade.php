@@ -1,6 +1,6 @@
 <footer class="w-full flex flex-row sm:grid sm:grid-cols-3 bg-[#002550] h-36 items-center">
   <div class='w-full bg-blue-700  h-full flex flex-row items-center px-4'>
-    <img src='{{ asset("/images/logo-cn.png") }}' class="w-full" alt=''>
+    <img src='{{ asset("/images/logo-cn.png") }}' class="w-full max-w-[429px]" alt=''>
   </div>
   <div class='text-white bg-blue-700 h-full w-1/2 justify-end'
       style="clip-path: ellipse(75% 75% at 0 33%);">
