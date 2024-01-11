@@ -28,8 +28,8 @@ class DivingNumberController extends Controller
         ->get();
 
         $dateDivesAfter = DivingNumberModel::join('CAR_REGISTRATION', 'CAR_USER.us_id', '=', 'CAR_REGISTRATION.us_id')
-        ->join('CAR_DIVING_SESSION','CAR_REGISTRATION.ds_code','=','car_diving_session.ds_code')
-        ->join('CAR_DIVING_LOCATION','CAR_DIVING_SESSION.dl_id','=','car_diving_location.dl_id')
+        ->join('CAR_DIVING_SESSION','CAR_REGISTRATION.ds_code','=','CAR_DIVING_SESSION.ds_code')
+        ->join('CAR_DIVING_LOCATION','CAR_DIVING_SESSION.dl_id','=','CAR_DIVING_LOCATION.dl_id')
         ->join('CAR_ROLE_ATTRIBUTION','CAR_USER.us_id','=','CAR_ROLE_ATTRIBUTION.Us_id')
         ->join('CAR_ROLE','CAR_ROLE_ATTRIBUTION.rol_code','=','CAR_ROLE.rol_code')
         ->where('CAR_DIVING_SESSION.DS_DATE','>=',now())
