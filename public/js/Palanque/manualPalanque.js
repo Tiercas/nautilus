@@ -30,10 +30,18 @@ const removePalanque = document.getElementById("removePal");
 const addPalanque = document.getElementById("addPal");
 const validatePalanque = document.getElementById("validatePal");
 
-let countZone = 2;
+let countZone = 0;
 let countDiver = 5;
-let zoneList = [new DropZoneClass(0), new DropZoneClass(1), new DropZoneClass(2)];
+let zoneList = [];
 let counterCheck = 0;
+
+window.onload = async () => {
+  let palanqueList = await getDiver('DS1');
+  createZoneForPalanque(palanqueList);
+  console.log(palanqueList);
+  fillZoneWithAlreadyExistingPalanque(palanqueList);
+
+}
 
 function allowDrop(event) {
   event.preventDefault();
@@ -121,6 +129,7 @@ function proccessDiverData(data){
     diver.innerHTML = data[i].US_FIRST_NAME + " " + data[i].US_NAME + " " + data[i].PRE_CODE + " " + data[i].US_TEACHING_LEVEL;
     zoneStart.appendChild(diver);
   }
+  return data;
 }
 
 let validatePalanqueCombinate = {
@@ -215,6 +224,32 @@ function sendPalanque() {
   };
   xhr.send(palanqueListJson);
   console.log("send");
+}
+
+function fillZoneWithAlreadyExistingPalanque(diverList){
+  diverList.forEach(element => {
+    let zone = document.getElementById("zone" + element.DG_NUMBER);
+    let diver = document.getElementById('item' + countDiver +',' + element.PRE_CODE + ',E' + element.US_TEACHING_LEVEL + ',' + element.US_ID);
+    zone.appendChild(diver);
+  });
+}
+
+function createZoneForPalanque(diverList){
+  let dgList = [];
+  diverList.forEach(element => {
+    if(!dgList.includes(element.DG_NUMBER))
+      dgList.push(element.DG_NUMBER);
+  });
+
+  dgList.forEach(element => {
+    let palanque = document.createElement("div");
+    palanque.setAttribute("class", "border-2 p-4 zone");
+    palanque.setAttribute("id", "zone" + element);
+    palanque.setAttribute("ondrop", "drop(event)");
+    palanque.setAttribute("ondragover", "allowDrop(event)");
+    zoneList.push(new DropZoneClass(element));
+    DropZone.appendChild(palanque);
+  });
 }
 
 getDiver('DS1');
