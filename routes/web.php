@@ -18,6 +18,7 @@ use App\Http\Controllers\DiveSessionCreation;
 use App\Http\Controllers\ManageAdherentController;
 use App\Http\Controllers\DiveSessionDelete;
 use App\Http\Controllers\DiveDeletion;
+use App\Http\Controllers\DivesListManage;
 use App\Http\Controllers\DiveCreation;
 use App\Http\Controllers\SecuritySheets\PreviewStrategy;
 use App\Http\Controllers\SecuritySheets\SecuritySheetController;
@@ -45,7 +46,15 @@ Route::get('/', [HomepageController::class, 'index'])->name('homepage');
 Route::get('/logout', function () {
     session()->flush();
     return redirect('/');
-})->name('logout');
+});
+
+Route::middleware('App\Http\Middleware\rightChecker')
+    ->get('manage/dives', function()
+{
+    return DivesListManage::index();
+})->name('manage_dives');
+
+
 Route::middleware('App\Http\Middleware\rightChecker')
     ->get('/dives', [DivingSignUpController::class, 'show'])
     ->name('dives');
@@ -98,6 +107,8 @@ Route::post('/dive/update/{id}', function($id, Request $request){
         DiveSessionUpdate::update($request, $id);
         return redirect('/');
 });
+
+
 Route::middleware('App\Http\Middleware\rightChecker')
     ->post('/dive/disable/{id}', function ($id){
     DivingSession::find($id)->disable();
@@ -130,3 +141,5 @@ Route::middleware('App\Http\Middleware\rightChecker')
 Route::middleware('App\Http\Middleware\rightChecker')
     ->get('dive/{id}', [DivesList::class, 'show'])
     ->name('dives_show');
+
+
