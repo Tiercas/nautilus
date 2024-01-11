@@ -1,5 +1,5 @@
 <x-layout>
-    <link rel="stylesheet" href="/css/drop-down.css">  
+    <link rel="stylesheet" href="/css/drop-down.css">
     <link rel="stylesheet" href="/css/button-filter.css">
             <span>
             <x-page-title>Liste des plongées</x-page-title>
@@ -12,7 +12,7 @@
                     <ul>
                         <li>
                             <label for="underline_select" class="sr-only">Choisir un lieux</label>
-                            <select id="underline_select" class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-orange-200 appearance-none dark:text-zinc-50 dark:border-orange-400 focus:outline-none focus:ring-0 focus:border-orange-600 peer">
+                            <select id="underline_select" class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-orange-200 appearance-none focus:outline-none focus:ring-0 focus:border-orange-600 peer">
                                 <option selected>Lieux</option>
                                 @foreach ($dives as $dive)
                                     <option value="{{$dive->DL_NAME}}">{{$dive->DL_NAME}}</option>
@@ -21,7 +21,7 @@
                         </li>
                         <li>
                             <label for="underline_select" class="sr-only">Choisir un créneau</label>
-                            <select id="underline_select" class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-zinc-50 dark:border-orange-400 focus:outline-none focus:ring-0 focus:border-orange-600 peer">
+                            <select id="underline_select" class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-orange-600 peer">
                                 <option selected>Créneau</option>
                                 @foreach ($dives as $dive)
                                     <option value="{{$dive->CAR_SCHEDULE}}">{{$dive->CAR_SCHEDULE}}</option>
@@ -30,7 +30,7 @@
                         </li>
                         <li>
                             <label for="underline_select" class="sr-only">Choisir un niveau</label>
-                            <select id="underline_select" class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-zinc-50 dark:border-orange-400 focus:outline-none focus:ring-0 focus:border-orange-600 peer">
+                            <select id="underline_select" class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-orange-600 peer">
                                 <option selected>Niveau</option>
                                 @foreach ($dives as $dive)
                                     <option value="{{$dive->CAR_SCHEDULE}}">{{$dive->DL_DEPTH}}</option>
@@ -68,7 +68,7 @@
                                 <a href='/dives/{{$dive->DS_CODE}}'>
                                     @if($userPre->PRE_MAX_DEPTH>$dive->DS_MAX_DEPTH)
                                         <x-button color="bg-green-700" colorHover="hover:bg-green-800">
-                                            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+                                            <svg class="w-6 h-6 text-gray-800" aria-hidden="true"
                                                 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 12">
                                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
                                                     stroke-width="2" d="M1 5.917 5.724 10.5 15 1.5"/>
@@ -77,7 +77,7 @@
                                     @endif
                                 </a>
                                 <x-button diveId="dropdownButton-{{$dive->DS_CODE}}">
-                                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+                                    <svg class="w-6 h-6 text-gray-800" aria-hidden="true"
                                             xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
                                         <path
                                             d="M14 2a3.963 3.963 0 0 0-1.4.267 6.439 6.439 0 0 1-1.331 6.638A4 4 0 1 0 14 2Zm1 9h-1.264A6.957 6.957 0 0 1 15 15v2a2.97 2.97 0 0 1-.184 1H19a1 1 0 0 0 1-1v-1a5.006 5.006 0 0 0-5-5ZM6.5 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM8 10H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5Z"/>
