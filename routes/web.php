@@ -151,3 +151,6 @@ Route::middleware('App\Http\Middleware\rightChecker')
 Route::middleware('App\Http\Middleware\rightChecker')
     ->get('dive/{id}', [DivesList::class, 'show'])
     ->name('dives_show');
+
+Route::middleware('App\Http\Middleware\rightChecker')
+    ->get('manage/dives', [DivesList::class, 'showManagementList']);
