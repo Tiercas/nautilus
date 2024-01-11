@@ -7,11 +7,11 @@
             <table style="text-align: left">
                 <thead class="text-xs text-gray-700 bg-gray-50" style="border-bottom: 1px solid black; font-size: 15px;">
                     <tr>
-                        <th scope="col" class="px-12 py-3">Capacité</th>
                         <th scope="col" class="px-12 py-3">Date</th>
                         <th scope="col" class="px-12 py-3">Plage horaire</th>
                         <th scope="col" class="px-12 py-3">Profondeur</th>
                         <th scope="col" class="px-12 py-3">Lieu</th>
+                        <th scope="col" class="px-12 py-3">Capacité</th>
                         <th scope="col" class="px-12 py-3">Actions</th>
                     </tr>
                 </thead>
