@@ -31,17 +31,11 @@ const addPalanque = document.getElementById("addPal");
 const validatePalanque = document.getElementById("validatePal");
 
 let countZone = 0;
-let countDiver = 5;
+let countDiver = 0;
 let zoneList = [];
 let counterCheck = 0;
 
-window.onload = async () => {
-  let palanqueList = await getDiver('DS1');
-  createZoneForPalanque(palanqueList);
-  console.log(palanqueList);
-  fillZoneWithAlreadyExistingPalanque(palanqueList);
-
-}
+getDiver("DS1").then(data => fillZoneWithAlreadyExistingPalanque(data));
 
 function allowDrop(event) {
   event.preventDefault();
@@ -119,11 +113,12 @@ async function getDiver(ds_code){
 }
 
 function proccessDiverData(data){
+  console.log(data);
   for(let i = 0; i < data.length; i++){
     countDiver++;
     let diver = document.createElement("div");
     diver.setAttribute("class", "w-fit h-8 border-2");
-    diver.setAttribute("id", 'item' + countDiver +',' + data[i].PRE_CODE + ',E' + data[i].US_TEACHING_LEVEL + ',' + data[i].US_ID);
+    diver.setAttribute("id", 'item' + data[i].US_ID +',' + data[i].PRE_CODE + ',E' + data[i].US_TEACHING_LEVEL + ',' + data[i].US_ID);
     diver.setAttribute("draggable", "true");
     diver.setAttribute("ondragstart", "drag(event)");
     diver.innerHTML = data[i].US_FIRST_NAME + " " + data[i].US_NAME + " " + data[i].PRE_CODE + " " + data[i].US_TEACHING_LEVEL;
@@ -213,8 +208,6 @@ function sendPalanque() {
       if (xhr.status === 200) {
         console.log("Request successful");
         const responseData = JSON.parse(xhr.responseText);
-
-        // Log the additional data in the console
         console.log("Additional Data:", responseData.additionalData);
       } else {
         const responseData = JSON.parse(xhr.responseText);
@@ -226,30 +219,28 @@ function sendPalanque() {
   console.log("send");
 }
 
-function fillZoneWithAlreadyExistingPalanque(diverList){
+function fillZoneWithAlreadyExistingPalanque(diverList) {
   diverList.forEach(element => {
-    let zone = document.getElementById("zone" + element.DG_NUMBER);
-    let diver = document.getElementById('item' + countDiver +',' + element.PRE_CODE + ',E' + element.US_TEACHING_LEVEL + ',' + element.US_ID);
-    zone.appendChild(diver);
+    let diver = document.getElementById('item' + element.US_ID + ',' + element.PRE_CODE + ',E' + element.US_TEACHING_LEVEL + ',' + element.US_ID);
+    if (element.DG_NUMBER !== 0 && element.DG_NUMBER !== null) {
+      let zone = document.getElementById("zone" + element.DG_NUMBER);
+      if (zone) {
+        zone.appendChild(diver);
+        if(zoneStart.contains(diver))
+          zoneStart.removeChild(diver);
+      }else{
+        let palanque = document.createElement("div");
+        palanque.setAttribute("class", "border-2 p-4 zone");
+        palanque.setAttribute("id", "zone" + element.DG_NUMBER);
+        palanque.setAttribute("ondrop", "drop(event)");
+        palanque.setAttribute("ondragover", "allowDrop(event)");
+        zoneList.push(new DropZoneClass(element.DG_NUMBER));
+        DropZone.appendChild(palanque);
+        palanque.appendChild(diver);
+        if(zoneStart.contains(diver))
+          zoneStart.removeChild(diver);
+        countZone++;
+      }
+    }
   });
 }
-
-function createZoneForPalanque(diverList){
-  let dgList = [];
-  diverList.forEach(element => {
-    if(!dgList.includes(element.DG_NUMBER))
-      dgList.push(element.DG_NUMBER);
-  });
-
-  dgList.forEach(element => {
-    let palanque = document.createElement("div");
-    palanque.setAttribute("class", "border-2 p-4 zone");
-    palanque.setAttribute("id", "zone" + element);
-    palanque.setAttribute("ondrop", "drop(event)");
-    palanque.setAttribute("ondragover", "allowDrop(event)");
-    zoneList.push(new DropZoneClass(element));
-    DropZone.appendChild(palanque);
-  });
-}
-
-getDiver('DS1');
