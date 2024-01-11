@@ -7,7 +7,6 @@
         <div
             style="width: 50%; margin-right: 50px;display:flex; align-items: center; flex-direction: column;overflow: auto;">
             @if(isset($previousDives))
-            {
                 <div id="Historique">
                     <p style="font-size: 35px">Historique de plongées crées</p>
                     <hr
@@ -39,7 +38,6 @@
                         @endforeach
                     </table>
                 </div>
-            }
             @else
             <img src="{{ asset('/images/Diver1.png') }}" alt="Diver illustration" id="imageDiver">
             @endif
@@ -49,9 +47,8 @@
             @if (isset($error))
                 <p>{{ $error }}</p>
             @endif
-            <h1 class="text-4xl"
-                style="font-family: 'Space Grotesk', sans-serif; font-weight: bold; margin-bottom: 30px;">Création d'une
-                plongée</h1>
+            
+            <x-page-title hrSize="70%">Création d'une plongée</x-page-title>
             <div class="Line">
                 <div class="divideFlex Column">
                     <h2>Créneau</h2>
@@ -236,5 +233,4 @@
     </div>
 
     <script src="https://kit.fontawesome.com/8708952b61.js" crossorigin="anonymous"></script>
-    <script src="{{ asset('/js/create_div.js') }}"></script>
 </x-layout>

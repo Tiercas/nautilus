@@ -12,7 +12,7 @@
             </button>
         </div>
     @else
-        <x-page-title>Tableau de bord</x-page-title>
+        <x-page-title hrSize="30%">Tableau de bord</x-page-title>
         <h2 class="text-2xl font-semibold text-gray-800">Bonjour
             {{ session('user')->US_FIRST_NAME . ' ' . session('user')->US_NAME . ',' }}</h2>
         <div class="flex flex-row justify-evenly mt-10">
@@ -44,7 +44,7 @@
             <h2 class="text-2xl font-semibold text-gray-800">Responsable</h2>
             <div class="flex flex-row justify-evenly mt-6 mb-14">
                 <x-square-button bgColor="bg-[#909aef]" textColor="text-black" textSubtitle="Gérer des adhérents"
-                    link="{{ route('manage_members') }}">>name('logout')
+                    link="{{ route('manage_members') }}">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="w-12 h-12">
                         <path stroke-linecap="round" stroke-linejoin="round"

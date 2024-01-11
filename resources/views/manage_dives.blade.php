@@ -44,7 +44,7 @@
         </table>
     </div>
 
-    <div id="toast-default"
+    <!-- <div id="toast-default"
     class="flex items-center w-full max-w-xs p-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800"
             role="alert" style="background-color: var(--badDarker);color: white;">
             <div class="ms-3 text-sm font-normal"><i class="fa-solid fa-triangle-exclamation" style="margin-right: 10px"></i> Attention, une erreur !</div>
@@ -58,6 +58,6 @@
                         stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
                 </svg>
             </button>
-        </div>
+        </div> -->
     <script type="text/javascript" src="/js/drop-down.js"></script>
 </x-layout>
