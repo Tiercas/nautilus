@@ -90,7 +90,7 @@ Route::get('/dives/{ds_code}/security-sheet/test', function($ds_code){
  * Generate a pdf security sheet and stores it at /security-sheets/fiche-securite-{ds_code}.pdf
  * @param $ds_code the code of the diving session
  */
-Route::get('/dives/{ds_code}/security-sheet/generate', [SecuritySheetController::class, 'generate']);
+Route::get('/dives/{ds_code}/security-sheet/generate', [SecuritySheetController::class, 'generate'])->name('generate');
 
 /**
  * Tries to register the user to a diving session.
