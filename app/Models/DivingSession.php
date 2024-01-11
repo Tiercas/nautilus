@@ -17,6 +17,8 @@ class DivingSession extends Model
     protected $keyType = 'string';
     public $timestamps = false;
 
+    protected $guarded = [];
+
     use HasFactory;
 
     public function getParticipants(): array{

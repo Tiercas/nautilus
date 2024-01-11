@@ -23,6 +23,14 @@ use App\Http\Controllers\DiveCreation;
 use App\Http\Controllers\SecuritySheets\PreviewStrategy;
 use App\Http\Controllers\SecuritySheets\SecuritySheetController;
 
+use App\Http\Controllers\AdherentController;
+use App\Http\Controllers\DivingSignUpController;
+use App\Http\Controllers\DiveSessionCreation;
+use App\Http\Controllers\DiveSessionUpdate;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ModificationDives;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -177,6 +185,7 @@ Route::get('/sessions', [DiversBySession::class,'getAllSessions']);
 
 Route::get('/session/{ds_code}', [DiversBySession::class,'getDiversBySession']);
 
+<<<<<<< HEAD
 /**
  * List all the diving sessions of the user, as well as its remaining sessions for the current year.
  */
@@ -217,3 +226,28 @@ Route::middleware('App\Http\Middleware\rightChecker')
 Route::middleware('App\Http\Middleware\rightChecker')
     ->get('manage/dives', [DivesList::class, 'showManagementList'])
 ->name('manage_dives_dir');
+=======
+Route::get('/modificationdives', [ModificationDives::class, 'index']);
+
+Route::get('modificationdives/members/{ds_code}', function($ds_code){
+    
+    return ModificationDives::modificationMembers($ds_code);
+});
+
+
+Route::post('modificationdives/members/{ds_code}/deletiondiver/{us_id}', function($ds_code, $us_id){
+     return ModificationDives::removalOfAMemberFromASession($ds_code, $us_id);
+});
+
+
+
+Route::get('/modificationdives/members/{ds_code}/ajoutadherent/{level}', function($ds_code, $level){
+    return AdherentController::index($ds_code, $level);
+});
+
+Route::post('/modificationdives/members/{ds_code}/ajoutadherent/{us_id}', function($ds_code, $us_id){
+    return AdherentController::addUserToDive($ds_code, $us_id);
+});
+
+Route::get('/modificationdives/members/{ds_code}/ajoutadherent/{level}', [AdherentController::class, 'searchByName']);
+>>>>>>> creation-adherent-sur-creneau-de-plongee
