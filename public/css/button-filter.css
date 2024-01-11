@@ -1,5 +1,4 @@
 .container {
-    width:50%;
     display: flex;
     justify-content: left;
     align-items: center;
@@ -11,7 +10,7 @@
   }
 
   .button {
-    width: 1200px;
+    gap: 1.5rem;
     height: 65px;
     background: #e5e5e5;
     border: #a8a8a8 solid 1px;
@@ -20,7 +19,7 @@
     display: flex;
     justify-content: left;
     align-items: center;
-    padding: 0 24px;
+    padding-left: 24px;
     overflow: hidden;
     transition: width 300ms linear;
     margin-bottom: 30px;
@@ -32,7 +31,6 @@
       background: #e5e5e5;
     width: 100%;
     border-radius: 5px;
-    transform: translateX(10%);
     padding: 10px;
 
     ul {
@@ -42,7 +40,7 @@
       flex-direction: row;
     }
       input {
-          background-color: #e5e5e5;
+          background-color: transparent;
       }
 
       input:hover {
@@ -70,9 +68,9 @@
       }
     }
     li {
+        flex: 1;
       text-decoration: none;
       color: #4f4f4f;
-      font-size: 20px;
       width: fit-content;
       padding: 10px;
       height: 52px;
