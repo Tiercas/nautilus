@@ -7,6 +7,7 @@ use App\Models\DivingSession;
 use App\Models\Prerogative;
 use App\Models\User;
 use Error;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class DivesList extends Controller
@@ -43,5 +44,19 @@ class DivesList extends Controller
             ->orderBy('DS_DATE', 'asc')
             ->get();
         return view('dives_list_management', ['dives' => $dives]);
+    }
+
+    function filter(Request $request) {
+        $location = $request->input('location_filter');
+        $location = $request->input('location_filter');
+        $location = $request->input('location_filter');
+        $location = $request->input('location_filter');
+        $dives = DivingSession::select('DS_CODE', 'DS_ACTIVE', 'CAR_DIVING_SESSION.DL_ID', 'DS_DATE', 'DL_DEPTH', 'CAR_SCHEDULE', 'DL_NAME', 'DS_MAX_DEPTH')
+            ->join('CAR_DIVING_LOCATION', 'CAR_DIVING_SESSION.DL_ID', '=', 'CAR_DIVING_LOCATION.DL_ID')
+            ->where('DS_ACTIVE', 1)
+            ->orderBy('DS_DATE', 'asc')
+            ->get();
+        $user = session()->get('user');
+        return view('dives', ['dives' => $dives, 'userPre' => Prerogative::find($user->PRE_CODE)]);
     }
 }

@@ -17,6 +17,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/dives/{id}/divers', [DivesAPI::class, 'getDivers']);
 
-Route::middleware('App\Http\Middleware\rightChecker')->get('/user', function (Request $request) {
+Route::middleware('App\Http\Middleware\RightChecker')->get('/user', function (Request $request) {
     return $request->user();
 });

@@ -47,7 +47,7 @@
           background-color: #e0e0e0;
       }
 
-    .nav.li {
+    form ul li {
       opacity: 0;
       list-style: none;
       &:nth-child(1) {
