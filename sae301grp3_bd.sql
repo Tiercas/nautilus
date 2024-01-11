@@ -141,15 +141,15 @@ INSERT INTO `CAR_DIVING_SESSION` (`DS_CODE`, `US_ID`, `DL_ID`, `BO_ID`, `US_ID_C
 DELIMITER $$
 CREATE TRIGGER `TRIGG_CAR_DIVING_SESSION_INTEGRITY` BEFORE INSERT ON `CAR_DIVING_SESSION` FOR EACH ROW BEGIN
         DECLARE var INT;
-        SELECT count(*) into var from CAR_ROLE_ATTRIBUTION WHERE CAR_ROLE_ATTRIBUTION.US_ID=NEW.US_ID and ROL_CODE='PIL';
+        SELECT count(*) into var from CAR_ROLE_ATTRIBUTIONWHERE CAR_ROLE_ATTRIBUTION.US_ID=NEW.US_ID and ROL_CODE='PIL';
         if (var=0) then
             SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'the person you''re trying to add as a pilot is not a pilot';
         end if;
-        SELECT count(*) into var from CAR_ROLE_ATTRIBUTION WHERE CAR_ROLE_ATTRIBUTION.US_ID=NEW.US_ID_CAR_SECURE and ROL_CODE='SEC';
+        SELECT count(*) into var from CAR_ROLE_ATTRIBUTIONWHERE CAR_ROLE_ATTRIBUTION.US_ID=NEW.US_ID_CAR_SECURE and ROL_CODE='SEC';
         if (var=0) then
             SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'the person you''re trying to add as Surface Security is not Surface Security';
         end if;
-        SELECT count(*) into var from CAR_ROLE_ATTRIBUTION WHERE CAR_ROLE_ATTRIBUTION.US_ID=NEW.US_ID_CAR_DIRECT and ROL_CODE='Director';
+        SELECT count(*) into var from CAR_ROLE_ATTRIBUTIONWHERE CAR_ROLE_ATTRIBUTION.US_ID=NEW.US_ID_CAR_DIRECT and ROL_CODE='Director';
         if (var=0) then
             SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'the person you''re trying to add as a Diving Director is not a Director';
         end if;

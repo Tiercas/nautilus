@@ -138,7 +138,16 @@ Route::middleware('App\Http\Middleware\rightChecker')
  * @param $id the code of the diving session
  */
 Route::post('/dive/update/{id}', function($id, Request $request){
-        DiveSessionUpdate::update($request, $id);
+        $msg = DiveSessionUpdate::update($request, $id);
+        if($msg !== null)
+        {
+            return view('update_dive', ['dive' => DivingSession::find($id),
+            'locations' => DivingLocation::all(),
+            'boats' => Boat::all(),
+            'levels' => Prerogative::all(),
+            'users' => User::all(),
+            'error' => $msg]);
+        }
         return redirect('/');
 });
 
