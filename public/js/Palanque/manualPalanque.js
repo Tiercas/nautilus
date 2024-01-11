@@ -60,7 +60,7 @@ function drop(event) {
   let draggedItem = document.getElementById(data);
   if(event.target === zoneStart){
     zoneList[draggedItem.parentElement.id.split('zone')[1]].updateCounterNeg(setDropZoneSize(draggedItem));
-    console.log("Count" + zoneList[draggedItem.parentElement.id.split('zone')[1]].getCounter());
+    //console.log("Count" + zoneList[draggedItem.parentElement.id.split('zone')[1]].getCounter());
     zoneStart.appendChild(draggedItem);
   }else
     if(zoneList[index].getCounter() <= 3 && zoneList[index].getCounter() + setDropZoneSize(draggedItem) <= 3){
@@ -68,7 +68,7 @@ function drop(event) {
         && draggedItem.parentElement !== zoneList[index])
         zoneList[draggedItem.parentElement.id.split('zone')[1]].updateCounterNeg(setDropZoneSize(draggedItem));
       zoneList[index].updateCounterPos(setDropZoneSize(draggedItem));
-      console.log("Count" + zoneList[index].getCounter());
+      //console.log("Count" + zoneList[index].getCounter());
       event.target.appendChild(draggedItem);
     }
     // else{
@@ -81,7 +81,7 @@ function drop(event) {
 function setZoneSize(zone){
   zone.forEach(element => {
     element.childNodes.forEach(elements => {
-      console.log(elements);
+      //console.log(elements);
       if(elements.id.split(',')[1] === 'PB')
         zoneList[element.id.split('zone')[1] ].updateCounterPos(2);
       else
@@ -116,6 +116,7 @@ addPalanque.addEventListener("click", function(){
   zoneList.push(new DropZoneClass(countZone));
   DropZone.appendChild(palanque);
   countZone++;
+  //console.log(zoneList);
 });
 
 removePalanque.addEventListener("click", function(){
@@ -149,11 +150,11 @@ async function getDiver(ds_code){
 }
 
 function proccessDiverData(data){
-  console.log(data);
+  //console.log(data);
   for(let i = 0; i < data.length; i++){
     countDiver++;
     let diver = document.createElement("div");
-    diver.setAttribute("class", "w-full h-8 border rounded p-1 m-1 bg-gray-300");
+    diver.setAttribute("class", "h-8 border rounded p-1 m-1 bg-gray-300");
     diver.setAttribute("id", 'item' + data[i].US_ID +',' + data[i].PRE_CODE + ',E' + data[i].US_TEACHING_LEVEL + ',' + data[i].US_ID);
     diver.setAttribute("draggable", "true");
     diver.setAttribute("ondragstart", "drag(event)");
@@ -186,8 +187,7 @@ function validateAllCombination(){
         for(let j = 0; j < children.length; j++){
           if(children[j].id.split(',')[1] === 'PA-60-GP'){
             counterCheck++;
-            if(element.style.backgroundColor === 'rgb(254 202 202)')
-              element.style.backgroundColor = 'rgb(229 231 235)';
+            element.style.backgroundColor = 'rgb(229 231 235)';
             return true;
           }
         }
@@ -200,8 +200,7 @@ function validateAllCombination(){
               let targetItemsSplit2 = children[j].id.split(',')[2];
               if(validatePalanqueCombinate[targetItemsSplit].includes(targetItemsSplit2)){
                 counterCheck++;
-                if(element.style.backgroundColor === 'rgb(254 202 202)')
-                  element.style.backgroundColor = 'rgb(229 231 235)';
+                element.style.backgroundColor = 'rgb(229 231 235)';
                 return true;
               }
             }
@@ -269,6 +268,7 @@ function sendPalanque() {
         console.log("Request successful");
         const responseData = JSON.parse(xhr.responseText);
         console.log("Additional Data:", responseData.additionalData);
+        document.getElementById(("toast-success")).classList.remove("hidden");
       } else {
         const responseData = JSON.parse(xhr.responseText);
         console.error("Request failed", responseData.errData);
@@ -286,6 +286,7 @@ function fillZoneWithAlreadyExistingPalanque(diverList) {
       let zone = document.getElementById("zone" + dgNumber);
       if (zone) {
         zone.appendChild(diver);
+        zoneList[dgNumber].updateCounterPos(setDropZoneSize(diver));
         if(zoneStart.contains(diver))
           zoneStart.removeChild(diver);
       }else{
@@ -295,10 +296,13 @@ function fillZoneWithAlreadyExistingPalanque(diverList) {
         palanque.setAttribute("ondrop", "drop(event)");
         palanque.setAttribute("ondragover", "allowDrop(event)");
         zoneList.push(new DropZoneClass(dgNumber));
+        zoneList[dgNumber].updateCounterPos(setDropZoneSize(diver));
         DropZone.appendChild(palanque);
         palanque.appendChild(diver);
-        if(zoneStart.contains(diver))
-          zoneStart.removeChild(diver);
+        if(zoneStart.contains(diver)){
+            zoneStart.removeChild(diver);
+        }
+
         countZone++;
       }
     }
