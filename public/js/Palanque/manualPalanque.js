@@ -1,4 +1,3 @@
-
 class DropZoneClass{
   counter;
   zoneNumber;
@@ -121,14 +120,13 @@ removePalanque.addEventListener("click", function(){
   countZone--;
   let palanque = document.getElementById("zone" + countZone);
   if(palanque.childElementCount > 0){
-    console.log(palanque.childNodes[1]);
-    for(let i = 0; i < palanque.childElementCount; i++){
-      console.log(palanque.childNodes[i]);
-      zoneStart.appendChild(palanque.childNodes[i]);
+    sizeT = palanque.childElementCount;
+    for(let i = 0; i < sizeT; i++){
+      zoneStart.appendChild(palanque.childNodes[0]);
     }
   }
   zoneList.splice(zoneList.length - 1, 1);
-  DropZone.removeChild(palanque);
+  palanque.parentElement.removeChild(palanque);
 });
 
 async function getDiver(ds_code){
