@@ -68,7 +68,7 @@
                             @endphp
                             <div class="drop-down">
                                 @foreach ($participants as $user)
-                                    <p class = "drop-down-items">{{ $user->US_NAME }} {{ $user->US_FIRST_NAME }}</p>
+                                    <p class = "drop-down-items">{{ $user->US_NAME }} {{ $user->US_FIRST_NAME }} <span class = "text-gray-500">- {{ $user->PRE_CODE }}</span></p>
                                 @endforeach
                             </div>
                         </x-drop-down>
