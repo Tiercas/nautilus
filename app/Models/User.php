@@ -45,17 +45,6 @@ class User extends Model
         return $this->belongsToMany(Role::class, RoleAttribution::class, 'US_ID', 'ROL_CODE');
     }
 
-    public function getRole() {
-        return User::select('CAR_ROLE.ROL_LABEL')
-            ->join('CAR_ROLE_ATTRIBUTION', 'CAR_USER.US_ID', '=', 'CAR_ROLE_ATTRIBUTION.US_ID')
-            ->join('CAR_ROLE', 'CAR_ROLE_ATTRIBUTION.ROL_CODE', '=', 'CAR_ROLE.ROL_CODE')
-            ->where('CAR_USER.US_ID',session('user')->US_ID)
-            ->pluck('CAR_ROLE.ROL_LABEL')
-            ->first();    }
-    
-    
-    
-
     /**
      * Check if the user has a given role.
      *
