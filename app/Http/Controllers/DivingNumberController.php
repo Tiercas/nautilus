@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\DivingNumberModel;
 use DateTime;
 use Illuminate\Http\Request;
+use Illuminate\Database\Query\Expression;
 use Illuminate\View\View;
 
 class DivingNumberController extends Controller
@@ -12,33 +13,35 @@ class DivingNumberController extends Controller
     public function index(): View
     {
 
+        if(session()->has('user')){
+            $user = session('user');
+            $userId = session('user')->US_ID;
+        }else{
+            $userId = null;
+        }
+        
+
         $dateDivesBefore = DivingNumberModel::join('car_registration', 'car_user.us_id', '=', 'car_registration.us_id')
         ->join('car_diving_session','car_registration.ds_code','=','car_diving_session.ds_code')
-        ->where('car_user.US_ID',3)
+        ->where('car_user.US_ID',$userId)
         ->where('CAR_DIVING_SESSION.DS_DATE','<',now())
         ->get();
 
         $dateDivesAfter = DivingNumberModel::join('car_registration', 'car_user.us_id', '=', 'car_registration.us_id')
         ->join('car_diving_session','car_registration.ds_code','=','car_diving_session.ds_code')
-        ->where('car_user.US_ID',3)
+        ->where('car_user.US_ID',$userId)
         ->where('CAR_DIVING_SESSION.DS_DATE','>=',now())
         ->get();
 
-        $user = Auth::user();
-        if ($user) {
-            $userId = $user->US_ID;
-        }else{
-            $userId = 1;
-        }
+        
         
         $dives = 99;
-        $usersCount = DivingNumberModel::join('car_registration', 'car_user.us_id', '=', 'car_registration.us_id')
-            ->join('car_diving_group', function ($dg) {
-                $dg->on('car_registration.ds_code', '=', 'car_diving_group.ds_code')
-                    ->on('car_registration.dg_number', '=', 'car_diving_group.dg_number');
-            })
-            ->where('car_user.US_ID', $userId)
-            ->count();
+        $usersCount = DivingNumberModel::join('CAR_REGISTRATION', 'CAR_USER.US_ID', '=', 'CAR_REGISTRATION.US_ID')
+        ->join('CAR_DIVING_SESSION', 'CAR_REGISTRATION.DS_CODE', '=', 'CAR_DIVING_SESSION.DS_CODE')
+        ->where('CAR_USER.US_ID', $userId)
+        ->whereYear('CAR_USER.US_SUB_DATE', '=', new Expression('YEAR(CAR_DIVING_SESSION.DS_DATE)'))
+        ->count();
+
         $usersCount = 99 - $usersCount;
 
         return view('diveractivities', compact('usersCount'), ['datesB' => $dateDivesBefore,
