@@ -40,7 +40,6 @@ getDiver("DS1").then(data => fillZoneWithAlreadyExistingPalanque(data));
 
 window.onload = () => {
   setZoneSize(DropZone.childNodes);
-
 }
 
 function allowDrop(event) {
@@ -54,7 +53,6 @@ function drag(event) {
 function drop(event) {
   event.preventDefault();
   let index = event.target.id.split('zone')[1];
-  console.log(index);
   if(isElementInList('item', event.target.id.split(',')))
     return;
 
@@ -62,11 +60,12 @@ function drop(event) {
   let draggedItem = document.getElementById(data);
   if(event.target === zoneStart){
     zoneList[draggedItem.parentElement.id.split('zone')[1]].updateCounterNeg(setDropZoneSize(draggedItem));
-    console.log(zoneList[draggedItem.parentElement.id.split('zone')[1]].getCounter());
+    console.log("Count" + zoneList[draggedItem.parentElement.id.split('zone')[1]].getCounter());
     zoneStart.appendChild(draggedItem);
   }else
-    if(zoneList[index].getCounter() < 3 && zoneList[index].getCounter() + setDropZoneSize(draggedItem) <= 3){
+    if(zoneList[index].getCounter() <= 3 && zoneList[index].getCounter() + setDropZoneSize(draggedItem) <= 3){
       zoneList[index].updateCounterPos(setDropZoneSize(draggedItem));
+      console.log("Count" + zoneList[index].getCounter());
       event.target.appendChild(draggedItem);
     }else
       zoneStart.appendChild(draggedItem);
@@ -79,7 +78,6 @@ function setZoneSize(zone){
         zoneList[element.id.split('zone')[1] ].updateCounterPos(2);
       else
         zoneList[element.id.split('zone')[1] ].updateCounterPos(1);
-      console.log(zoneList[element.id.split('zone')[1] ].getCounter());
     });
   });
 }
@@ -115,7 +113,6 @@ addPalanque.addEventListener("click", function(){
 removePalanque.addEventListener("click", function(){
   countZone--;
   let palanque = document.getElementById("zone" + (countZone));
-  console.log(palanque);
   if(palanque.childElementCount > 0){
     let children = palanque.childNodes;
     for(let i = 0; i < children.length; i++){
@@ -168,7 +165,6 @@ function validateAllCombination(){
       for(let i = 0; i < children.length; i++){
         for(let j = 0; j < children.length; j++){
           if(children[j].id.split(',')[1] === 'PA-60-GP'){
-            console.log("ok");
             counterCheck++;
             if(element.style.backgroundColor === 'red')
               element.style.backgroundColor = 'white';
@@ -177,22 +173,18 @@ function validateAllCombination(){
         }
       }
       for(let i = 0; i < children.length; i++){
-        console.log(children[i].id.split(',')[1]);
         {
           let targetItemsSplit = children[i].id.split(',')[2];
           for(targetItemsSplit in validatePalanqueCombinate){
             for(let j = 0; j < children.length; j++){
               let targetItemsSplit2 = children[j].id.split(',')[2];
-              console.log(targetItemsSplit2);
               if(validatePalanqueCombinate[targetItemsSplit].includes(targetItemsSplit2)){
-                console.log("ok");
                 counterCheck++;
                 if(element.style.backgroundColor === 'red')
                   element.style.backgroundColor = 'white';
                 return true;
               }
             }
-            console.log("ko");
             element.style.backgroundColor = 'red';
             return false;
           }
@@ -229,7 +221,6 @@ validatePalanque.addEventListener("click", function(){
 
 function returnValueToPhp(ds_code) {
   let palanque = document.querySelectorAll("div.zone");
-  console.log(palanque);
   let palanqueList = [];
   for (let i = 0; i < palanque.length; i++) {
     let zoneList = [];
@@ -240,7 +231,6 @@ function returnValueToPhp(ds_code) {
     palanqueList.push(zoneList);
   }
   palanqueList.push(ds_code);
-  console.log(palanqueList);
   return palanqueList;
 }
 
@@ -290,7 +280,6 @@ function fillZoneWithAlreadyExistingPalanque(diverList) {
         if(zoneStart.contains(diver))
           zoneStart.removeChild(diver);
         countZone++;
-        console.log(countZone);
       }
     }
   });
