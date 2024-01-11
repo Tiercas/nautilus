@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class ManageAdherentController extends Controller {
     function index() {
-        $users = User::select('car_user.US_ID', 'car_user.US_FIRST_NAME', 'car_user.US_NAME', 'car_role_attribution.ROL_CODE')->leftjoin('car_role_attribution', 'car_role_attribution.US_ID', '=', 'car_user.US_ID')->orderBy('car_user.US_ID')->get();
+        $users = User::select('CAR_USER.US_ID', 'CAR_USER.US_FIRST_NAME', 'CAR_USER.US_NAME', 'CAR_ROLE_ATTRIBUTION .ROL_CODE')->leftjoin('CAR_ROLE_ATTRIBUTION ', 'CAR_ROLE_ATTRIBUTION .US_ID', '=', 'CAR_USER.US_ID')->orderBy('CAR_USER.US_ID')->get();
 
         $user_role = array();
         $usersInfos = array();

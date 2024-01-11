@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DivesList;
 use App\Models\Boat;
 use App\Models\User;
 use App\Models\Prerogative;
@@ -16,6 +17,8 @@ use App\Http\Controllers\DivingSignUpController;
 use App\Http\Controllers\DiveSessionCreation;
 use App\Http\Controllers\ManageAdherentController;
 use App\Http\Controllers\DiveSessionDelete;
+use App\Http\Controllers\DiveDeletion;
+use App\Http\Controllers\DiveCreation;
 use App\Http\Controllers\SecuritySheets\PreviewStrategy;
 use App\Http\Controllers\SecuritySheets\SecuritySheetController;
 
@@ -111,22 +114,7 @@ Route::middleware('App\Http\Middleware\rightChecker')
 Route::middleware('App\Http\Middleware\rightChecker')
     ->post('/create/dive', function(Request $request)
 {
-    $pre = DiveSessionCreation::add($request);
-
-    error_log($pre);
-
-    if(is_string($pre))
-    {
-        return view('create_dive', ['locations' => DivingLocation::all(),  'boats' => Boat::all(), 'levels' => Prerogative::all()->skip(3), 'users' => User::all(), 'error' => $pre, 'previousDives' => session()->get('previousDives')]);
-    }
-    else
-    {
-        $previousDives = session('previousDives', []);
-        $previousDives[] = $pre;
-
-        session(['previousDives' => $previousDives]);
-        return view('create_dive',  ['locations' => DivingLocation::all(),  'boats' => Boat::all(), 'levels' => Prerogative::all()->skip(3), 'users' => User::all(), 'precedent' => $pre, 'previousDives' => $previousDives]);
-    }
+    return DiveCreation::index($request);
 });
 
 /**
@@ -168,17 +156,7 @@ Route::middleware('App\Http\Middleware\rightChecker')
  * @param $id the code of the diving session
  */
 Route::post('/dive/delete/{id}', function ($id, Request $request){
-    DiveSessionDelete::update($id);
-    $previousDives = session('previousDives', []);
-
-    $indexToRemove = array_search($id, array_column($previousDives, 'DS_CODE'));
-
-    if ($indexToRemove !== false) {
-        unset($previousDives[$indexToRemove]);
-        $previousDives = array_values($previousDives);
-        session(['previousDives' => $previousDives]);
-    }
-
+    DiveDeletion::delete($id);
     return redirect('/create/dive');
 });
 
@@ -220,4 +198,12 @@ Route::middleware('App\Http\Middleware\rightChecker')
  */
 Route::middleware('App\Http\Middleware\rightChecker')
     ->post('manage/members/roles', [ManageAdherentController::class, 'update'])
-->name('updateMembersRole');
+    ->name('updateMembersRole');
+
+Route::middleware('App\Http\Middleware\rightChecker')
+    ->get('dive/{id}', [DivesList::class, 'show'])
+    ->name('dives_show');
+
+Route::middleware('App\Http\Middleware\rightChecker')
+    ->get('manage/dives', [DivesList::class, 'showManagementList'])
+->name('manage_dives_dir');
