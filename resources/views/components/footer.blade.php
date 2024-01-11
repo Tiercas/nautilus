@@ -8,7 +8,7 @@
   <div class='md:flex md:flex-col items-start w-full md:px-12 '>
     <ul class='text-white text-md'>
       <li class=''>Nous Contacter !</li>
-      <li class=''>Email - contact@Tiercas.fr</li>
+      <li class=''>Email - contact@Carantec.fr</li>
       <li class=''>Tel - 02 30 30 03 30</li>
     </ul>
   </div>
