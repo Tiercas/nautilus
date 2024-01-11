@@ -226,7 +226,7 @@ Route::get('/alldivings?{afterthe}&{beforethe}', [DivingNumberController::class,
  * Leads to a page that allows to manage every member and change their roles.
  * Only accessible to the diving section manager.
  */
-Route::middleware('App\Http\Middleware\rightChecker')
+Route::middleware('App\Http\Middleware\RightChecker')
     ->get('manage/members', [ManageAdherentController::class, 'index'])
     ->name('manage_members');
 
@@ -234,7 +234,7 @@ Route::middleware('App\Http\Middleware\rightChecker')
  * Updates every user's roles.
  * Only accessible to the diving section manager.
  */
-Route::middleware('App\Http\Middleware\rightChecker')
+Route::middleware('App\Http\Middleware\RightChecker')
     ->post('manage/members/roles', [ManageAdherentController::class, 'update'])
     ->name('updateMembersRole');
 
@@ -243,11 +243,11 @@ Route::middleware('App\Http\Middleware\rightChecker')
 Route::middleware('App\Http\Middleware\RightChecker')
 ->get('/unsubscribe/{ds_code}', [DivingUnsubscribeController::class, 'index']);
 
-Route::middleware('App\Http\Middleware\rightChecker')
+Route::middleware('App\Http\Middleware\RightChecker')
     ->get('dive/{id}', [DivesList::class, 'show'])
     ->name('dives_show');
 
-Route::middleware('App\Http\Middleware\rightChecker')
+Route::middleware('App\Http\Middleware\RightChecker')
     ->get('manage/dives', [DivesList::class, 'showManagementList'])
 ->name('manage_dives_dir');
 
@@ -258,26 +258,14 @@ Route::get('modificationdives/members/{ds_code}', function($ds_code){
     return ModificationDives::modificationMembers($ds_code);
 });
 
-
-Route::post('modificationdives/members/{ds_code}/deletiondiver/{us_id}', function($ds_code, $us_id){
-     return ModificationDives::removalOfAMemberFromASession($ds_code, $us_id);
-});
-
-
-
-Route::get('/modificationdives/members/{ds_code}/ajoutadherent/{pre_code}', function($ds_code, $pre_code){
-    return AdherentController::index($ds_code, $pre_code);
-});
-
 Route::post('/modificationdives/members/{ds_code}/ajoutadherent/{us_id}', function($ds_code, $us_id){
     return AdherentController::addUserToDive($ds_code, $us_id);
 });
 
-Route::get('/modificationdives/members/{ds_code}/ajoutadherent/{level}', [AdherentController::class, 'searchByName']);
 /* 
 * Unsuscribe the user from a diving session.
  */
-Route::middleware('App\Http\Middleware\rightChecker')
+Route::middleware('App\Http\Middleware\RightChecker')
     ->get('/unsubscribe/{ds_code}', [DivingUnsubscribeController::class, 'index']);
 
 /**
@@ -297,30 +285,6 @@ Route::get('/alldivings', [DivingNumberController::class, 'allIndex'])->name('al
  */
 Route::get('/alldivings?{afterthe}&{beforethe}', [DivingNumberController::class, 'filteredSearch({afterthe}, {beforethe})']);
 
-/**
- * Leads to a page that allows to manage every member and change their roles.
- * Only accessible to the diving section manager.
- */
-Route::middleware('App\Http\Middleware\rightChecker')
-    ->get('manage/members', [ManageAdherentController::class, 'index'])
-    ->name('manage_members');
-
-/**
- * Updates every user's roles.
- * Only accessible to the diving section manager.
- */
-Route::middleware('App\Http\Middleware\rightChecker')
-    ->post('manage/members/roles', [ManageAdherentController::class, 'update'])
-    ->name('updateMembersRole');
-
-Route::middleware('App\Http\Middleware\rightChecker')
-    ->get('dive/{id}', [DivesList::class, 'show'])
-    ->name('dives_show');
-
-Route::middleware('App\Http\Middleware\rightChecker')
-    ->get('manage/dives', [DivesList::class, 'showManagementList'])
-->name('manage_dives_dir');
-
 Route::get('/modificationdives', [ModificationDives::class, 'index']);
 
 Route::get('modificationdives/members/{ds_code}', function($ds_code){
@@ -328,12 +292,9 @@ Route::get('modificationdives/members/{ds_code}', function($ds_code){
     return ModificationDives::modificationMembers($ds_code);
 });
 
-
 Route::post('modificationdives/members/{ds_code}/deletiondiver/{us_id}', function($ds_code, $us_id){
      return ModificationDives::removalOfAMemberFromASession($ds_code, $us_id);
 });
-
-
 
 Route::get('/modificationdives/members/{ds_code}/ajoutadherent/{level}', function($ds_code, $level){
     return AdherentController::index($ds_code, $level);
