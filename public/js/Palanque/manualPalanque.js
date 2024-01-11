@@ -160,8 +160,16 @@ function validateAllCombination(){
     }
   });
 }
+
+
+let interval = setInterval(() => {
+  validateAllCombination();
+}, 5000);
+
+
 validatePalanque.addEventListener("click", function(){
   sendPalanque();
+  clearInterval(interval);
 });
 
 function returnValueToPhp(ds_code) {
@@ -182,7 +190,7 @@ function returnValueToPhp(ds_code) {
 }
 
 function sendPalanque() {
-  let palanqueList = returnValueToPhp('DS10');
+  let palanqueList = returnValueToPhp("DS1");
   let palanqueListJson = JSON.stringify(palanqueList);
   let csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
@@ -199,17 +207,13 @@ function sendPalanque() {
         // Log the additional data in the console
         console.log("Additional Data:", responseData.additionalData);
       } else {
-        console.error("Request failed");
+        const responseData = JSON.parse(xhr.responseText);
+        console.error("Request failed", responseData.errData);
       }
     }
   };
   xhr.send(palanqueListJson);
   console.log("send");
 }
-
-
-setInterval(() => {
-  validateAllCombination();
-}, 5000);
 
 getDiver('DS1');
