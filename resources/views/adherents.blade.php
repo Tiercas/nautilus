@@ -3,7 +3,8 @@
     <x-page-title>Modification de la plongée du {{$sessionplongee['DS_DATE']}}, à {{$sessionplongee['DL_NAME']}}, {{$sessionplongee['CAR_SCHEDULE']}}</x-page-title>
 
     <form method="GET">
-        <input type="text" name="searchbar" placeholder="Cherchez un utilisateur ici"></input>
+        <input type="text" name="nom" placeholder="Cherchez le nom ici"></input>
+        <input type="text" name="prenom" placeholder="Cherchez le prénom ici"></input>
         <x-button type="submit">Rechercher</x-button>
     </form>
 

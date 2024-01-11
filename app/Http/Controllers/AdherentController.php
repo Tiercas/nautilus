@@ -45,27 +45,31 @@ class AdherentController extends Controller
             'REG_ACTIVE' => 1
         ]);
 
-        return  ModificationDives::modificationMembers($ds_code);
+        return ModificationDives::modificationMembers($ds_code);
 
     }
 
 
 
-    function searchByName(Request $request){
+    static function searchByName($ds_code, $level, Request $request){
 
-        $search = $request['searchbar'];
-        $terms = explode(' ', $search);
+        $nom = $request['nom'];
+        $prenom = $request['prenom'];
 
-        $results = array();
+        $request = User::selectRaw('US_FIRST_NAME,US_NAME,US_LICENCE_ID, CAR_USER.US_ID')
+        ->where('US_NAME', 'LIKE', "%".$nom."%")
+        ->where('US_FIRST_NAME', 'LIKE', "%".$prenom."%")
+        ->get();
 
-        foreach($terms as $term){
-            
-            $query = User::selectRaw('*')
-            ->where('US_NAME', '=', $term)
-            ->orwhere('US_FIRST_NAME', $term)
-            ->get();
+        $sessionplongee = DivingSession::selectRaw('CAR_DIVING_SESSION.DS_CODE, CAR_DIVING_SESSION.DS_DATE, CAR_DIVING_LOCATION.DL_NAME, CAR_DIVING_SESSION.CAR_SCHEDULE, CAR_DIVING_SESSION.DS_LEVEL')
+        ->join('CAR_DIVING_LOCATION', 'CAR_DIVING_SESSION.DL_ID', '=', 'CAR_DIVING_LOCATION.DL_ID')
+        ->where('ds_code', '=', $ds_code)
+        ->get();
 
-        }
+        return view('adherents', [
+            'adherents' => $request,
+            'sessionplongee' => $sessionplongee[0],
+        ]); 
 
     }
 
