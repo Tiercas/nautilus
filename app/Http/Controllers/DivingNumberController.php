@@ -11,20 +11,28 @@ class DivingNumberController extends Controller
 {
     public function index(): View
     {
-        if (session()->has('user')) {
-            $userId = session('user')->US_ID; // Récupérer l'ID de l'utilisateur connecté
 
-            // Faire quelque chose avec l'utilisateur ou son ID
-        } else {
-            $userId = NULL;
+        if(session()->has('user')){
+            $user = session('user');
+            $userId = session('user')->US_ID;
+        }else{
+            $userId = null;
         }
+        
 
-        $dateDives = DivingNumberModel::join('CAR_REGISTRATION', 'CAR_USER.us_id', '=', 'CAR_REGISTRATION.us_id')
+        $dateDivesBefore = DivingNumberModel::join('CAR_REGISTRATION', 'CAR_USER.us_id', '=', 'CAR_REGISTRATION.us_id')
+        ->join('CAR_DIVING_SESSION','CAR_REGISTRATION.ds_code','=','CAR_DIVING_SESSION.ds_code')
+        ->join('CAR_DIVING_LOCATION','CAR_DIVING_SESSION.DL_ID','=','CAR_DIVING_LOCATION.DL_ID')
+        ->where('CAR_USER.US_ID',$userId)
+        ->where('CAR_DIVING_SESSION.DS_DATE','<',now())
+        ->get();
+
+        $dateDivesAfter = DivingNumberModel::join('CAR_REGISTRATION', 'CAR_USER.us_id', '=', 'CAR_REGISTRATION.us_id')
         ->join('CAR_DIVING_SESSION','CAR_REGISTRATION.ds_code','=','CAR_DIVING_SESSION.ds_code')
         ->join('CAR_DIVING_LOCATION','CAR_DIVING_SESSION.dl_id','=','CAR_DIVING_LOCATION.dl_id')
         ->join('CAR_ROLE_ATTRIBUTION','CAR_USER.us_id','=','CAR_ROLE_ATTRIBUTION.Us_id')
         ->join('CAR_ROLE','CAR_ROLE_ATTRIBUTION.rol_code','=','CAR_ROLE.rol_code')
-
+        ->where('CAR_DIVING_SESSION.DS_DATE','>=',now())
         ->where('CAR_USER.US_ID',$userId)
         ->get();
 
@@ -41,7 +49,8 @@ class DivingNumberController extends Controller
             ->count();
         $usersCount = 99 - $usersCount ;
 
-        return view('diveractivities', compact('usersCount'), ['dates' => $dateDives]);
+        return view('diveractivities', compact('usersCount'), ['datesB' => $dateDivesBefore,
+                                                                'datesA' => $dateDivesAfter]);
     }
 
     public function allIndex(Request $request): View

@@ -16,6 +16,7 @@ class DiveSessionCreation extends Controller
     public static function add($request)
     {
         $dv = new DivingSession();
+
         $dv->DS_CODE = 'DS'.sizeof(DivingSession::all())+1;
         $dv->US_ID = $request->pilot;
         $dv->DL_ID = $request->location;
@@ -27,6 +28,8 @@ class DiveSessionCreation extends Controller
         $dv->DS_MAX_DEPTH = DivingLocation::find($request->location)->DL_DEPTH;
         $dv->DS_ACTIVE = 1;
         $dv->DS_MAX_DIVERS = $request->max;
+        $dv->DS_MIN_DIVERS = $request->min;
+
         if(intval($dv->DS_MAX_DIVERS) > Boat::find($request->boat)->BO_NUMBER_OF_SEATS)
         {
             return "Le nombre de plongeurs est supérieur au nombre de places du bateau";

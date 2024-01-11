@@ -36,6 +36,11 @@
                     </div>
                 </div>
                 <div class="divideFlex Column">
+                    @if(isset($msg))
+                    {
+                        <p>{{$msg}}</p>
+                    }
+                    @endif
                     <h2>Lieu</h2>
                     <hr style="height: 3px;background-color: black;margin-bottom: 15px;margin-top: 5px; width : 40%">
                     <div class="aligne">
