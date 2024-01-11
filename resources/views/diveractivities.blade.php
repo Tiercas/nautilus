@@ -34,10 +34,10 @@
             <tbody>
                 @foreach ($datesA as $dateA)
                     <tr class="odd:bg-white even:bg-gray-50 border-b">
-                        <td class="px-12 py-4">{{ $dateB->DS_DATE }}</td>
-                        <td class="px-12 py-4">{{ $dateB->CAR_SCHEDULE }}</td>
-                        <td class="px-12 py-4">{{ $dateB->ROL_LABEL }}</td>
-                        <td class="px-12 py-4">{{ $dateB->DL_NAME }}</td>
+                        <td class="px-12 py-4">{{ $dateA->DS_DATE }}</td>
+                        <td class="px-12 py-4">{{ $dateA->CAR_SCHEDULE }}</td>
+                        <td class="px-12 py-4">{{ $dateA->ROL_LABEL }}</td>
+                        <td class="px-12 py-4">{{ $dateA->DL_NAME }}</td>
                     </tr>
                 @endforeach
             </tbody>
