@@ -21,6 +21,12 @@ class DivingSession extends Model
 
     use HasFactory;
 
+    public function sessionsWithFilledFile():array
+    {
+        $res =  DB::table('CAR_REGISTRATION')->where('DS_FILE_FILLED', 1)->get();
+        return $res;
+    }
+
     public function getParticipants(): array{
         $registrations = DB::table('CAR_REGISTRATION')->where('DS_CODE', $this->DS_CODE)->get();
         $participants = [];
@@ -67,4 +73,6 @@ class DivingSession extends Model
         
         return "Plongeur";
     }
+
+    
 }
