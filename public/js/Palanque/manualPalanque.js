@@ -268,7 +268,8 @@ function sendPalanque() {
         console.log("Request successful");
         const responseData = JSON.parse(xhr.responseText);
         console.log("Additional Data:", responseData.additionalData);
-        document.getElementById(("toast-success")).classList.remove("hidden");
+          document.getElementById(("toast-success")).classList.remove("hidden");
+          document.getElementById(("toast-success")).classList.remove("opacity-0");
       } else {
         const responseData = JSON.parse(xhr.responseText);
         console.error("Request failed", responseData.errData);

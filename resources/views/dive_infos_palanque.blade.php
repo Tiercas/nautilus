@@ -1,6 +1,6 @@
-<link href='https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.css' rel='stylesheet' />
-<textarea name="csrfToken" id="csrfToken" class="hidden">@csrf</textarea>
 <x-layout>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.css' rel='stylesheet' />
+    <textarea name="csrfToken" id="csrfToken" class="hidden">@csrf</textarea>
     <x-page-title>Plongée du {{ $dive->DS_DATE }} - {{ $dive->DL_NAME }}</x-page-title>
     <div class="text-right mb-4">
         <a href="javascript:history. back()"
