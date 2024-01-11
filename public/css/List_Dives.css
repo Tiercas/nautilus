@@ -1,0 +1,14 @@
+.clickableGreen{
+    padding: 10px;
+    border-radius: 5px;
+    width: 25%;
+    font-size: 25px;
+    margin-right: 20%;
+}
+
+.clickableGrey{
+    padding: 10px;
+    border-radius: 5px;
+    width: 25%;
+    font-size: 25px;
+}
