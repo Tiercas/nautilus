@@ -40,9 +40,5 @@ class DivingSession extends Model
     {
         $this->DS_ACTIVE = 0;
         $this->save();
-=========
-    public function getDivingGroups(){
-        return DivingGroup::where('DS_CODE', $this->DS_CODE)->get();
->>>>>>>>> Temporary merge branch 2
     }
 }
