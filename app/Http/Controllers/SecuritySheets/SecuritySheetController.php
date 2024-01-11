@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Http\Controllers\SecuritySheets;
 
 use App\Models\User;
-use Illuminate\Http\Request;
 use App\Models\DivingSession;
 use App\Models\DivingLocation;
 use App\Http\Controllers\Controller;
@@ -30,8 +29,12 @@ class SecuritySheetController extends Controller
      * @return string|\View what to display on the page (what the strategy returns) 
      */
     public function generate(string $ds_code){
-        $html =  self::callPdfBuilderView($ds_code);
+        $html =  self::callView($ds_code, 'securitySheet.pdf');
         return $this->strategy->generatePdf($html, $ds_code);
+    }
+
+    public function edit(string $ds_code){
+        return self::callView($ds_code, 'securitySheet.edit');
     }
 
     /**
@@ -49,7 +52,7 @@ class SecuritySheetController extends Controller
      * @param $ds_code the code of the diving session
      * @return string the HTML code
      */
-    private function callPdfBuilderView(string $ds_code){
+    private function callView(string $ds_code, string $viewName){
         $dive = DivingSession::find($ds_code);
 
         $director = User::find($dive->US_ID_CAR_DIRECT);
@@ -69,7 +72,7 @@ class SecuritySheetController extends Controller
             ];
         }
 
-        return view('securitySheet.pdf', [
+        return view($viewName, [
             'dive' => $dive,
             'director' => $director,
             'surfaceSecurity' => $surfaceSecurity,

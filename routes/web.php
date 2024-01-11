@@ -217,3 +217,5 @@ Route::middleware('App\Http\Middleware\rightChecker')
 Route::middleware('App\Http\Middleware\rightChecker')
     ->get('manage/dives', [DivesList::class, 'showManagementList'])
 ->name('manage_dives_dir');
+
+Route::get('/view/{ds_code}', [SecuritySheetController::class, 'edit']);
