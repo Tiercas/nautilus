@@ -7,6 +7,7 @@ use Illuminate\View\View;
 use App\Models\DivingSession;
 use App\Models\Registration;
 use App\Models\User;
+use League\CommonMark\Extension\Footnote\Event\NumberFootnotesListener;
 
 class ModificationDives extends Controller
 {
@@ -34,7 +35,7 @@ class ModificationDives extends Controller
 
     function index(): View {
 
-        $request = DivingSession::selectRaw('DS_CODE, DS_DATE, CAR_SCHEDULE, DL_DEPTH, DL_NAME')
+        $request = DivingSession::selectRaw('DS_CODE, DS_DATE, CAR_SCHEDULE, DL_DEPTH, DL_NAME, CAR_DIVING_SESSION.PRE_CODE')
         ->join('CAR_DIVING_LOCATION','CAR_DIVING_SESSION.DL_ID', '=', 'CAR_DIVING_LOCATION.DL_ID')
         ->where('CAR_DIVING_SESSION.DS_ACTIVE', '=', 1)
         ->get();
@@ -44,6 +45,8 @@ class ModificationDives extends Controller
         from car_diving_session
         join car_diving_location using(DL_ID)
         where car_diving_session.DS_ACTIVE = 1;*/
+
+        
 
 
         return view('modification_dives', ['dives' => $request]);
@@ -67,7 +70,7 @@ class ModificationDives extends Controller
 
     static function modificationMembers(string $ds_code){
 
-        $pilote_temp = DivingSession::selectRaw('US_FIRST_NAME,US_NAME,US_LICENCE_ID, CAR_USER.US_ID')
+        $pilote_temp = DivingSession::selectRaw('US_FIRST_NAME,US_NAME,US_LICENCE_ID, CAR_USER.US_ID, CAR_DIVING_SESSION.PRE_CODE')
         ->join('CAR_USER','CAR_DIVING_SESSION.US_ID','=','CAR_USER.US_ID')
         ->where('CAR_DIVING_SESSION.DS_CODE', '=', $ds_code)
         ->get();
@@ -81,7 +84,7 @@ class ModificationDives extends Controller
             'ROL_LABEL' => "Pilote"
         ];
 
-        $securite_temp = DivingSession::selectRaw('US_FIRST_NAME,US_NAME,US_LICENCE_ID, CAR_USER.US_ID')
+        $securite_temp = DivingSession::selectRaw('US_FIRST_NAME,US_NAME,US_LICENCE_ID, CAR_USER.US_ID, CAR_DIVING_SESSION.PRE_CODE')
         ->join('CAR_USER','CAR_DIVING_SESSION.US_ID_CAR_SECURE','=','CAR_USER.US_ID')
         ->where('CAR_DIVING_SESSION.DS_CODE', '=', $ds_code)
         ->get();
@@ -94,7 +97,7 @@ class ModificationDives extends Controller
             'ROL_LABEL' => "Sécurité de surface"
         ];
 
-        $directeur_temp = DivingSession::selectRaw('US_FIRST_NAME,US_NAME,US_LICENCE_ID, CAR_USER.US_ID')
+        $directeur_temp = DivingSession::selectRaw('US_FIRST_NAME,US_NAME,US_LICENCE_ID, CAR_USER.US_ID, CAR_DIVING_SESSION.PRE_CODE')
         ->join('CAR_USER','CAR_DIVING_SESSION.US_ID_CAR_DIRECT','=','CAR_USER.US_ID')
         ->where('CAR_DIVING_SESSION.DS_CODE', '=', $ds_code)
         ->get();
@@ -125,10 +128,22 @@ class ModificationDives extends Controller
             array_push($adherents, $plongeur);
         }
 
-        $sessionplongee = DivingSession::selectRaw('CAR_DIVING_SESSION.DS_CODE, CAR_DIVING_SESSION.DS_DATE, CAR_DIVING_LOCATION.DL_NAME, CAR_DIVING_SESSION.CAR_SCHEDULE, CAR_DIVING_SESSION.DS_LEVEL')
+        $sessionplongee = DivingSession::selectRaw('CAR_DIVING_SESSION.DS_CODE, CAR_DIVING_SESSION.DS_DATE, CAR_DIVING_LOCATION.DL_NAME, CAR_DIVING_SESSION.CAR_SCHEDULE, CAR_DIVING_SESSION.DS_LEVEL, CAR_DIVING_SESSION.PRE_CODE')
         ->join('CAR_DIVING_LOCATION', 'CAR_DIVING_SESSION.DL_ID', '=', 'CAR_DIVING_LOCATION.DL_ID')
         ->where('DS_CODE', '=', $ds_code)
         ->get();
+
+
+
+        $numberOfSubscribedPeople = DivingSession::selectRaw('DS_MAX_DIVERS, DS_DIVERS_COUNT')
+        ->where('DS_CODE', '=', $ds_code)
+        ->get();
+
+        $full = false;
+
+        if(!($numberOfSubscribedPeople[0]['DS_MAX_DIVERS'] == null)){
+            $full = $numberOfSubscribedPeople[0]['DS_MAX_DIVERS'] <= $numberOfSubscribedPeople[0]['DS_DIVERS_COUNT'];
+        }
 
 
         return view('modification_members_of_session', [
@@ -136,7 +151,8 @@ class ModificationDives extends Controller
             'sessionplongee' => $sessionplongee[0],
             'directeurpresent' => ModificationDives::sessionContainsDirector($ds_code),
             'pilotepresent' => ModificationDives::sessionContainsPilot($ds_code),
-            'securitepresent' => ModificationDives::sessionContainsSecurity($ds_code)
+            'securitepresent' => ModificationDives::sessionContainsSecurity($ds_code),
+            'full' => $full
         ]);    
     }
 }
