@@ -34,7 +34,7 @@ class ModificationDives extends Controller
 
     function index(): View {
 
-        $request = DivingSession::selectRaw('DS_CODE, DS_DATE, CAR_SCHEDULE, DL_DEPTH, DL_NAME')
+        $request = DivingSession::selectRaw('DS_CODE, DS_DATE, CAR_SCHEDULE, DL_DEPTH, DL_NAME, CAR_DIVING_SESSION.PRE_CODE')
         ->join('CAR_DIVING_LOCATION','CAR_DIVING_SESSION.DL_ID', '=', 'CAR_DIVING_LOCATION.DL_ID')
         ->where('CAR_DIVING_SESSION.DS_ACTIVE', '=', 1)
         ->get();
@@ -67,7 +67,7 @@ class ModificationDives extends Controller
 
     static function modificationMembers(string $ds_code){
 
-        $pilote_temp = DivingSession::selectRaw('US_FIRST_NAME,US_NAME,US_LICENCE_ID, CAR_USER.US_ID')
+        $pilote_temp = DivingSession::selectRaw('US_FIRST_NAME,US_NAME,US_LICENCE_ID, CAR_USER.US_ID, CAR_DIVING_SESSION.PRE_CODE')
         ->join('CAR_USER','CAR_DIVING_SESSION.US_ID','=','CAR_USER.US_ID')
         ->where('CAR_DIVING_SESSION.DS_CODE', '=', $ds_code)
         ->get();
@@ -81,7 +81,7 @@ class ModificationDives extends Controller
             'ROL_LABEL' => "Pilote"
         ];
 
-        $securite_temp = DivingSession::selectRaw('US_FIRST_NAME,US_NAME,US_LICENCE_ID, CAR_USER.US_ID')
+        $securite_temp = DivingSession::selectRaw('US_FIRST_NAME,US_NAME,US_LICENCE_ID, CAR_USER.US_ID, CAR_DIVING_SESSION.PRE_CODE')
         ->join('CAR_USER','CAR_DIVING_SESSION.US_ID_CAR_SECURE','=','CAR_USER.US_ID')
         ->where('CAR_DIVING_SESSION.DS_CODE', '=', $ds_code)
         ->get();
@@ -94,7 +94,7 @@ class ModificationDives extends Controller
             'ROL_LABEL' => "Sécurité de surface"
         ];
 
-        $directeur_temp = DivingSession::selectRaw('US_FIRST_NAME,US_NAME,US_LICENCE_ID, CAR_USER.US_ID')
+        $directeur_temp = DivingSession::selectRaw('US_FIRST_NAME,US_NAME,US_LICENCE_ID, CAR_USER.US_ID, CAR_DIVING_SESSION.PRE_CODE')
         ->join('CAR_USER','CAR_DIVING_SESSION.US_ID_CAR_DIRECT','=','CAR_USER.US_ID')
         ->where('CAR_DIVING_SESSION.DS_CODE', '=', $ds_code)
         ->get();
@@ -125,7 +125,7 @@ class ModificationDives extends Controller
             array_push($adherents, $plongeur);
         }
 
-        $sessionplongee = DivingSession::selectRaw('CAR_DIVING_SESSION.DS_CODE, CAR_DIVING_SESSION.DS_DATE, CAR_DIVING_LOCATION.DL_NAME, CAR_DIVING_SESSION.CAR_SCHEDULE, CAR_DIVING_SESSION.DS_LEVEL')
+        $sessionplongee = DivingSession::selectRaw('CAR_DIVING_SESSION.DS_CODE, CAR_DIVING_SESSION.DS_DATE, CAR_DIVING_LOCATION.DL_NAME, CAR_DIVING_SESSION.CAR_SCHEDULE, CAR_DIVING_SESSION.DS_LEVEL, CAR_DIVING_SESSION.PRE_CODE')
         ->join('CAR_DIVING_LOCATION', 'CAR_DIVING_SESSION.DL_ID', '=', 'CAR_DIVING_LOCATION.DL_ID')
         ->where('DS_CODE', '=', $ds_code)
         ->get();

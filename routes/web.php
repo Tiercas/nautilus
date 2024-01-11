@@ -241,13 +241,13 @@ Route::post('modificationdives/members/{ds_code}/deletiondiver/{us_id}', functio
 
 
 
-Route::get('/modificationdives/members/{ds_code}/ajoutadherent/{level}', function($ds_code, $level){
-    return AdherentController::index($ds_code, $level);
+Route::get('/modificationdives/members/{ds_code}/ajoutadherent/{pre_code}', function($ds_code, $pre_code){
+    return AdherentController::index($ds_code, $pre_code);
 });
 
 Route::post('/modificationdives/members/{ds_code}/ajoutadherent/{us_id}', function($ds_code, $us_id){
     return AdherentController::addUserToDive($ds_code, $us_id);
 });
 
-Route::get('/modificationdives/members/{ds_code}/ajoutadherent/{level}', [AdherentController::class, 'searchByName']);
+Route::get('/modificationdives/members/{ds_code}/ajoutadherent/{pre_code}', [AdherentController::class, 'searchByName']);
 >>>>>>> creation-adherent-sur-creneau-de-plongee

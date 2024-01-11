@@ -40,7 +40,7 @@ class Handler extends ExceptionHandler
     {
         $this->renderable(function(QueryException $queryException, Request $request){
             if ($queryException->getCode()==45000)
-            return response()->view('erreur-page',['message'=>$queryException->getMessage()]);
+            return response()->view('error-page',['message'=>$queryException->getMessage()]);
         });
         $this->reportable(function (Throwable $e) {
             //

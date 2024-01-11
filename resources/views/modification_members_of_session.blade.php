@@ -48,7 +48,7 @@
     <div>
     </div>
     <div class="mt-3 shadow-md max-w-fit w-1/6 mx-left rounded-lg overflow-hidden border-2">
-        <a href="/modificationdives/members/{{$sessionplongee['DS_CODE']}}/ajoutadherent/{{$sessionplongee['DS_LEVEL']}}" class="text-blue-500 underline">
+        <a href="/modificationdives/members/{{$sessionplongee['DS_CODE']}}/ajoutadherent/{{$sessionplongee['PRE_CODE']}}" class="text-blue-500 underline">
             <x-button color="red" colorHover="hover:bg-green-800">
                 Ajouter un plongeur
             </x-button>
