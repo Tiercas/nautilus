@@ -3,8 +3,14 @@
 
 <x-layout>
     <x-page-title>Plongée du {{ $dive->DS_DATE }} - {{ $dive->DL_NAME }}</x-page-title>
+    <div class="text-right mb-4">
+        <a href="javascript:history. back()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            Revenir en arrière
+        </a>
+    </div>
+
     <div class="flex flex-col md:flex-row gap-2 rounded-lg border shadow">
-        <div class="flex-1 border-r p-4">
+        <div class="flex-1 p-4">
             <h3 class="text-xl font-bold mb-2">Plongée</h3>
             <ul class="space-y-2 list-disc list-inside">
                 <li>Date : {{ $dive->DS_DATE }} ({{ $dive->CAR_SCHEDULE }})</li>
@@ -12,12 +18,11 @@
                     <ul class="ps-5 mt-2 space-y-1 list-disc list-inside">
                         <li>Directeur de plongée : {{ $director->US_FIRST_NAME . " " . strtoupper($director->US_NAME) }}</li>
                         <li>Sécurité de surface : {{ $security->US_FIRST_NAME . " " . strtoupper($security->US_NAME) }}</li>
-                        <li>Créateur de la plongée : {{ $creator->US_FIRST_NAME . " " . strtoupper($creator->US_NAME) }}</li>
                     </ul>
                 </li>
                 <li>Nombre de plongeurs : {{ $dive->DS_DIVERS_COUNT }}</li>
                 <li>Bateau : {{ $dive->BO_NAME }}</li>
-                <li>Observation : {{ $dive->DS_OBSERVATION_FIELD }}</li>
+                <!--<li>Observation : {{ $dive->DS_OBSERVATION_FIELD }}</li>-->
             </ul>
             @if(preg_match("/[0-9]*\.[0-9]*/", $dive->DL_LONGITUDE) == 1 && preg_match("/[0-9]*\.[0-9]*/", $dive->DL_LATITUDE) == 1)
                 <div id='map' class="shadow rounded-lg w-full mt-4 aspect-video"></div>
@@ -48,7 +53,7 @@
             @endif
             <p class="text-xl font-bold my-2">{{ $dive->DL_NAME }} • {{ $dive->DS_MAX_DEPTH }}m</p>
         </div>
-        <div class="flex-1 border-r p-4">
+        <div class="flex-1 p-4">
             <h3 class="text-xl font-bold mb-2">Plongeurs</h3>
         </div>
         <div class="flex-1 p-4">

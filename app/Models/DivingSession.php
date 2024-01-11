@@ -17,18 +17,18 @@ class DivingSession extends Model
     protected $keyType = 'string';
     public $timestamps = false;
 
+    protected $guarded = [];
+
     use HasFactory;
 
     public function getParticipants(): array{
         $registrations = DB::table('CAR_REGISTRATION')->where('DS_CODE', $this->DS_CODE)->get();
         $participants = [];
-
         foreach($registrations as $registration){
             if($registration->REG_ACTIVE === 1){
                 $participants[] = User::find($registration->US_ID);
             }
         }
-
         return $participants;
     }
 
@@ -62,7 +62,7 @@ class DivingSession extends Model
         if(strpos($user->PRE_CODE, 'GP')){
             return "Guide de palanquée";
         }
-        
+
         return "Plongeur";
     }
 }
