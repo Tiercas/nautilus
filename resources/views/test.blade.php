@@ -7,16 +7,7 @@
     <title>Document</title>
 </head>
 <body>
-    @if($user->roles->isNotEmpty())
-    <p>Roles:</p>
-    <ul>
-        @foreach($user->roles as $role)
-            <li>{{ $role->ROL_LABEL }}</li>
-        @endforeach
-    </ul>
-    @else
-        <p>Cet utilisateur n'a aucun rôle.</p>
-    @endif
 
+    <img src="{{ asset('/images/test.svg') }}" alt="Illustration de plongeur">
 </body>
 </html>

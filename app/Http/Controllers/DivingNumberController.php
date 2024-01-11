@@ -30,20 +30,25 @@ class DivingNumberController extends Controller
 
         $dateDivesAfter = DivingNumberModel::join('car_registration', 'car_user.us_id', '=', 'car_registration.us_id')
         ->join('car_diving_session','car_registration.ds_code','=','car_diving_session.ds_code')
-        ->join('car_diving_location','car_diving_session.DL_ID','=','car_diving_location.DL_ID')
-        ->where('car_user.US_ID',$userId)
-        ->where('CAR_DIVING_SESSION.DS_DATE','>=',now())
+        ->join('car_diving_location','car_diving_session.dl_id','=','car_diving_location.dl_id')
+        ->join('car_role_attribution','car_user.us_id','=','car_role_attribution.Us_id')
+        ->join('car_role','car_role_attribution.rol_code','=','car_role.rol_code')
+
+        ->where('car_user.US_ID',3)
         ->get();
 
         
         
         $dives = 99;
-        $usersCount = DivingNumberModel::join('CAR_REGISTRATION', 'CAR_USER.US_ID', '=', 'CAR_REGISTRATION.US_ID')
-        ->join('CAR_DIVING_SESSION', 'CAR_REGISTRATION.DS_CODE', '=', 'CAR_DIVING_SESSION.DS_CODE')
-        ->where('CAR_USER.US_ID', $userId)
-        ->whereYear('CAR_USER.US_SUB_DATE', '=', new Expression('YEAR(CAR_DIVING_SESSION.DS_DATE)'))
-        ->count();
-
+        $usersCount = DivingNumberModel::join('car_registration', 'car_user.us_id', '=', 'car_registration.us_id')
+            ->join('car_diving_group', function ($dg) {
+                $dg->on('car_registration.ds_code', '=', 'car_diving_group.ds_code')
+                    ->on('car_registration.dg_number', '=', 'car_diving_group.dg_number');
+            })
+            ->join('car_diving_session','car_registration.ds_code','=','car_diving_session.ds_code')
+            ->where('car_diving_session.ds_date','>=',date("Y").'-00-00')
+            ->where('car_user.US_ID', $userId)
+            ->count();
         $usersCount = 99 - $usersCount;
 
         return view('diveractivities', compact('usersCount'), ['datesB' => $dateDivesBefore,

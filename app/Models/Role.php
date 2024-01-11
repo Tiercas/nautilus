@@ -12,5 +12,7 @@ class Role extends Model
     protected $table = 'CAR_ROLE';
 
     protected $primaryKey = 'ROL_CODE';
+    protected $keyType = 'string';
+
 
 }
