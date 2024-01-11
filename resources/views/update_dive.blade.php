@@ -36,11 +36,6 @@
                     </div>
                 </div>
                 <div class="divideFlex Column">
-                    @if(isset($error))
-                    {
-                        <p>{{$error}}</p>
-                    }
-                    @endif
                     <h2>Lieu</h2>
                     <hr style="height: 3px;background-color: black;margin-bottom: 15px;margin-top: 5px; width : 40%">
                     <div class="aligne">
@@ -192,6 +187,9 @@
                 </form>
             </div>
         </form>
+        @if(isset($error))
+            <x-popup>{{$error}}</x-popup>
+        @endif
     </div>
 
     <script src="{{ asset('/js/create_div.js') }}"></script>
