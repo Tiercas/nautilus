@@ -9,7 +9,8 @@
   --yellow : #ffbe55;
   --yellowDarker : #daa654;
 
-  --good : #00ff04;
+  --good : #46ee70;
+  --goodDarker : #3fd442;
   --bad : #f94f4f;
   --badDarker : #cd4b4b;
 
@@ -36,6 +37,30 @@ h1{
 .clickable:hover{
     cursor: pointer;
     background-color: var(--yellowDarker);
+    color: var(--white)
+}
+
+.clickableGrey{
+    background-color: var(--yellow);
+    color: var(--black);
+    transition: all 0.4s ease-out;
+}
+
+.clickableGrey:hover{
+    cursor: pointer;
+    background-color: var(--yellowDarker);
+    color: var(--white)
+}
+
+.clickableGreen{
+    background-color: var(--good);
+    color: var(--black);
+    transition: all 0.4s ease-out;
+}
+
+.clickableGreen:hover{
+    cursor: pointer;
+    background-color: var(--goodDarker);
     color: var(--white)
 }
 
