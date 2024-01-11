@@ -3,22 +3,30 @@
 <meta id="divingSessionId" content="{{$dive->DS_CODE}}">
 
 <x-layout>
-    <x-security-sheets.table>
-        <tr>
-            <x-security-sheets.cell><strong>Date</strong></x-security-sheets.cell>
-            <x-security-sheets.cell>{{$dive->DS_DATE}}</x-security-sheets.cell>
-        </tr>
-        <tr>
-            <x-security-sheets.cell><strong>Directeur de plongée</strong></x-security-sheets.cell>
-            <x-security-sheets.cell>{{$director->US_FIRST_NAME}} {{$director->US_NAME}}</x-security-sheets.cell>
-        </tr>
-        <tr>
-            <x-security-sheets.cell><strong>Site de plongée</strong></x-security-sheets.cell>
-            <x-security-sheets.cell>{{$location->DL_NAME}}</x-security-sheets.cell>
-        </tr>
-    </x-security-sheets.table>
+    <link rel="stylesheet" href="{{ asset('/css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('/css/edit.css') }}">
     
-    <x-button diveId="button">Regénérer</x-button>
+    <x-page-title>Fiche de sécurité</x-page-title>
+
+
+    <table style="text-align: left;border: 1px solid black;">
+        <thead style="border-bottom: 1px solid black; font-size: 15px;background-color: var(--yellow);">
+            <tr>
+                <th scope="col" class="px-12 py-3">Date</th>
+                <th scope="col" class="px-12 py-3">Directeur de plongée</th>
+                <th scope="col" class="px-12 py-3">Site de plongée</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="odd:bg-white even:bg-gray-50">
+                <td class="px-12 py-4">{{ $dive->DS_DATE }}</td>
+                <td class="px-12 py-4">{{$director->US_FIRST_NAME}} {{$director->US_NAME}}</td>
+                <td class="px-12 py-4">{{$location->DL_NAME}}</td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <button diveId="button" class="clickable" style="padding: 10px; border-radius: 10px;">Regénérer</button>
 
     <x-security-sheets.table>
         <tr>
@@ -32,7 +40,7 @@
         <tr>
             <x-security-sheets.cell><strong>
                 Observation
-                <br>> météo et marée
+                <br> météo et marée
             </strong></x-security-sheets.cell>
             <x-security-sheets.cell>
                 <input id="observation-field" class="bg-[#e6e6e6] border border-black" type="text" value="{{$dive->DS_OBSERVATION_FIELD}}">
