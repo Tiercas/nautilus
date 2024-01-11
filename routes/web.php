@@ -197,10 +197,6 @@ Route::post('/dive/delete/{id}', function ($id, Request $request) {
     return redirect('/create/dive');
 });
 
-Route::get('/dodo', function () {
-    return view('dodo');
-});
-
 /**
  * List all the diving sessions of all the users.
  */
