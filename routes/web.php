@@ -34,7 +34,7 @@ use App\Http\Controllers\SecuritySheets\SecuritySheetController;
 |
 */
 
-Route::get('/error', function(){
+Route::get('/error', function () {
 
 })->name('error');
 
@@ -71,7 +71,11 @@ Route::middleware('App\Http\Middleware\rightChecker')
     ->get('/dives', [DivingSignUpController::class, 'show'])
     ->name('dives');
 
-    Route::get('/test', function() {
+Route::middleware('App\Http\Middleware\rightChecker')
+    ->get('/dives/filter', [DivesList::class, 'filter'])
+    ->name('dives_filter');
+
+Route::get('/test', function () {
     return view('test');
 });
 
@@ -79,7 +83,7 @@ Route::middleware('App\Http\Middleware\rightChecker')
  * Leads to a preview page of a security sheet for a particular diving session.
  * @param $ds_code the code of the diving session
  */
-Route::get('/dives/{ds_code}/security-sheet/test', function($ds_code){
+Route::get('/dives/{ds_code}/security-sheet/test', function ($ds_code) {
     return (new SecuritySheetController)->setStrategy(new PreviewStrategy)->generate($ds_code);
 });
 
@@ -103,20 +107,18 @@ Route::middleware('App\Http\Middleware\rightChecker')
  * Only accessible to the diving section manager.
  */
 Route::middleware('App\Http\Middleware\rightChecker')
-    ->get('/create/dive', function()
-{
-    return view('create_dive', ['locations' => DivingLocation::all(),  'boats' => Boat::all(), 'levels' => Prerogative::all()->skip(3), 'users' => User::all(), 'previousDives' => session()->get('previousDives')]);
-})->name('create_dive');
+    ->get('/create/dive', function () {
+        return view('create_dive', ['locations' => DivingLocation::all(), 'boats' => Boat::all(), 'levels' => Prerogative::all()->skip(3), 'users' => User::all(), 'previousDives' => session()->get('previousDives')]);
+    })->name('create_dive');
 
 /**
  * Stores the new diving session on the database from a form filled by the diving section manager.
  * Only accessible to the diving section manager.
  */
 Route::middleware('App\Http\Middleware\rightChecker')
-    ->post('/create/dive', function(Request $request)
-{
-    return DiveCreation::index($request);
-});
+    ->post('/create/dive', function (Request $request) {
+        return DiveCreation::index($request);
+    });
 
 /**
  * Leads to the diving session editing page.
@@ -125,21 +127,21 @@ Route::middleware('App\Http\Middleware\rightChecker')
 
 //TODO make accessible only to diving section manager.
 Route::middleware('App\Http\Middleware\rightChecker')
-    ->get('/dive/update/{id}', function($id){
-    return view('update_dive', ['dive' => DivingSession::find($id),
-                'locations' => DivingLocation::all(),
-                'boats' => Boat::all(),
-                'levels' => Prerogative::all(),
-                'users' => User::all()]);
-});
+    ->get('/dive/update/{id}', function ($id) {
+        return view('update_dive', ['dive' => DivingSession::find($id),
+            'locations' => DivingLocation::all(),
+            'boats' => Boat::all(),
+            'levels' => Prerogative::all(),
+            'users' => User::all()]);
+    });
 
 /**
  * Updates a diving session.
  * @param $id the code of the diving session
  */
-Route::post('/dive/update/{id}', function($id, Request $request){
-        DiveSessionUpdate::update($request, $id);
-        return redirect('/');
+Route::post('/dive/update/{id}', function ($id, Request $request) {
+    DiveSessionUpdate::update($request, $id);
+    return redirect('/');
 });
 
 /**
@@ -147,16 +149,16 @@ Route::post('/dive/update/{id}', function($id, Request $request){
  * @param $id the code of the diving session
  */
 Route::middleware('App\Http\Middleware\rightChecker')
-    ->post('/dive/disable/{id}', function ($id){
-    DivingSession::find($id)->disable();
-    return redirect('/');
-});
+    ->post('/dive/disable/{id}', function ($id) {
+        DivingSession::find($id)->disable();
+        return redirect('/');
+    });
 
 /**
  * Delete a diving session.
  * @param $id the code of the diving session
  */
-Route::post('/dive/delete/{id}', function ($id, Request $request){
+Route::post('/dive/delete/{id}', function ($id, Request $request) {
     DiveDeletion::delete($id);
     return redirect('/create/dive');
 });
@@ -164,9 +166,9 @@ Route::post('/dive/delete/{id}', function ($id, Request $request){
 /**
  * List all the diving sessions of all the users.
  */
-Route::get('/sessions', [DiversBySession::class,'getAllSessions']);
+Route::get('/sessions', [DiversBySession::class, 'getAllSessions']);
 
-Route::get('/session/{ds_code}', [DiversBySession::class,'getDiversBySession']);
+Route::get('/session/{ds_code}', [DiversBySession::class, 'getDiversBySession']);
 
 /**
  * List all the diving sessions of the user, as well as its remaining sessions for the current year.
@@ -207,4 +209,4 @@ Route::middleware('App\Http\Middleware\rightChecker')
 
 Route::middleware('App\Http\Middleware\rightChecker')
     ->get('manage/dives', [DivesList::class, 'showManagementList'])
-->name('manage_dives_dir');
+    ->name('manage_dives_dir');

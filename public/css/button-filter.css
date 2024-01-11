@@ -6,14 +6,14 @@
   }
 
   .change-my-color {
-    fill: #575757;
+    fill: #9b9b9b;
   }
 
   .button {
     gap: 1.5rem;
     height: 65px;
-    background: #e5e5e5;
-    border: #a8a8a8 solid 1px;
+    background: #f9fafb;
+    border: #dcdcdc solid 1px;
     border-radius: 15px;
     cursor: pointer;
     display: flex;
@@ -28,7 +28,7 @@
   .nav {
     opacity: 1;
     transition: all 0.5s ease-in-out;
-      background: #e5e5e5;
+    background: #f9fafb;
     width: 100%;
     border-radius: 5px;
     padding: 10px;
@@ -44,10 +44,10 @@
       }
 
       input:hover {
-          background-color: #bdbdbd;
+          background-color: #e0e0e0;
       }
 
-    li {
+    .nav.li {
       opacity: 0;
       list-style: none;
       &:nth-child(1) {
@@ -62,10 +62,15 @@
         transform-origin: bottom;
         animation: itop 300ms 500ms linear forwards;
       }
-      &:nth-child(4) {
-        transform-origin: bottom;
-        animation: itop 300ms 600ms linear forwards;
-      }
+        &:nth-child(4) {
+            transform-origin: bottom;
+            animation: itop 300ms 600ms linear forwards;
+        }
+        &:nth-child(5) {
+            transform-origin: bottom;
+            animation: itop 300ms 700ms linear forwards;
+            background-color: transparent;
+        }
     }
     li {
         flex: 1;
@@ -81,7 +86,7 @@
       margin: 0 10px 0 0;
 
       &:hover {
-        background: #bdbdbd;
+        background: #e0e0e0;
       }
     }
   }

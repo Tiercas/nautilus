@@ -8,6 +8,8 @@
                 <label class="button" for="toggle">
                     <svg class="change-my-color" xmlns="http://www.w3.org/2000/svg" height="19" width="19" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M3.9 54.9C10.5 40.9 24.5 32 40 32H472c15.5 0 29.5 8.9 36.1 22.9s4.6 30.5-5.2 42.5L320 320.9V448c0 12.1-6.8 23.2-17.7 28.6s-23.8 4.3-33.5-3l-64-48c-8.1-6-12.8-15.5-12.8-25.6V320.9L9 97.3C-.7 85.4-2.8 68.8 3.9 54.9z"/></svg>
                 <div class="nav">
+                    <form action="{{ route('dives_filter') }}" method="POST">
+                        <!-- @csrf -->
                     <ul>
                         <li>
                             <label for="underline_select" class="sr-only">Choisir un lieux</label>
@@ -40,7 +42,7 @@
                             <label class="hidden" for="start">Date de départ</label>
                             <input type="date" name="date-dive" />
                         </li>
-                        <li>
+                        <!--<li>
                             <label class="hidden" for="participant_filter">Participant</label>
                             <select id="participant_filter" class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent appearance-none focus:outline-none focus:ring-0 focus:border-orange-600 peer">
                                 <option selected>Niveau</option>
@@ -48,8 +50,14 @@
                                     <option value="{{$dive->CAR_SCHEDULE}}">{{$dive->DL_DEPTH}}</option>
                                 @endforeach
                             </select>
+                        </li>-->
+                        <li class="hover:bg-transparent bg-transparent">
+                            <button type="submit" class="w-full py-2.5 px-4 text-sm bg-gray-300 rounded-md focus:outline-none focus:bg-gray-400">
+                                Rechercher
+                            </button>
                         </li>
                     </ul>
+                    </form>
                 </div>
                 </label>
             </div>
