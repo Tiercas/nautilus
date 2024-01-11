@@ -109,10 +109,17 @@ Route::get('modificationdives/members/{ds_code}', function($ds_code){
     return ModificationDives::modificationMembers($ds_code);
 });
 
-Route::post('modificationdives/members/{ds_code}/deletion/{us_id}', function($ds_code, $us_id){
+
+Route::post('modificationdives/members/{ds_code}/deletiondiver/{us_id}', function($ds_code, $us_id){
      return ModificationDives::removalOfAMemberFromASession($ds_code, $us_id);
 });
 
-Route::get('/adherents/{level}', function($level){
-    return AdherentController::index($level);
+
+
+Route::get('/modificationdives/members/{ds_code}/ajoutadherent/{level}', function($ds_code, $level){
+    return AdherentController::index($ds_code, $level);
+});
+
+Route::post('/modificationdives/members/{ds_code}/ajoutadherent/{us_id}', function($ds_code, $us_id){
+    return AdherentController::addUserToDive($ds_code, $us_id);
 });
