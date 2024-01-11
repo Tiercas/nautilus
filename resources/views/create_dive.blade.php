@@ -8,7 +8,6 @@
             style="width: 50%; margin-right: 50px;display:flex; align-items: center; flex-direction: column;overflow: auto;">
             @if(isset($previousDives))
             {
-                <img src="{{ asset('/images/Diver1.png') }}" alt="Diver illustration" id="imageDiver">
                 <div id="Historique">
                     <p style="font-size: 35px">Historique de plongées crées</p>
                     <hr
@@ -41,6 +40,8 @@
                     </table>
                 </div>
             }
+            @else
+            <img src="{{ asset('/images/Diver1.png') }}" alt="Diver illustration" id="imageDiver">
             @endif
         </div>
         <form action="/create/dive" method="POST" style="width: 70%;">
