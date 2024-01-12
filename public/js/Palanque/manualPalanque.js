@@ -533,6 +533,7 @@ function fillZoneWithAlreadyExistingPalanque(diverList) {
         );
         if (element.DG_NUMBER !== 0 && element.DG_NUMBER !== null) {
             let dgNumber = element.DG_NUMBER - 1;
+            console.log(dgNumber);
             let zone = document.getElementById("zone" + dgNumber);
             if (zone) {
                 zone.appendChild(diver);
