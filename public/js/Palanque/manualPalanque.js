@@ -301,7 +301,7 @@ let validatePalanqueCombinate = {
 function validateAllCombination() {
     let counterCheck = 0;
     zoneList.forEach((element) => {
-        element = document.getElementById("zone" + element.getZoneNumber());
+        element = document.querySelector("#zone" + element.getZoneNumber() + " > div");
         // console.log(element);
         if (element.hasChildNodes()) {
             if (
