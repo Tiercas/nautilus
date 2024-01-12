@@ -13,6 +13,7 @@
                     </x-button>
                 </a>
             @else
+                <p class="text-white mr-4">{{ App\Http\Controllers\DivingNumberController::getDivingNumber(session('user')->US_ID) }} / 99</p>
                 <button type="button"
                         class="flex text-sm bg-blue-500 rounded-full md:me-0 focus:ring-4 focus:ring-blue-700"
                         id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown"

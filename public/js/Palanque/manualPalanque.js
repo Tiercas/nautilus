@@ -178,6 +178,12 @@ function removePalanqueZone(nbZone) {
     });
 }
 
+/**
+ * To-Do
+ * 
+ * 1. Faire fonctionner la suppression des palanquées en gérant l'ID de ces dernières qui est inconsistent
+ */
+
 async function getDiver(ds_code) {
     let response = await fetch(`/api/dives/${ds_code}/divers`);
     let data = await response.json().then((data) => proccessDiverData(data));

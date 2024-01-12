@@ -18,7 +18,7 @@ class DivingNumberController extends Controller
         }else{
             $userId = null;
         }
-        
+
 
         $dateDivesBefore = DivingNumberModel::join('CAR_REGISTRATION', 'CAR_USER.us_id', '=', 'CAR_REGISTRATION.us_id')
         ->join('CAR_DIVING_SESSION','CAR_REGISTRATION.ds_code','=','CAR_DIVING_SESSION.ds_code')
@@ -41,11 +41,22 @@ class DivingNumberController extends Controller
         ->join('CAR_DIVING_SESSION', 'CAR_REGISTRATION.ds_code', '=', 'CAR_DIVING_SESSION.ds_code')
         ->where('CAR_USER.us_id', $userId)
         ->whereYear('CAR_DIVING_SESSION.ds_date', '=', now()->year)
-        ->count();         
+        ->count();
         $usersCount = 99 - $usersCount ;
 
         return view('diveractivities', compact('usersCount'), ['datesB' => $dateDivesBefore,
                                                                 'datesA' => $dateDivesAfter]);
+    }
+
+    public static function getDivingNumber($userId): int
+    {
+        $usersCount = DivingNumberModel::join('CAR_REGISTRATION', 'CAR_USER.us_id', '=', 'CAR_REGISTRATION.us_id')
+        ->join('CAR_DIVING_SESSION', 'CAR_REGISTRATION.ds_code', '=', 'CAR_DIVING_SESSION.ds_code')
+        ->where('CAR_USER.us_id', $userId)
+        ->whereYear('CAR_DIVING_SESSION.ds_date', '=', now()->year)
+        ->count();
+        $usersCount = 99 - $usersCount ;
+        return $usersCount;
     }
 
     public function allIndex(Request $request): View
