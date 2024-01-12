@@ -28,7 +28,7 @@ class User extends Model
      */
     public function checkPassword($password)
     {
-        if($password == $this->US_PASSWORD)
+        if(hash('sha256',$password) == $this->US_PASSWORD)
         {
             return true;
         }

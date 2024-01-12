@@ -16,7 +16,7 @@ class AuthController extends Controller
 
         $user = User::where('US_EMAIL', $request->mail)->first();
 
-        if ($user == null || !$user->checkPassword(hash('sha256',$request->password))) {
+        if ($user == null || !$user->checkPassword($request->password)) {
             return view('login', ['wrongPassword' => true]);
         }
 
