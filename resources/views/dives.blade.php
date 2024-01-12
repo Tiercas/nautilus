@@ -172,16 +172,7 @@
                                 @endif
                             @endif
                             </a>
-                            @if ($userPre->PRE_MAX_DEPTH <= $dive->DS_MAX_DEPTH)
-                                <a href="/dives/{{ $dive->DS_CODE }}">
-                                    <button disabled diveId="dropdownButton-{{ $dive->DS_CODE }}"
-                                        style="background-color: #4fad67;margin-right: 5px;font-size: 35px;"
-                                        class="aligne m-1 bg-gray-400 hover:bg-gray-500
-                                            text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
-                                        <i class="fa-solid fa-check"></i>
-                                    </button>
-                                </a>
-                            @endif
+
 
     </div>
 
