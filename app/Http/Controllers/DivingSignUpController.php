@@ -17,9 +17,9 @@ class DivingSignUpController extends Controller
         session()->put('DS_CODE', $ds_code);
         $request = DivingSignUpModel::select()->where('US_ID', $userid)->where('DS_CODE', $ds_code)->count();
         if(!$request == 0)
-            return redirect()->route('dives')->withErrors(['already_registered' => 'Error already registered']);
+            return redirect()->route('dives')->withErrors(['already_registered' => 'Déjà inscrit']);
         $request = DivingSignUpModel::insert(['US_ID' => $userid, 'DS_CODE' => $ds_code, 'REG_ACTIVE' => 1]);
-        return redirect()->route('dives')->with('Success', 'Inscription Success');
+        return redirect()->route('dives')->with('Success', 'Inscrit avec succès');
     }
 
     public static function error(){
