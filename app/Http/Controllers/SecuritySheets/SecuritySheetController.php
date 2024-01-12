@@ -104,13 +104,23 @@ class SecuritySheetController extends Controller
             ];
         }
 
+        $userRole = 'DIR';
+        $roles = session('user')->roles;
+        foreach($roles as $role){
+            if($role->ROL_CODE === 'RES'){
+                $userRole = 'RES';
+                break;
+            }
+        }
+
         return view($viewName, [
             'dive' => $dive,
             'director' => $director,
             'surfaceSecurity' => $surfaceSecurity,
             'driver' => $driver,
             'location' => $location,
-            'divingGroups' => $divingGroupsForView
+            'divingGroups' => $divingGroupsForView,
+            'userRole' => $userRole 
         ]);
     }
 
