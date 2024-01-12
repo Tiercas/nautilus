@@ -39,16 +39,7 @@
                         </a>
                     </td>
                 </tr>
-                <x-drop-down id="dropdown{{$dive->DS_CODE}}">
-                    @php
-                        $participants = $dive->getParticipants();
-                    @endphp
-                    <div class="drop-down">
-                        @foreach($participants as $user)
-                            <p class = "drop-down-items">{{$user->US_NAME}} {{$user->US_FIRST_NAME}}</p>
-                        @endforeach
-                    </div>
-                </x-drop-down>
+                
             @endforeach
             </tbody>
         </table>
