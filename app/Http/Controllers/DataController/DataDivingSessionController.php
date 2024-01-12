@@ -11,6 +11,9 @@ class DataDivingSessionController extends Controller
     public static function fetch()
     {
         $divingSessionData = DivingSession::all();
-        return $divingSessionData;
+        return response()->json([
+            'status' => 'success',
+            'data' => $divingSessionData
+        ])->setStatusCode(200);
     }
 }

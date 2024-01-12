@@ -10,7 +10,7 @@
     <hr class="my-4">
     <form action="{{ route('updateMembersRole') }}" method="POST">
         @csrf <!-- {{ csrf_field() }} -->
-        <button type="submit" class="invisible bg-blue-500 sticky top-4 hover text-white font-bold py-2 px-4 rounded mx-auto mb-4 block">
+        <button type="submit" id="but-field" class="invisible bg-blue-500 sticky top-4 hover text-white font-bold py-2 px-4 rounded mx-auto mb-4 block">
             Enregistrer les modifications
         </button>
         <div class="shadow-md max-w-full rounded-lg overflow-hidden border-2">
@@ -67,7 +67,7 @@
     </form>
     <script>
         var checkboxes = document.querySelectorAll('input[type="checkbox"]');
-        var submitButton = document.querySelector('button[type="submit"]');
+        var submitButton = document.getElementById('but-field');
         submitButton.disabled = true;
         checkboxes.forEach(function(checkbox) {
             checkbox.addEventListener('change', function() {

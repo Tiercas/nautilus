@@ -11,6 +11,9 @@ class DataDivingGroupController extends Controller
     public static function fetch()
     {
         $divingGroupData = DivingGroup::all();
-        return $divingGroupData;
+        return response()->json([
+            'status' => 'success',
+            'data' => $divingGroupData
+        ])->setStatusCode(200);
     }
 }

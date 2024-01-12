@@ -16,18 +16,12 @@
                     <tr class="odd:bg-white even:bg-gray-50 border-b">
                         <td class="px-6 py-4">{{ $session->DS_DATE }}</td>
                         <td class="px-6 py-4">{{ $session->DS_CODE }}</td>
-
-                        @php
-                            $dateTimestamp = strtotime($session->DS_DATE);
-                            $dateUnAnPlusTotTimestamp = strtotime('-1 year', $dateTimestamp);
-                        @endphp
-
-                        @if($dateTimestamp <= time() && $dateTimestamp >= $dateUnAnPlusTotTimestamp)                            
-                            <td class="px-6 py-4 flex items-center italic justify-between">Archivée
+                        @if($session->DS_FILE_FILLED == 1)
+                            <td class="px-6 py-4 flex items-center justify-between">Rempli
                                 <span class="flex items-center">
                                     <!-- Second Icon -->
                                     <x-redirect-button
-                                        link="/security-sheets/fiche-securite-{{$session->DS_CODE}}.pdf">
+                                        link="/dives/{{$session->DS_CODE}}/security-sheet/generate">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
                                           </svg>                                          
@@ -42,7 +36,7 @@
                                     </x-redirect-button>
                                 </span>
                             </td>
-                        @else
+                        @elseif($session->DS_FILE_FILLED == 0)
                         <td class="px-6 py-4 flex items-center justify-between">
                             <span class="flex items-center">
                                 <!-- Text and First Icon -->
@@ -50,15 +44,15 @@
                                 <x-redirect-button
                                         link="/dives/{{$session->DS_CODE}}/security-sheet/edit">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
-                                          </svg>                                                                                   
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                                          </svg>                                          
                                     </x-redirect-button>
                             </span>
                         
                             <span class="flex items-center">
                                 <!-- Second Icon -->
                                 <x-redirect-button
-                                        link="/security-sheets/fiche-securite-{{$session->DS_CODE}}.pdf">
+                                        link="/dives/{{$session->DS_CODE}}/security-sheet/generate">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
                                           </svg>                                          

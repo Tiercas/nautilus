@@ -10,6 +10,9 @@ class DataPrerogativeController extends Controller
     public static function fetch()
     {
         $prerogative = Prerogative::all();
-        return $prerogative;
+        return response()->json([
+            'status' => 'success',
+            'data' => $prerogative
+        ])->setStatusCode(200);
     }
 }

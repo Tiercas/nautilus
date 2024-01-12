@@ -11,6 +11,9 @@ class DataDivingLocationController extends Controller
     public static function fetch()
     {
         $divingLocation = DivingLocation::all();
-        return $divingLocation;
+        return response()->json([
+            'status' => 'success',
+            'data' => $divingLocation
+        ])->setStatusCode(200);
     }
 }
