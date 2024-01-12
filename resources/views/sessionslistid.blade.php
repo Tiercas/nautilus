@@ -16,7 +16,13 @@
                     <tr class="odd:bg-white even:bg-gray-50 border-b">
                         <td class="px-6 py-4">{{ $session->DS_DATE }}</td>
                         <td class="px-6 py-4">{{ $session->DS_CODE }}</td>
-                        @if($session->DS_FILE_FILLED == 1)
+                        
+                        @php
+                            $dateTimestamp = strtotime($session->DS_DATE);
+                            $dateUnAnPlusTotTimestamp = strtotime('-1 year', $dateTimestamp);
+                        @endphp
+
+                        @if($dateTimestamp <= time() && $dateTimestamp >= $dateUnAnPlusTotTimestamp)                            
                             <td class="px-6 py-4 flex items-center justify-between">Rempli
                                 <span class="flex items-center">
                                     <!-- Second Icon -->
