@@ -25,14 +25,6 @@
                         @if($dateTimestamp <= time() && $dateTimestamp >= $dateUnAnPlusTotTimestamp)                            
                             <td class="px-6 py-4 flex items-center italic justify-between"> Archivé
                                 <span class="flex items-center">
-                                    <!-- Second Icon -->
-                                    <x-redirect-button
-                                        link="/dives/{{$session->DS_CODE}}/security-sheet/generate">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
-                                          </svg>                                          
-                                    </x-redirect-button>
-                            
                                     <!-- Third Icon -->
                                     <x-redirect-button
                                         link="/dives/{{$session->DS_CODE}}/security-sheet/test">
@@ -42,11 +34,17 @@
                                     </x-redirect-button>
                                 </span>
                             </td>
-                        @elseif($session->DS_FILE_FILLED == 0)
+                        @else
                         <td class="px-6 py-4 flex items-center justify-between">
                             <span class="flex items-center">
                                 <!-- Text and First Icon -->
-                                <span class="mr-2">Pas rempli</span>
+                                <span class="mr-2">
+                                    @if($session->DS_FILE_FILLED === 1)
+                                        Rempli
+                                    @else
+                                        Pas rempli
+                                    @endif
+                                </span>
                                 <x-redirect-button
                                         link="/dives/{{$session->DS_CODE}}/security-sheet/edit">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -58,7 +56,7 @@
                             <span class="flex items-center">
                                 <!-- Second Icon -->
                                 <x-redirect-button
-                                        link="/dives/{{$session->DS_CODE}}/security-sheet/generate">
+                                        link="/security-sheets/fiche-securite-{{$session->DS_CODE}}.pdf">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
                                           </svg>                                          
