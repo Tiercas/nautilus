@@ -16,7 +16,7 @@ class DiveSessionCreation extends Controller
     public static function add($request)
     {
         $dv = new DivingSession();
-
+        dd('DS'.count(DivingSession::all())+1);
         $dv->DS_CODE = 'DS'.count(DivingSession::all())+1;
         $dv->US_ID = $request->pilot;
         $dv->DL_ID = $request->location;
