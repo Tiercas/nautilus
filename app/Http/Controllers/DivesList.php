@@ -41,7 +41,7 @@ class DivesList extends Controller
 
     function showManagementList() {
         $userID = session('user')->US_ID;
-        $dives = DivingSession::select('DS_CODE', 'DS_ACTIVE', 'CAR_DIVING_SESSION.DL_ID', 'DS_DATE', 'DL_DEPTH', 'CAR_SCHEDULE', 'DL_NAME', 'DS_MAX_DEPTH')
+        $dives = DivingSession::select('DS_CODE', 'DS_ACTIVE', 'CAR_DIVING_SESSION.DL_ID', 'DS_DATE', 'DL_DEPTH', 'CAR_SCHEDULE', 'DL_NAME', 'DS_MAX_DEPTH' ,'DS_DIVERS_COUNT' , 'DS_MAX_DIVERS')
             ->join('CAR_DIVING_LOCATION', 'CAR_DIVING_SESSION.DL_ID', '=', 'CAR_DIVING_LOCATION.DL_ID')
             ->where('DS_ACTIVE', '=', 1, 'and', 'DS_DATE', '>=', date('Y-m-d'), 'and', 'US_ID_CAR_DIRECT', '=', $userID)
             ->orderBy('DS_DATE', 'asc')

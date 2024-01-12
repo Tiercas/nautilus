@@ -48,6 +48,15 @@ class ManageAdherentController extends Controller {
         return redirect()->route('manage_members');
     }
 
-
+    function updatePassword(Request $request){
+        $user = User::find(session('user')->US_ID);
+        if ($user->checkPassword($request->OldPassword)){
+            $user->US_PASSWORD = $request->NewPassword;
+            $user->save();
+        }else{
+            return redirect('/error');
+        }
+        return redirect('/');
+    }
 }
 
