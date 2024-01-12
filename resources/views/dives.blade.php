@@ -2,28 +2,34 @@
 
     <link rel="stylesheet" href="/css/drop-down.css">
     <link rel="stylesheet" href="/css/button-filter.css">
-            <x-page-title>Liste des plongées</x-page-title>
+    <x-page-title>Liste des plongées</x-page-title>
 
-            <div class="container">
-                <input type="checkbox" id="toggle" unchecked />
-                <label class="button" for="toggle">
-                    <svg class="change-my-color" xmlns="http://www.w3.org/2000/svg" height="19" width="19" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M3.9 54.9C10.5 40.9 24.5 32 40 32H472c15.5 0 29.5 8.9 36.1 22.9s4.6 30.5-5.2 42.5L320 320.9V448c0 12.1-6.8 23.2-17.7 28.6s-23.8 4.3-33.5-3l-64-48c-8.1-6-12.8-15.5-12.8-25.6V320.9L9 97.3C-.7 85.4-2.8 68.8 3.9 54.9z"/></svg>
-                <div class="nav">
-                    <form action="{{ route('dives_filter') }}" method="POST">
-                        @csrf
+    <div class="container">
+        <input type="checkbox" id="toggle" unchecked />
+        <label class="button" for="toggle">
+            <svg class="change-my-color" xmlns="http://www.w3.org/2000/svg" height="19" width="19"
+                viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                <path
+                    d="M3.9 54.9C10.5 40.9 24.5 32 40 32H472c15.5 0 29.5 8.9 36.1 22.9s4.6 30.5-5.2 42.5L320 320.9V448c0 12.1-6.8 23.2-17.7 28.6s-23.8 4.3-33.5-3l-64-48c-8.1-6-12.8-15.5-12.8-25.6V320.9L9 97.3C-.7 85.4-2.8 68.8 3.9 54.9z" />
+            </svg>
+            <div class="nav">
+                <form action="{{ route('dives_filter') }}" method="POST">
+                    @csrf
                     <ul>
                         <li>
                             <label for="location_filter" class="sr-only">Choisir un lieux</label>
-                            <select id="location_filter" name="location_filter" class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent appearance-none focus:outline-none focus:ring-0 focus:border-orange-600 peer">
+                            <select id="location_filter" name="location_filter"
+                                class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent appearance-none focus:outline-none focus:ring-0 focus:border-orange-600 peer">
                                 <option selected value="default">Lieux</option>
                                 @foreach ($locations as $dive)
-                                    <option value="{{$dive->DL_NAME}}">{{$dive->DL_NAME}}</option>
+                                    <option value="{{ $dive->DL_NAME }}">{{ $dive->DL_NAME }}</option>
                                 @endforeach
                             </select>
                         </li>
                         <li>
                             <label for="creneau_filter" class="sr-only">Choisir un créneau</label>
-                            <select id="creneau_filter" name="creneau_filter" class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent appearance-none focus:outline-none focus:ring-0 focus:border-orange-600 peer">
+                            <select id="creneau_filter" name="creneau_filter"
+                                class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent appearance-none focus:outline-none focus:ring-0 focus:border-orange-600 peer">
                                 <option selected value="default">Créneau</option>
                                 <option value="matin">Matin</option>
                                 <option value="apres-midi">Après-midi</option>
@@ -32,47 +38,55 @@
                         </li>
                         <li>
                             <label for="level_filter" class="sr-only">Choisir un niveau</label>
-                            <select id="level_filter" name="level_filter" class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent appearance-none focus:outline-none focus:ring-0 focus:border-orange-600 peer">
+                            <select id="level_filter" name="level_filter"
+                                class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent appearance-none focus:outline-none focus:ring-0 focus:border-orange-600 peer">
                                 <option selected value="default">Niveau</option>
                                 @foreach ($levels as $level)
-                                    <option value="{{$level->PRE_MAX_DEPTH}}">{{$level->PRE_MAX_DEPTH}}</option>
+                                    <option value="{{ $level->PRE_MAX_DEPTH }}">{{ $level->PRE_MAX_DEPTH }}</option>
                                 @endforeach
                             </select>
                         </li>
                         <li>
                             <label class="hidden" for="start">Date de départ</label>
-                            <input type="date" id="date_filter" name="date_filter"/>
+                            <input type="date" id="date_filter" name="date_filter" />
                         </li>
                         <!--<li>
                             <label class="hidden" for="participant_filter">Participant</label>
                             <select id="participant_filter" class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent appearance-none focus:outline-none focus:ring-0 focus:border-orange-600 peer">
                                 <option selected>Niveau</option>
                                 @foreach ($dives as $dive)
-                                    <option value="{{$dive->CAR_SCHEDULE}}">{{$dive->DL_DEPTH}}</option>
-                                @endforeach
+<option value="{{ $dive->CAR_SCHEDULE }}">{{ $dive->DL_DEPTH }}</option>
+@endforeach
                             </select>
                         </li>-->
                         <li class="hover:bg-transparent bg-transparent">
-                            <button type="submit" class="w-full py-2.5 px-4 text-sm bg-gray-300 rounded-md focus:outline-none focus:bg-gray-400">
+                            <button type="submit"
+                                class="w-full py-2.5 px-4 text-sm bg-gray-300 rounded-md focus:outline-none focus:bg-gray-400">
                                 Rechercher
                             </button>
                         </li>
                     </ul>
-                    </form>
-                </div>
-                </label>
+                </form>
             </div>
+        </label>
+    </div>
 
-            <div class="shadow-md max-w-full rounded-lg overflow-hidden border-2">
-                <table class="text-sm text-left text-gray-500 w-full">
-                    <thead class="text-xs text-gray-700 uppercase bg-gray-50">
-                    <tr>
-                        <th scope="col" class="px-12 py-3">Date</th>
-                        <th scope="col" class="px-12 py-3">Plage horaire</th>
-                        <th scope="col" class="px-12 py-3">Profondeur</th>
-                        <th scope="col" class="px-12 py-3">Lieu</th>
-                        <th scope="col" class="px-12 py-3">Capacité</th>
-                        <th scope="col" class="px-12 py-3">Actions</th>
+    <div class="shadow-md max-w-full rounded-lg overflow-hidden border-2">
+        <table class="text-sm text-left text-gray-500 w-full">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                <tr>
+                    <th scope="col" class="px-12 py-3">Date</th>
+                    <th scope="col" class="px-12 py-3">Plage horaire</th>
+                    <th scope="col" class="px-12 py-3">Profondeur</th>
+                    <th scope="col" class="px-12 py-3">Lieu</th>
+                    <th scope="col" class="px-12 py-3">Capacité</th>
+                    <th scope="col" class="px-12 py-3">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (count($dives) == 0)
+                    <tr class="odd:bg-white even:bg-gray-50 border-b">
+                        <td class="px-6 py-4 text-center" colspan="5">Aucune plongée n'est disponible</td>
                     </tr>
                     </thead>
                     <tbody>
@@ -137,54 +151,66 @@
                                             </svg>
                                         </x-button>
                                     </a>
-                                    @else
-                                        @if ($userPre->PRE_MAX_DEPTH > $dive->DS_MAX_DEPTH)
-                                            <a href='/dives/{{ $dive->DS_CODE }}'>
-                                                <x-button color="bg-green-700" colorHover="hover:bg-green-800">
-                                                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
-                                                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 12">
-                                                        <path stroke="currentColor" stroke-linecap="round"
-                                                            stroke-linejoin="round" stroke-width="2"
-                                                            d="M1 5.917 5.724 10.5 15 1.5" />
-                                                    </svg>
-                                                </x-button>
-                                            </a>
-                                        @endif
+                                @else
+                                    @if ($userPre->PRE_MAX_DEPTH > $dive->DS_MAX_DEPTH)
+                                        <a href="/dives/{{ $dive->DS_CODE }}">
+                                            <button diveId="dropdownButton-{{ $dive->DS_CODE }}"
+                                                style="margin-right: 5px;font-size: 35px;"
+                                                class="clickableGreen aligne m-1 bg-gray-400 hover:bg-gray-500 
+                                                text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
+                                                <i class="fa-solid fa-check"></i>
+                                            </button>
+                                        </a>
                                     @endif
+                                @endif
                                 </a>
                                 @if ($userPre->PRE_MAX_DEPTH <= $dive->DS_MAX_DEPTH)
-                                    <div class="text-red-400">
-                                        <p>Vous n'avez pas le niveau requis</p>
-                                    </div>
+                                    <a href="/dives/{{ $dive->DS_CODE }}">
+                                        <button disabled diveId="dropdownButton-{{ $dive->DS_CODE }}"
+                                            style="background-color: #4fad67;margin-right: 5px;font-size: 35px;"
+                                            class="aligne m-1 bg-gray-400 hover:bg-gray-500 
+                                            text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
+                                            <i class="fa-solid fa-check"></i>
+                                        </button>
+                                    </a>
                                 @endif
-                                @if ($errors->any())
-                                    <div class="text-red-400">
-                                        <ul>
-                                            @foreach ($errors->all() as $error)
-                                                @if (Session::has('DS_CODE') && Session::get('DS_CODE') == $dive->DS_CODE)
-                                                    <li>{{ $error }}</li>
-                                                @endif
-                                            @endforeach
-                                        </ul>
-                                    </div>
-                                @endif
-                                @if (Session::has('Success') && Session::get('DS_CODE') == $dive->DS_CODE)
-                                    <div class="text-green-500">{{ Session::get('Success') }}</div>
-                                @endif
-                            </td>
-                        </tr>
-                        <x-drop-down id="dropdown{{ $dive->DS_CODE }}">
 
-                            <div class="drop-down">
-                                @foreach ($participants as $user)
-                                    <p class = "drop-down-items">{{ $user->US_NAME }} {{ $user->US_FIRST_NAME }} <span class = "text-gray-500">- {{ $user->PRE_CODE }}</span></p>
-                                @endforeach
                             </div>
-                        </x-drop-down>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
+
+                            @if ($userPre->PRE_MAX_DEPTH <= $dive->DS_MAX_DEPTH)
+                                <div class="text-red-400">
+                                    <p>Vous n'avez pas le niveau requis</p>
+                                </div>
+                            @endif
+                            @if ($errors->any())
+                                <div class="text-red-400">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            @if (Session::has('DS_CODE') && Session::get('DS_CODE') == $dive->DS_CODE)
+                                                <li>{{ $error }}</li>
+                                            @endif
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
+                            @if (Session::has('Success') && Session::get('DS_CODE') == $dive->DS_CODE)
+                                <div class="text-green-500">{{ Session::get('Success') }}</div>
+                            @endif
+                        </td>
+                    </tr>
+                    <x-drop-down id="dropdown{{ $dive->DS_CODE }}">
+
+                        <div class="drop-down">
+                            @foreach ($participants as $user)
+                                <p class = "drop-down-items">{{ $user->US_NAME }} {{ $user->US_FIRST_NAME }} <span
+                                        class = "text-gray-500">- {{ $user->PRE_CODE }}</span></p>
+                            @endforeach
+                        </div>
+                    </x-drop-down>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
     </div>
 
     <script type="text/javascript" src="/js/drop-down.js"></script>
