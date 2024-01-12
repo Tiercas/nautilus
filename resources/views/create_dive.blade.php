@@ -146,6 +146,7 @@
                                 @endforeach
                             </select>
                             <select required name="level" id="levelInput">
+                                <option value="PB">Tout niveau</option>
                                 @foreach ($levels as $level)
                                     <option value="{{ $level->PRE_CODE }}">{{ $level->PRE_CODE }}</option>
                                 @endforeach

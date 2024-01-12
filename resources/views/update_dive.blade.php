@@ -111,6 +111,7 @@
                                 @endforeach
                             </select>
                             <select name="level" id="levelInput" style="width: 230px; margin-bottom: 15px;">
+                                <option value="PB">Tout niveau</option>
                                 @foreach ($levels as $level)
                                     @if($level->PRE_CODE == $dive->PRE_CODE)
                                         <option value="{{ $level->PRE_CODE }}" selected>{{ $level->PRE_CODE }}</option>
