@@ -106,7 +106,14 @@
                         <td class="px-12 py-4">
                             <input id="dg{{ $groupNumber }}-act-time" class="dg-act-time" type="number"
                                 value = "{{ $divingGroup['group']->DG_EFFECTIVE_DIVING_DURATION }}"
-                                style="font-size: 20px;width: 50%;-moz-appearance: textfield;text-align: center;background-color: var(--yellow);padding: 10px;border-radius: 10px;">
+                                @unless ($userRole === 'RES') disabled="disabled" @endif
+                                style="font-size: 20px;width: 50%;-moz-appearance: textfield;text-align: center;background-color: 
+                                @if ($userRole === 'RES')
+                                    var(--yellow);
+                                @else
+                                    var(--grey);
+                                @endif
+                                padding: 10px;border-radius: 10px;">
                         </td>
                     </tr>
 
@@ -121,8 +128,15 @@
                         </td>
                         <td class="px-12 py-4">
                             <input
-                                style="font-size: 20px;width: 50%;-moz-appearance: textfield;text-align: center;background-color: var(--yellow);padding: 10px;border-radius: 10px;"
+                                style="font-size: 20px;width: 50%;-moz-appearance: textfield;text-align: center;background-color: 
+                                @if ($userRole === 'RES')
+                                    var(--yellow);
+                                @else
+                                    var(--grey);
+                                @endif
+                                padding: 10px;border-radius: 10px;"
                                 id="dg{{ $groupNumber }}-act-dep" class="dg-act-dep" type="number"
+                                @unless ($userRole === 'RES') disabled="disabled" @endif
                                 value = "{{ $divingGroup['group']->DG_MAX_EFFECTIVE_DEPTH }}">
                         </td>
                     </tr>
