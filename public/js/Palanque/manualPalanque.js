@@ -58,43 +58,55 @@ function drop(event) {
     let data = event.dataTransfer.getData("draggable");
     let draggedItem = document.getElementById(data);
     if (event.target === zoneStart) {
-      zoneList.forEach((element) => {
-        if (element.getZoneNumber() === draggedItem.parentElement.id.split('zone')[1]) {
-          element.updateCounterNeg(setDropZoneSize(draggedItem));
-        }
-      });
+        zoneList.forEach((element) => {
+            console.log(element.getZoneNumber());
+            // console.log(draggedItem.parentElement.id.split("zone")[1]);
+            if (
+                element.getZoneNumber() ==
+                draggedItem.parentElement.id.split("zone")[1]
+            ) {
+                console.log("Count" + element.getCounter());
+                element.updateCounterNeg(setDropZoneSize(draggedItem));
+            }
+        });
         //console.log("Count" + zoneList[draggedItem.parentElement.id.split('zone')[1]].getCounter());
         zoneStart.appendChild(draggedItem);
-    } else zoneA = zoneList[0];
-    zoneList.forEach((element) => {
-        if (element.getZoneNumber() === index) {
-            zoneA = element;
-        }
-    });
-    if (
-        zoneA.getCounter() <= 3 &&
-        zoneA.getCounter() + setDropZoneSize(draggedItem) <= 3
-    ) {
-        if (
-            draggedItem.parentElement !== zoneStart &&
-            draggedItem.parentElement !== undefined &&
-            draggedItem.parentElement !== zoneA
-        ) {
-          zoneList.forEach((element) => {
-            if (element.getZoneNumber() === draggedItem.parentElement.id.split('zone')[1]) {
-              element.updateCounterNeg(setDropZoneSize(draggedItem));
+    } else {
+        zoneA = zoneList[0];
+        zoneList.forEach((element) => {
+            if (element.getZoneNumber() == index) {
+                zoneA = element;
             }
-          });
+        });
+        if (
+            zoneA.getCounter() <= 3 &&
+            zoneA.getCounter() + setDropZoneSize(draggedItem) <= 3
+        ) {
+            if (
+                draggedItem.parentElement !== zoneStart &&
+                draggedItem.parentElement !== undefined &&
+                draggedItem.parentElement !== zoneA
+            ) {
+                zoneList.forEach((element) => {
+                    if (
+                        element.getZoneNumber() ==
+                        draggedItem.parentElement.id.split("zone")[1]
+                    ) {
+                        console.log("Count" + element.getCounter());
+                        element.updateCounterNeg(setDropZoneSize(draggedItem));
+                    }
+                });
+            }
+            zoneA.updateCounterPos(setDropZoneSize(draggedItem));
+            //console.log("Count" + zoneList[index].getCounter());
+            event.target.appendChild(draggedItem);
         }
-        zoneA.updateCounterPos(setDropZoneSize(draggedItem));
-        //console.log("Count" + zoneList[index].getCounter());
-        event.target.appendChild(draggedItem);
+        // else{
+        //   zoneStart.appendChild(draggedItem);
+        //   zoneList[index].updateCounterNeg(setDropZoneSize(draggedItem));
+        //   console.log("Count" + zoneList[index].getCounter());
+        // }
     }
-    // else{
-    //   zoneStart.appendChild(draggedItem);
-    //   zoneList[index].updateCounterNeg(setDropZoneSize(draggedItem));
-    //   console.log("Count" + zoneList[index].getCounter());
-    // }
 }
 
 function setZoneSize(zone) {
@@ -102,17 +114,23 @@ function setZoneSize(zone) {
         element.childNodes.forEach((elements) => {
             //console.log(elements);
             if (elements.id.split(",")[1] === "PB") {
-              zoneList.forEach((element) => {
-                if (element.getZoneNumber() === elements.parentElement.id.split('zone')[1]) {
-                  element.updateCounterPos(2);
-                }
-              });
+                zoneList.forEach((element) => {
+                    if (
+                        element.getZoneNumber() ==
+                        elements.parentElement.id.split("zone")[1]
+                    ) {
+                        element.updateCounterPos(2);
+                    }
+                });
             } else {
-              zoneList.forEach((element) => {
-                if (element.getZoneNumber() === elements.parentElement.id.split('zone')[1]) {
-                  element.updateCounterPos(1);
-                }
-              });
+                zoneList.forEach((element) => {
+                    if (
+                        element.getZoneNumber() ==
+                        elements.parentElement.id.split("zone")[1]
+                    ) {
+                        element.updateCounterPos(1);
+                    }
+                });
             }
         });
     });
@@ -143,13 +161,13 @@ addPalanque.addEventListener("click", function () {
         "border text-center bg-gray-200 rounded-lg p-3 pb-20 zone"
     );
     zoneList.forEach((element) => {
-        if (element.getZoneNumber() === countZone) {
+        if (element.getZoneNumber() == countZone) {
             countZone++;
         }
     });
     conditionD = false;
     palanque.setAttribute("id", "zone" + countZone);
-    palanqueeTitle.innerHTML = "Palanquée " + (countZone+1);
+    palanqueeTitle.innerHTML = "Palanquée " + (countZone + 1);
     palanque.setAttribute("ondrop", "drop(event)");
     palanque.setAttribute("ondragover", "allowDrop(event)");
     zoneList.push(new DropZoneClass(countZone));
@@ -161,15 +179,20 @@ addPalanque.addEventListener("click", function () {
 
 removePalanque.addEventListener("click", function () {
     let nbZone =
-        prompt("Veuillez entrer le numéro de la palanque à supprimer", "1") - 1;
+        prompt("Veuillez entrer le numéro de la palanque à supprimer", "1");
     removePalanqueZone(nbZone);
 });
 
 function removePalanqueZone(nbZone) {
     countZone--;
-    // console.log("#DropZone > div:nth-child("+nbZone+")");
-    let palanque = document.querySelector("#DropZone > div:nth-child("+nbZone+") > div");
-    console.log(document.querySelector("#DropZone > div:nth-child("+nbZone+") > div"));
+    let palanque = document.querySelector(
+        "#DropZone > div:nth-child(" + nbZone + ") > div"
+    );
+    console.log(
+        document.querySelector(
+            "#DropZone > div:nth-child(" + nbZone + ") > div"
+        )
+    );
     if (palanque.childElementCount > 0) {
         sizeT = palanque.childElementCount;
         for (let i = 0; i < sizeT; i++) {
@@ -177,24 +200,54 @@ function removePalanqueZone(nbZone) {
         }
     }
     zoneList.forEach((element) => {
-        if (element.getZoneNumber() === nbZone) {
+        if (element.getZoneNumber() == nbZone) {
             zoneList.splice(zoneList.indexOf(element), 1);
         }
     });
-    let palanqueContainer = document.querySelector("#DropZone > div:nth-child("+nbZone+")");
+    let palanqueContainer = document.querySelector(
+        "#DropZone > div:nth-child(" + nbZone + ")"
+    );
     palanqueContainer.parentElement.removeChild(palanqueContainer);
     palanque.parentElement.removeChild(palanque);
-    let dropZones = document.querySelectorAll("div.zone");
+    updateZoneList();
+}
+
+function updateZoneList() {
+    zoneList = [];
+    let dropZones = document.querySelectorAll("#DropZone > div");
     let k = 0;
     dropZones.forEach((element) => {
-          element.id = "zone" + k;
-          k++;
+        element.id = "zone" + k;
+        // console.log(element);
+        if(element.textContent === "Palanquée " + (k + 2)) {
+            element.textContent = "Palanquée " + (k + 1);
+        } else {
+            element.querySelector('h3').textContent = "Palanquée " + (k + 1);
+            zoneList.push(new DropZoneClass(k));
+            let compteurM = 0;
+            let divers = element.querySelectorAll("div > div.h-8");
+            // console.log(divers);
+            divers.forEach((elementE) => {
+                // console.log(elementE);
+                // console.log("COunter"+ compteurM);
+                
+                if(elementE.id.split(",")[1] === "PB") {
+                    compteurM += 2;
+                } else {
+                    compteurM++;
+                }
+            });
+            // console.log(compteurM);
+            zoneList[k].updateCounterPos(compteurM);
+            k++;
+        }
     });
+
 }
 
 /**
  * To-Do
- * 
+ *
  * 1. Faire fonctionner la suppression des palanquées en gérant l'ID de ces dernières qui est inconsistent
  */
 
@@ -306,6 +359,7 @@ function validateAllCombination() {
 }
 
 let interval = setInterval(function () {
+    updateZoneList();
     validateAllCombination();
 }, 250);
 
@@ -385,7 +439,7 @@ function fillZoneWithAlreadyExistingPalanque(diverList) {
             if (zone) {
                 zone.appendChild(diver);
                 zoneList.forEach((element) => {
-                    if (element.getZoneNumber() === dgNumber) {
+                    if (element.getZoneNumber() == dgNumber) {
                         element.updateCounterPos(setDropZoneSize(diver));
                     }
                 });
@@ -400,13 +454,13 @@ function fillZoneWithAlreadyExistingPalanque(diverList) {
                     "border text-center bg-gray-200 rounded-lg p-3 pb-20 zone"
                 );
                 palanque.setAttribute("id", "zone" + dgNumber);
-                palanqueeTitle.innerHTML = "Palanquée " + (dgNumber+1);
+                palanqueeTitle.innerHTML = "Palanquée " + (dgNumber + 1);
                 palanque.setAttribute("ondrop", "drop(event)");
                 palanque.setAttribute("ondragover", "allowDrop(event)");
                 zoneList.push(new DropZoneClass(dgNumber));
                 console.log(zoneList);
                 zoneList.forEach((element) => {
-                    if (element.getZoneNumber() === dgNumber) {
+                    if (element.getZoneNumber() == dgNumber) {
                         element.updateCounterPos(setDropZoneSize(diver));
                     }
                 });
