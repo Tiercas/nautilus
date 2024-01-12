@@ -18,6 +18,8 @@ changePopupColor('bg-white', 'bg-lime-500');
 const diveId = document.getElementById('divingSessionId').getAttribute('content');
 const csrfToken = document.getElementById('csrf-token').getAttribute('content')
 
+const pdfLink = `<a class="underline" href="/security-sheets/fiche-securite-${diveId}.pdf" target="_blank">(voir)</a>`;
+
 generateButton.addEventListener('click', generate);
 
 /**
@@ -53,6 +55,11 @@ function sendRequest(json, diveId){
     .then((response) => notify(response));
 }
 
+/**
+ * Display a notification based on the success of the generation process.
+ * If any exception occurs on the server, it will be red.
+ * @param {*} response the response sent by the server after the HTTP request
+ */
 function notify(response){
     if(response['status'] === 200){
         displayNotification(true);
@@ -108,19 +115,31 @@ function getKeyFromClassList(element){
     return false;
 }
 
+/**
+ * Displays a pop-up notification on the page.
+ * Its text and color will depend on the success of the generation.
+ * If the generation was successful, the notification will as well contain
+ * a link to the pdf sheet.
+ * @param {*} ok 
+ */
 function displayNotification(ok){
     popupNotification.classList.remove('opacity-0');
     if(ok){
         changePopupColor('bg-red-600', 'bg-lime-500');
-        popupContent.innerText = 'Génération réussie';
+        popupContent.innerHTML = 'Génération réussie ' + pdfLink;
     } else{
         changePopupColor('bg-lime-500', 'bg-red-600');
-        popupContent.innerText = 'Génération échouée';
+        popupContent.innerText = 'Génération échouée ';
     }
 
     popupNotification.classList.remove('hidden');
 }
 
+/**
+ * Changes the color of the popup-notification
+ * @param {*} oldColor the former color of the notification (tailwind class)
+ * @param {*} newColor the new color of the notification (tailwind class)
+ */
 function changePopupColor(oldColor, newColor){
     popupNotification.classList.add(newColor);
     popupNotification.classList.remove(oldColor);
