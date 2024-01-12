@@ -55,8 +55,8 @@
                             <select id="participant_filter" class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent appearance-none focus:outline-none focus:ring-0 focus:border-orange-600 peer">
                                 <option selected>Niveau</option>
                                 @foreach ($dives as $dive)
-<option value="{{ $dive->CAR_SCHEDULE }}">{{ $dive->DL_DEPTH }}</option>
-@endforeach
+                                <option value="{{ $dive->CAR_SCHEDULE }}">{{ $dive->DL_DEPTH }}</option>
+                                @endforeach
                             </select>
                         </li>-->
                         <li class="hover:bg-transparent bg-transparent">
@@ -89,6 +89,7 @@
                         <td class="px-6 py-4 text-center" colspan="5">Aucune plongée n'est disponible</td>
                     </tr>
                     </thead>
+                @endif
             <tbody>
                 @if (count($dives) == 0)
                     <tr class="odd:bg-white even:bg-gray-50 border-b">
@@ -163,7 +164,7 @@
                                     <a href="/dives/{{ $dive->DS_CODE }}">
                                         <button diveId="dropdownButton-{{ $dive->DS_CODE }}"
                                             style="margin-right: 5px;font-size: 35px;"
-                                            class="clickableGreen aligne m-1 bg-gray-400 hover:bg-gray-500 
+                                            class="clickableGreen aligne m-1 bg-gray-400 hover:bg-gray-500
                                                 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
                                             <i class="fa-solid fa-check"></i>
                                         </button>
@@ -175,7 +176,7 @@
                                 <a href="/dives/{{ $dive->DS_CODE }}">
                                     <button disabled diveId="dropdownButton-{{ $dive->DS_CODE }}"
                                         style="background-color: #4fad67;margin-right: 5px;font-size: 35px;"
-                                        class="aligne m-1 bg-gray-400 hover:bg-gray-500 
+                                        class="aligne m-1 bg-gray-400 hover:bg-gray-500
                                             text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
                                         <i class="fa-solid fa-check"></i>
                                     </button>
