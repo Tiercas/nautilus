@@ -27,6 +27,12 @@ class DivingSession extends Model
         return $res->toArray();
     }
 
+    static public function sessionsWithFilledFileWithId():array
+    {
+        $res =  DB::table('CAR_DIVING_SESSION')->where('US_ID',session('user')->US_ID)->get();
+        return $res->toArray();
+    }
+
     public function getParticipants(): array{
         $registrations = DB::table('CAR_REGISTRATION')->where('DS_CODE', $this->DS_CODE)->get();
         $participants = [];
