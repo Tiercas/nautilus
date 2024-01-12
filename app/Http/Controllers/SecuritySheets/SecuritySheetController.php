@@ -56,14 +56,25 @@ class SecuritySheetController extends Controller
 
         $divingSession = DivingSession::find($ds_code);
         $divingSession->DS_OBSERVATION_FIELD = $data['observation'];
-        $divingSession->save();
+
+        $filled = true;
 
         foreach($data as $groupNumber => $groupData){
             if(! is_array($groupData)){
                 continue;
             }
             self::updateDivingGroup($ds_code, $groupNumber, $groupData);
+            if(! self::isFilledGroup($groupData)){
+                $filled = false;
+            }
         }
+
+        if(! $divingSession->DS_OBSERVATION_FIELD){
+            $filled = false;
+        }
+
+        $divingSession['DS_FILE_FILLED'] = $filled ? 1 : 0;
+        $divingSession->save();
 
         self::setStrategy(new StoreSilentStrategy);
         self::generate($ds_code);
@@ -104,13 +115,23 @@ class SecuritySheetController extends Controller
             ];
         }
 
+        $userRole = 'DIR';
+        $roles = session('user')->roles;
+        foreach($roles as $role){
+            if($role->ROL_CODE === 'RES'){
+                $userRole = 'RES';
+                break;
+            }
+        }
+
         return view($viewName, [
             'dive' => $dive,
             'director' => $director,
             'surfaceSecurity' => $surfaceSecurity,
             'driver' => $driver,
             'location' => $location,
-            'divingGroups' => $divingGroupsForView
+            'divingGroups' => $divingGroupsForView,
+            'userRole' => $userRole 
         ]);
     }
 
@@ -129,5 +150,20 @@ class SecuritySheetController extends Controller
                 'DG_EFFECTIVE_DIVING_DURATION' => $divingGroup['dg-act-time'],
                 'DG_MAX_EFFECTIVE_DEPTH' => $divingGroup['dg-act-dep']
             ]);
+    }
+
+    private function isFilledGroup(array $divingGroup): bool{
+        return 
+            $divingGroup['dg-start'] 
+            &&
+            $divingGroup['dg-end'] 
+            &&
+            $divingGroup['dg-exp-time'] 
+            &&
+            $divingGroup['dg-exp-dep'] 
+            &&
+            $divingGroup['dg-act-time'] 
+            &&
+            $divingGroup['dg-act-dep'];
     }
 }

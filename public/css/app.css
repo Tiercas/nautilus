@@ -76,6 +76,31 @@ h1{
     color: var(--white)
 }
 
+
+.clickableBlue{
+    background-color: #909aef;
+    color: var(--black);
+    transition: all 0.4s ease-out;
+}
+
+.clickableBlue:hover{
+    color: var(--white);
+    cursor: pointer;
+    background-color: #515dcc;
+}
+
+.clickablePink{
+    background-color: #e882e1;
+    color: var(--black);
+    transition: all 0.4s ease-out;
+}
+
+.clickablePink:hover{
+    color: var(--white);
+    cursor: pointer;
+    background-color: rgb(207, 96, 199);
+}
+
 .aligne{
     display: flex;
     align-items: center;
