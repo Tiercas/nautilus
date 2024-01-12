@@ -117,7 +117,10 @@ function drop(event) {
 
     if (event.target === zoneStart) {
         zoneList.forEach((element) => {
-            if (element.getZoneNumber() == draggedItem.parentElement.id.split("zone")[1]) {
+            if (
+                element.getZoneNumber() ==
+                draggedItem.parentElement.id.split("zone")[1]
+            ) {
                 element.updateCounterNeg(setDropZoneSize(draggedItem));
             }
         });
@@ -135,7 +138,10 @@ function drop(event) {
     }
     if (draggedItem.parentElement !== event.target) {
         zoneList.forEach((element) => {
-            if (element.getZoneNumber() == draggedItem.parentElement.id.split("zone")[1]) {
+            if (
+                element.getZoneNumber() ==
+                draggedItem.parentElement.id.split("zone")[1]
+            ) {
                 element.updateCounterNeg(setDropZoneSize(draggedItem));
             }
         });
@@ -354,9 +360,9 @@ function proccessDiverData(data) {
 }
 
 let validatePalanqueCombinate = {
-    PB: ["E1", "E2", "E3", "E4", "PA-60-GP"],
-    PA: ["E1", "E2", "E3", "E4", "PA-60-GP"],
-    PO: ["E1", "E2", "E3", "E4", "PA-60-GP"],
+    "PB": ["E1", "E2", "E3", "E4", "PA-60-GP"],
+    "PA": ["E1", "E2", "E3", "E4", "PA-60-GP"],
+    "PO": ["E1", "E2", "E3", "E4", "PA-60-GP"],
     "PE-12": ["E2", "E3", "E4", "PA-60-GP"],
     "PE-20": ["E2", "E3", "E4", "PA-60-GP"],
     "PE-40": ["E2", "E3", "E4", "PA-60-GP"],
@@ -367,70 +373,70 @@ function validateAllCombination() {
     let valid = true;
     zoneList.forEach((elementA) => {
         // element = document.querySelector("#zone" + element.getZoneNumber() + " > div");
-        element = document.querySelector(
+        zoneElement = document.querySelector(
             "#zone" + elementA.getZoneNumber() + ".zone"
         );
 
-        // console.log(element);
-        if (element.hasChildNodes()) {
+        // console.log(zoneElement);
+        if (zoneElement.hasChildNodes()) {
             if (
-                element.childElementCount < 2 ||
-                element.childElementCount > 3
+                zoneElement.childElementCount < 2 ||
+                zoneElement.childElementCount > 3
             ) {
-                element.style.backgroundColor = "rgb(254 202 202)";
+                zoneElement.style.backgroundColor = "rgb(254 202 202)";
+                console.log("taille");
                 valid = false;
             }
-            element.childNodes.forEach((elementB) => {
-                if (elementB.id.split(",")[1] === "PB" && (element.childElementCount > 2 || element.childElementCount < 2)) {
-                    element.style.backgroundColor = "rgb(254 202 202)";
+            zoneElement.childNodes.forEach((elementB) => {
+                if (
+                    elementB.id.split(",")[1] === "PB" &&
+                    zoneElement.childElementCount != 2
+                ) {
+                    zoneElement.style.backgroundColor = "rgb(254 202 202)";
                     console.log("PB");
                     valid = false;
                 }
             });
-            let children = element.childNodes;
+            let children = zoneElement.childNodes;
             for (let i = 0; i < children.length; i++) {
-                for (let j = 0; j < children.length; j++) {
-                    if (children[j].id.split(",")[1] === "PA-60-GP") {
-                        counterCheck++;
-                        element.style.backgroundColor = "rgb(229 231 235)";
-                        valid = true;
-                    }
+                if (children[i].id.split(",")[1] === "PA-60-GP") {
+                    counterCheck++;
+                    zoneElement.style.backgroundColor = "rgb(229 231 235)";
+                    valid = true;
                 }
             }
             for (let i = 0; i < children.length; i++) {
-                {
-                    let targetItemsSplit = children[i].id.split(",")[2];
-                    for (targetItemsSplit in validatePalanqueCombinate) {
-                        for (let j = 0; j < children.length; j++) {
-                            let targetItemsSplit2 =
-                                children[j].id.split(",")[2];
-                            if (
-                                validatePalanqueCombinate[
-                                    targetItemsSplit
-                                ].includes(targetItemsSplit2)
-                            ) {
-                                counterCheck++;
-                                element.style.backgroundColor =
-                                    "rgb(229 231 235)";
-                                    valid =  true;
-                            }
+                let targetItemsSplit = children[i].id.split(",")[2];
+                for (targetItemsSplit in validatePalanqueCombinate) {
+                    for (let j = 0; j < children.length; j++) {
+                        let targetItemsSplit2 = children[j].id.split(",")[2];
+                        if (
+                            validatePalanqueCombinate[
+                                targetItemsSplit
+                            ].includes(targetItemsSplit2)
+                        ) {
+                            counterCheck++;
+                            zoneElement.style.backgroundColor =
+                                "rgb(229 231 235)";
+                            valid = true;
                         }
-                        element.style.backgroundColor = "rgb(254 202 202)";
-                        valid =  false;
                     }
+                    zoneElement.style.backgroundColor = "rgb(254 202 202)";
+                    console.log("combi ", targetItemsSplit);
+                    valid = false;
                 }
             }
+
         } else {
-            element.style.backgroundColor = "rgb(229 231 235)";
-            valid =  false;
+            zoneElement.style.backgroundColor = "rgb(229 231 235)";
+            console.log("vide");
+            valid = false;
         }
     });
     if (zoneStart.childElementCount == 0 && valid == true) {
         disableVal = false;
-        valid =  true;
     } else {
         disableVal = true;
-        valid =  false;
     }
 }
 
