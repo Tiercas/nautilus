@@ -8,6 +8,7 @@
                 <th scope="col" class="px-6 py-4">Prénom</th>
                 <th scope="col" class="px-6 py-4">Nom</th>
                 <th scope="col" class="px-6 py-4">Rôle</th>
+                <th scope="col" class="px-6 py-4">Prérogative</th>
             </tr>
             </thead>
             <tbody>
@@ -20,6 +21,7 @@
                     <td class="px-6 py-4">{{ $person['US_NAME'] }}</td>
                     <td class="px-6 py-4">{{ $person['US_FIRST_NAME'] }}</td>
                     <td class="px-6 py-4">{{$person['ROL_LABEL']}}</td>
+                    <td class="px-6 py-4">{{$person['PRE_CODE']}}</td>
 
 
                     @if($person['ROL_LABEL'] == 'Plongeur')

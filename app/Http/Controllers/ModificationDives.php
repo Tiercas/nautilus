@@ -81,6 +81,7 @@ class ModificationDives extends Controller
             'US_NAME' => $pilote_temp[0]['US_NAME'],
             'US_LICENCE_ID' => $pilote_temp[0]['US_LICENCE_ID'],
             'US_ID' => $pilote_temp[0]['US_ID'],
+            'PRE_CODE' => '',
             'ROL_LABEL' => "Pilote"
         ];
 
@@ -94,6 +95,7 @@ class ModificationDives extends Controller
             'US_NAME' => $securite_temp[0]['US_NAME'],
             'US_LICENCE_ID' => $securite_temp[0]['US_LICENCE_ID'],
             'US_ID' => $securite_temp[0]['US_ID'],
+            'PRE_CODE' => '',
             'ROL_LABEL' => "Sécurité de surface"
         ];
 
@@ -107,10 +109,11 @@ class ModificationDives extends Controller
             'US_NAME' => $directeur_temp[0]['US_NAME'],
             'US_LICENCE_ID' => $directeur_temp[0]['US_LICENCE_ID'],
             'US_ID' => $directeur_temp[0]['US_ID'],
+            'PRE_CODE' => '',
             'ROL_LABEL' => "Directeur"
         ];
 
-        $plongeurs = User::selectRaw('US_FIRST_NAME,US_NAME,US_LICENCE_ID, ROL_LABEL, CAR_USER.US_ID')
+        $plongeurs = User::selectRaw('US_FIRST_NAME,US_NAME,US_LICENCE_ID, ROL_LABEL, CAR_USER.US_ID, CAR_USER.PRE_CODE')
         ->join('CAR_PREROGATIVE','CAR_PREROGATIVE.PRE_CODE','=','CAR_USER.PRE_CODE')
         ->join('CAR_ROLE_ATTRIBUTION','CAR_USER.US_ID','=','CAR_ROLE_ATTRIBUTION.US_ID')
         ->join('CAR_ROLE','CAR_ROLE_ATTRIBUTION.ROL_CODE','=','CAR_ROLE.ROL_CODE')

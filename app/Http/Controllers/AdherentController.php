@@ -16,7 +16,7 @@ class AdherentController extends Controller
     static function index($ds_code, $pre_code): View
     {
 
-        $adherents = User::selectRaw('US_FIRST_NAME,US_NAME,US_LICENCE_ID, CAR_USER.US_ID, PRE_MAX_DEPTH')
+        $adherents = User::selectRaw('US_FIRST_NAME,US_NAME,US_LICENCE_ID, CAR_USER.US_ID, PRE_MAX_DEPTH, CAR_USER.PRE_CODE')
         ->join('CAR_PREROGATIVE','CAR_PREROGATIVE.PRE_CODE','=','CAR_USER.PRE_CODE')
         ->where('PRE_MAX_DEPTH', '>=', AdherentController::getMaxDepthByPrerogativeCode($pre_code))
         ->get();
