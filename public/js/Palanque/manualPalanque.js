@@ -135,18 +135,26 @@ function isElementInList(element, list) {
 
 addPalanque.addEventListener("click", function () {
     let palanque = document.createElement("div");
+    let palanqueeTitle = document.createElement("h3");
+    let divContainer = document.createElement("div");
+    divContainer.appendChild(palanqueeTitle);
     palanque.setAttribute(
         "class",
         "border text-center bg-gray-200 rounded-lg p-3 pb-20 zone"
     );
-    while (zoneList.includes(countZone)) {
-        countZone++;
-    }
+    zoneList.forEach((element) => {
+        if (element.getZoneNumber() === countZone) {
+            countZone++;
+        }
+    });
+    conditionD = false;
     palanque.setAttribute("id", "zone" + countZone);
+    palanqueeTitle.innerHTML = "Palanquée " + (countZone+1);
     palanque.setAttribute("ondrop", "drop(event)");
     palanque.setAttribute("ondragover", "allowDrop(event)");
     zoneList.push(new DropZoneClass(countZone));
-    DropZone.appendChild(palanque);
+    divContainer.appendChild(palanque);
+    DropZone.appendChild(divContainer);
     countZone++;
     console.log(zoneList);
 });
@@ -159,16 +167,22 @@ removePalanque.addEventListener("click", function () {
 
 function removePalanqueZone(nbZone) {
     countZone--;
-    console.log("#DropZone > div:nth-child("+nbZone+")");
-    let palanque = document.querySelector("#DropZone > div:nth-child("+nbZone+")");
-    console.log(document.querySelector("#DropZone > div:nth-child("+nbZone+")"));
+    // console.log("#DropZone > div:nth-child("+nbZone+")");
+    let palanque = document.querySelector("#DropZone > div:nth-child("+nbZone+") > div");
+    console.log(document.querySelector("#DropZone > div:nth-child("+nbZone+") > div"));
     if (palanque.childElementCount > 0) {
         sizeT = palanque.childElementCount;
         for (let i = 0; i < sizeT; i++) {
             zoneStart.appendChild(palanque.childNodes[0]);
         }
     }
-    zoneList.splice(zoneList.length - 1, 1);
+    zoneList.forEach((element) => {
+        if (element.getZoneNumber() === nbZone) {
+            zoneList.splice(zoneList.indexOf(element), 1);
+        }
+    });
+    let palanqueContainer = document.querySelector("#DropZone > div:nth-child("+nbZone+")");
+    palanqueContainer.parentElement.removeChild(palanqueContainer);
     palanque.parentElement.removeChild(palanque);
     let dropZones = document.querySelectorAll("div.zone");
     let k = 0;
@@ -235,6 +249,7 @@ function validateAllCombination() {
     let counterCheck = 0;
     zoneList.forEach((element) => {
         element = document.getElementById("zone" + element.getZoneNumber());
+        // console.log(element);
         if (element.hasChildNodes()) {
             if (
                 element.childElementCount < 2 ||
@@ -376,12 +391,16 @@ function fillZoneWithAlreadyExistingPalanque(diverList) {
                 });
                 if (zoneStart.contains(diver)) zoneStart.removeChild(diver);
             } else {
+                let palanqueeTitle = document.createElement("h3");
+                let divContainer = document.createElement("div");
+                divContainer.appendChild(palanqueeTitle);
                 let palanque = document.createElement("div");
                 palanque.setAttribute(
                     "class",
                     "border text-center bg-gray-200 rounded-lg p-3 pb-20 zone"
                 );
                 palanque.setAttribute("id", "zone" + dgNumber);
+                palanqueeTitle.innerHTML = "Palanquée " + (dgNumber+1);
                 palanque.setAttribute("ondrop", "drop(event)");
                 palanque.setAttribute("ondragover", "allowDrop(event)");
                 zoneList.push(new DropZoneClass(dgNumber));
@@ -391,12 +410,12 @@ function fillZoneWithAlreadyExistingPalanque(diverList) {
                         element.updateCounterPos(setDropZoneSize(diver));
                     }
                 });
-                DropZone.appendChild(palanque);
+                divContainer.appendChild(palanque);
+                DropZone.appendChild(divContainer);
                 palanque.appendChild(diver);
                 if (zoneStart.contains(diver)) {
                     zoneStart.removeChild(diver);
                 }
-
                 countZone++;
             }
         }
