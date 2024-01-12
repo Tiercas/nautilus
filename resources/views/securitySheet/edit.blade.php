@@ -11,7 +11,7 @@
     <x-page-title>Fiche de sécurité</x-page-title>
 
     <div class="aligne" style="margin-bottom: 40px">
-        <button diveId="button" class="clickable"
+        <button id="button" class="clickable"
             style="padding: 10px; border-radius: 10px; width:60%; height: 80px; font-size: 35px">Générer de nouveau</button>
     </div>
 
