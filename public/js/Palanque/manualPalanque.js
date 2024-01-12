@@ -378,6 +378,7 @@ function validateAllCombination() {
         );
 
         // console.log(zoneElement);
+        if (zoneElement == null) return;
         if (zoneElement.hasChildNodes()) {
             if (
                 zoneElement.childElementCount < 2 ||
@@ -453,7 +454,7 @@ let interval = setInterval(function () {
     console.log(disableVal);
     disableVal = false;
     document.querySelectorAll("#DropZone > div > div").forEach((element) => {
-        if (element.style.backgroundColor === "rgb(254, 202, 202)") {
+        if (element.style.backgroundColor === "rgb(254, 202, 202)" || zoneStart.childElementCount > 0) {
             disableVal = true;
             return;
         }
