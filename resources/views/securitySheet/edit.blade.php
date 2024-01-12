@@ -9,6 +9,12 @@
     <link rel="stylesheet" href="{{ asset('/css/edit.css') }}">
 
     <x-page-title>Fiche de sécurité</x-page-title>
+    
+    <div class="aligne mb-4">
+        <x-popup bgPopup="''">
+            <div id="popup-content" class="text-base"></div>
+        </x-popup>
+    </div>
 
     <div class="aligne" style="margin-bottom: 40px">
         <button id="button" class="clickable"

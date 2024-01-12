@@ -8,6 +8,11 @@ const expectedDepths = document.getElementsByClassName('dg-exp-dep');
 const actualDepths = document.getElementsByClassName('dg-act-dep');
 const generateButton = document.getElementById('button');
 const inputsElement = gatherInputsElement();
+const popupNotification = document.getElementById('toast-default')
+const popupContent = document.getElementById('popup-content');
+
+popupNotification.classList.add('hidden');
+changePopupColor('bg-white', 'bg-lime-500');
 
 // Meta data
 const diveId = document.getElementById('divingSessionId').getAttribute('content');
@@ -48,9 +53,12 @@ function sendRequest(json, diveId){
     .then((response) => notify(response));
 }
 
-//TODO display the notification on the screen
 function notify(response){
-    console.table(response);
+    if(response['status'] === 200){
+        displayNotification(true);
+    } else{
+        displayNotification(false);
+    }    
 }
 
 /**
@@ -98,4 +106,29 @@ function getKeyFromClassList(element){
     }
 
     return false;
+}
+
+function displayNotification(ok){
+    popupNotification.classList.remove('opacity-0');
+    if(ok){
+        changePopupColor('bg-red-600', 'bg-lime-500');
+        popupContent.innerText = 'Génération réussie';
+    } else{
+        changePopupColor('bg-lime-500', 'bg-red-600');
+        popupContent.innerText = 'Génération échouée';
+    }
+
+    popupNotification.classList.remove('hidden');
+}
+
+function changePopupColor(oldColor, newColor){
+    popupNotification.classList.add(newColor);
+    popupNotification.classList.remove(oldColor);
+
+    let button = document.querySelector('#toast-default button');
+
+    console.log(button);
+
+    button.classList.add(newColor);
+    button.classList.remove(oldColor);
 }
