@@ -194,7 +194,9 @@ Route::middleware('App\Http\Middleware\RightChecker')
  * Delete a diving session.
  * @param $id the code of the diving session
  */
-Route::post('/dive/delete/{id}', function ($id, Request $request) {
+Route::post('/dive/delete/{id}', function ($id, Request $request)
+{
+    $res = DivingSession::disable($id);
     return redirect('/create/dive');
 });
 
@@ -262,7 +264,7 @@ Route::post('/modificationdives/members/{ds_code}/ajoutadherent/{us_id}', functi
     return AdherentController::addUserToDive($ds_code, $us_id);
 });
 
-/* 
+/*
 * Unsuscribe the user from a diving session.
  */
 Route::middleware('App\Http\Middleware\RightChecker')
