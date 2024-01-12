@@ -16,8 +16,14 @@
                     <tr class="odd:bg-white even:bg-gray-50 border-b">
                         <td class="px-6 py-4">{{ $session->DS_DATE }}</td>
                         <td class="px-6 py-4">{{ $session->DS_CODE }}</td>
-                        @if($session->DS_FILE_FILLED == 1)
-                            <td class="px-6 py-4 flex items-center justify-between">Rempli
+
+                        @php
+                            $dateTimestamp = strtotime($session->DS_DATE);
+                            $dateUnAnPlusTotTimestamp = strtotime('-1 year', $dateTimestamp);
+                        @endphp
+
+                        @if($dateTimestamp <= time() && $dateTimestamp >= $dateUnAnPlusTotTimestamp)                            
+                            <td class="px-6 py-4 flex items-center italic justify-between">Archivée
                                 <span class="flex items-center">
                                     <!-- Second Icon -->
                                     <x-redirect-button
@@ -36,7 +42,7 @@
                                     </x-redirect-button>
                                 </span>
                             </td>
-                        @elseif($session->DS_FILE_FILLED == 0)
+                        @else
                         <td class="px-6 py-4 flex items-center justify-between">
                             <span class="flex items-center">
                                 <!-- Text and First Icon -->
