@@ -378,6 +378,7 @@ function validateAllCombination() {
         );
 
         // console.log(zoneElement);
+        if (zoneElement == null) return;
         if (zoneElement.hasChildNodes()) {
             if (
                 zoneElement.childElementCount < 2 ||
@@ -386,6 +387,7 @@ function validateAllCombination() {
                 zoneElement.style.backgroundColor = "rgb(254 202 202)";
                 console.log("taille");
                 valid = false;
+                return;
             }
             zoneElement.childNodes.forEach((elementB) => {
                 if (
@@ -395,6 +397,7 @@ function validateAllCombination() {
                     zoneElement.style.backgroundColor = "rgb(254 202 202)";
                     console.log("PB");
                     valid = false;
+                    return;
                 }
             });
             let children = zoneElement.childNodes;
@@ -403,9 +406,16 @@ function validateAllCombination() {
                     counterCheck++;
                     zoneElement.style.backgroundColor = "rgb(229 231 235)";
                     valid = true;
+                    return;
                 }
             }
             for (let i = 0; i < children.length; i++) {
+                if (children[i].id.split(",")[1] === "PB" && children.length > 2) {
+                    zoneElement.style.backgroundColor = "rgb(254 202 202)";
+                    console.log("PB");
+                    valid = false;
+                    return;
+                }
                 let targetItemsSplit = children[i].id.split(",")[2];
                 for (targetItemsSplit in validatePalanqueCombinate) {
                     for (let j = 0; j < children.length; j++) {
@@ -419,11 +429,13 @@ function validateAllCombination() {
                             zoneElement.style.backgroundColor =
                                 "rgb(229 231 235)";
                             valid = true;
+                            return;
                         }
                     }
                     zoneElement.style.backgroundColor = "rgb(254 202 202)";
                     console.log("combi ", targetItemsSplit);
                     valid = false;
+                    return;
                 }
             }
 
@@ -431,24 +443,28 @@ function validateAllCombination() {
             zoneElement.style.backgroundColor = "rgb(229 231 235)";
             console.log("vide");
             valid = false;
+            return;
         }
     });
-    if (zoneStart.childElementCount == 0 && valid == true) {
-        disableVal = false;
-    } else {
-        disableVal = true;
-    }
 }
 
 let interval = setInterval(function () {
     updateZoneList();
     validateAllCombination();
+    console.log(disableVal);
+    disableVal = false;
+    document.querySelectorAll("#DropZone > div > div").forEach((element) => {
+        if (element.style.backgroundColor === "rgb(254, 202, 202)" || zoneStart.childElementCount > 0) {
+            disableVal = true;
+            return;
+        }
+    });
 }, 250);
 
 validatePalanque.addEventListener("click", function () {
     if (!disableVal) {
         sendPalanque();
-        clearInterval(interval);
+        // clearInterval(interval);
     }
 });
 

@@ -55,8 +55,8 @@
                             <select id="participant_filter" class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent appearance-none focus:outline-none focus:ring-0 focus:border-orange-600 peer">
                                 <option selected>Niveau</option>
                                 @foreach ($dives as $dive)
-                                <option value="{{ $dive->CAR_SCHEDULE }}">{{ $dive->DL_DEPTH }}</option>
-                                @endforeach
+<option value="{{ $dive->CAR_SCHEDULE }}">{{ $dive->DL_DEPTH }}</option>
+@endforeach
                             </select>
                         </li>-->
                         <li class="hover:bg-transparent bg-transparent">
@@ -132,47 +132,62 @@
                         @endif
 
                         <td class="px-12 py-4">
-                            @if ($dive->DS_DIVERS_COUNT > 0)
-                                <x-button diveId="dropdownButton-{{ $dive->DS_CODE }}">
-                                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
-                                        xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
-                                        <path
-                                            d="M14 2a3.963 3.963 0 0 0-1.4.267 6.439 6.439 0 0 1-1.331 6.638A4 4 0 1 0 14 2Zm1 9h-1.264A6.957 6.957 0 0 1 15 15v2a2.97 2.97 0 0 1-.184 1H19a1 1 0 0 0 1-1v-1a5.006 5.006 0 0 0-5-5ZM6.5 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM8 10H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5Z" />
-                                    </svg>
-                                </x-button>
-                            @else
-                                <x-button>
-                                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
-                                        xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
-                                        <path
-                                            d="M14 2a3.963 3.963 0 0 0-1.4.267 6.439 6.439 0 0 1-1.331 6.638A4 4 0 1 0 14 2Zm1 9h-1.264A6.957 6.957 0 0 1 15 15v2a2.97 2.97 0 0 1-.184 1H19a1 1 0 0 0 1-1v-1a5.006 5.006 0 0 0-5-5ZM6.5 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM8 10H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5Z" />
-                                    </svg>
-                                </x-button>
-                            @endif
-                            @if (in_array($user, $participants))
-                                <a href='/unsubscribe/{{ $dive->DS_CODE }}'>
-                                    <x-button color="bg-red-700" colorHover="hover:bg-red-800">
+                            <div class="Line">
+                                @if ($dive->DS_DIVERS_COUNT > 0)
+                                    <x-button diveId="dropdownButton-{{ $dive->DS_CODE }}">
                                         <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
-                                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16">
-                                            <path stroke="currentColor" stroke-linecap="round"
-                                                stroke-linejoin="round" stroke-width="2" d="M3 3l10 10M13 3L3 13" />
+                                            xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
+                                            <path
+                                                d="M14 2a3.963 3.963 0 0 0-1.4.267 6.439 6.439 0 0 1-1.331 6.638A4 4 0 1 0 14 2Zm1 9h-1.264A6.957 6.957 0 0 1 15 15v2a2.97 2.97 0 0 1-.184 1H19a1 1 0 0 0 1-1v-1a5.006 5.006 0 0 0-5-5ZM6.5 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM8 10H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5Z" />
                                         </svg>
                                     </x-button>
-                                </a>
-                            @else
-                                @if ($userPre->PRE_MAX_DEPTH > $dive->DS_MAX_DEPTH)
-                                    <a href="/dives/{{ $dive->DS_CODE }}">
-                                        <button diveId="dropdownButton-{{ $dive->DS_CODE }}"
-                                            style="margin-right: 5px;font-size: 35px;"
-                                            class="clickableGreen aligne m-1 bg-gray-400 hover:bg-gray-500
+                                @else
+                                    <x-button>
+                                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+                                            xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                            viewBox="0 0 20 18">
+                                            <path
+                                                d="M14 2a3.963 3.963 0 0 0-1.4.267 6.439 6.439 0 0 1-1.331 6.638A4 4 0 1 0 14 2Zm1 9h-1.264A6.957 6.957 0 0 1 15 15v2a2.97 2.97 0 0 1-.184 1H19a1 1 0 0 0 1-1v-1a5.006 5.006 0 0 0-5-5ZM6.5 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM8 10H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5Z" />
+                                        </svg>
+                                    </x-button>
+                                @endif
+                                @if (in_array($user, $participants))
+                                    <a href='/unsubscribe/{{ $dive->DS_CODE }}'>
+                                        <x-button color="bg-red-700" colorHover="hover:bg-red-800">
+                                            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+                                                xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                viewBox="0 0 16 16">
+                                                <path stroke="currentColor" stroke-linecap="round"
+                                                    stroke-linejoin="round" stroke-width="2"
+                                                    d="M3 3l10 10M13 3L3 13" />
+                                            </svg>
+                                        </x-button>
+                                    </a>
+                                @else
+                                    @if ($userPre->PRE_MAX_DEPTH > $dive->DS_MAX_DEPTH)
+                                        <a href="/dives/{{ $dive->DS_CODE }}">
+                                            <button diveId="dropdownButton-{{ $dive->DS_CODE }}"
+                                                style="margin-right: 5px;font-size: 35px;"
+                                                class="clickableGreen aligne m-1 bg-gray-400 hover:bg-gray-500
                                                 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
+                                                <i class="fa-solid fa-check"></i>
+                                            </button>
+                                        </a>
+                                    @endif
+                                @endif
+                                </a>
+                                @if ($userPre->PRE_MAX_DEPTH <= $dive->DS_MAX_DEPTH)
+                                    <a href="/dives/{{ $dive->DS_CODE }}">
+                                        <button disabled diveId="dropdownButton-{{ $dive->DS_CODE }}"
+                                            style="background-color: #4fad67;margin-right: 5px;font-size: 35px;"
+                                            class="aligne m-1 bg-gray-400 hover:bg-gray-500
+                                            text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
                                             <i class="fa-solid fa-check"></i>
                                         </button>
                                     </a>
                                 @endif
-                            @endif
-                            </a>
-
+                            </div>
+                        </td>
 
     </div>
 
