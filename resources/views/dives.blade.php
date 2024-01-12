@@ -3,7 +3,7 @@
     <link rel="stylesheet" href="/css/drop-down.css">
     <link rel="stylesheet" href="/css/button-filter.css">
     <x-page-title>Liste des plongées</x-page-title>
-
+    
     <div class="container">
         <input type="checkbox" id="toggle" unchecked />
         <label class="button" for="toggle">
