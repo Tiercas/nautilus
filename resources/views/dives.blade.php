@@ -71,6 +71,12 @@
         </label>
     </div>
 
+    @if (Session::has('Success') && Session::get('DS_CODE') == $dive->DS_CODE)
+        <div style="margin-bottom: 40px">
+            <x-popup>{{ Session::get('Success') }}</x-popup>
+        </div>
+    @endif
+
     <div class="shadow-md max-w-full rounded-lg overflow-hidden border-2">
         <table class="text-sm text-left text-gray-500 w-full">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50">
@@ -206,9 +212,6 @@
                 @endforeach
             </ul>
         </div>
-    @endif
-    @if (Session::has('Success') && Session::get('DS_CODE') == $dive->DS_CODE)
-        <div class="text-green-500">{{ Session::get('Success') }}</div>
     @endif
     </td>
     </tr>
