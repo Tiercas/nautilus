@@ -9,7 +9,10 @@ class DataRegistrationController extends Controller
 {
     public static function fetch()
     {
-        $prerogative = Registration::all();
-        return $prerogative;
+        $registration = Registration::all();
+        return response()->json([
+            'status' => 'success',
+            'data' => $registration
+        ])->setStatusCode(200);
     }
 }
