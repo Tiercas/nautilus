@@ -50,60 +50,102 @@ function drag(event) {
     event.dataTransfer.setData("draggable", event.target.id);
 }
 
+// function drop(event) {
+//     event.preventDefault();
+//     let index = event.target.id.split("zone")[1];
+//     if (isElementInList("item", event.target.id.split(","))) return;
+
+//     let data = event.dataTransfer.getData("draggable");
+//     let draggedItem = document.getElementById(data);
+//     if (event.target === zoneStart) {
+//         zoneList.forEach((element) => {
+//             // console.log(element.getZoneNumber());
+//             // console.log(draggedItem.parentElement.id.split("zone")[1]);
+//             if (
+//                 element.getZoneNumber() ==
+//                 draggedItem.parentElement.id.split("zone")[1]
+//             ) {
+//                 element.updateCounterNeg(setDropZoneSize(draggedItem));
+//                 console.log("Count" + element.getCounter());
+//             }
+//         });
+//         //console.log("Count" + zoneList[draggedItem.parentElement.id.split('zone')[1]].getCounter());
+//         zoneStart.appendChild(draggedItem);
+//     } else {
+//         zoneA = zoneList[0];
+//         zoneList.forEach((element) => {
+//             if (element.getZoneNumber() == index) {
+//                 zoneA = element;
+//             }
+//         });
+//         console.log(zoneA.getCounter());
+//         console.log(zoneA.getCounter() + setDropZoneSize(draggedItem));
+//         if (
+//             zoneA.getCounter() <= 3 &&
+//             zoneA.getCounter() + setDropZoneSize(draggedItem) <= 3
+//         ) {
+//             console.log("test");
+//             if (
+//                 draggedItem.parentElement !== zoneStart &&
+//                 draggedItem.parentElement !== undefined &&
+//                 draggedItem.parentElement !== zoneA
+//             ) {
+//                 zoneList.forEach((element) => {
+//                     if (
+//                         element.getZoneNumber() ==
+//                         draggedItem.parentElement.id.split("zone")[1]
+//                     ) {
+//                         console.log("Count" + element.getCounter());
+//                         element.updateCounterNeg(setDropZoneSize(draggedItem));
+//                     }
+//                 });
+//             }
+//             zoneA.updateCounterPos(setDropZoneSize(draggedItem));
+//             //console.log("Count" + zoneList[index].getCounter());
+//             event.target.appendChild(draggedItem);
+//         }
+//     }
+// }
+
 function drop(event) {
     event.preventDefault();
-    let index = event.target.id.split("zone")[1];
     if (isElementInList("item", event.target.id.split(","))) return;
 
     let data = event.dataTransfer.getData("draggable");
     let draggedItem = document.getElementById(data);
+    let index = event.target.id.split("zone")[1];
+
     if (event.target === zoneStart) {
         zoneList.forEach((element) => {
-            // console.log(element.getZoneNumber());
-            // console.log(draggedItem.parentElement.id.split("zone")[1]);
-            if (
-                element.getZoneNumber() ==
-                draggedItem.parentElement.id.split("zone")[1]
-            ) {
+            if (element.getZoneNumber() == draggedItem.parentElement.id.split("zone")[1]) {
                 element.updateCounterNeg(setDropZoneSize(draggedItem));
-                console.log("Count" + element.getCounter());
             }
         });
-        //console.log("Count" + zoneList[draggedItem.parentElement.id.split('zone')[1]].getCounter());
         zoneStart.appendChild(draggedItem);
-    } else {
-        zoneA = zoneList[0];
+        return;
+    }
+    if (draggedItem.parentElement == zoneStart) {
         zoneList.forEach((element) => {
             if (element.getZoneNumber() == index) {
-                zoneA = element;
+                element.updateCounterPos(setDropZoneSize(draggedItem));
             }
         });
-        console.log(zoneA.getCounter());
-        console.log(zoneA.getCounter() + setDropZoneSize(draggedItem));
-        if (
-            zoneA.getCounter() <= 3 &&
-            zoneA.getCounter() + setDropZoneSize(draggedItem) <= 3
-        ) {
-            console.log("test");
-            if (
-                draggedItem.parentElement !== zoneStart &&
-                draggedItem.parentElement !== undefined &&
-                draggedItem.parentElement !== zoneA
-            ) {
-                zoneList.forEach((element) => {
-                    if (
-                        element.getZoneNumber() ==
-                        draggedItem.parentElement.id.split("zone")[1]
-                    ) {
-                        console.log("Count" + element.getCounter());
-                        element.updateCounterNeg(setDropZoneSize(draggedItem));
-                    }
-                });
+        event.target.appendChild(draggedItem);
+        return;
+    }
+    if (draggedItem.parentElement !== event.target) {
+        zoneList.forEach((element) => {
+            if (element.getZoneNumber() == draggedItem.parentElement.id.split("zone")[1]) {
+                element.updateCounterNeg(setDropZoneSize(draggedItem));
             }
-            zoneA.updateCounterPos(setDropZoneSize(draggedItem));
-            //console.log("Count" + zoneList[index].getCounter());
-            event.target.appendChild(draggedItem);
-        }
+        });
+        zoneList.forEach((element) => {
+            if (element.getZoneNumber() == index) {
+                element.updateCounterPos(setDropZoneSize(draggedItem));
+            }
+        });
+        event.target.appendChild(draggedItem);
+        return;
     }
 }
 
@@ -322,6 +364,7 @@ let validatePalanqueCombinate = {
 
 function validateAllCombination() {
     let counterCheck = 0;
+    let valid = true;
     zoneList.forEach((elementA) => {
         // element = document.querySelector("#zone" + element.getZoneNumber() + " > div");
         element = document.querySelector(
@@ -335,15 +378,22 @@ function validateAllCombination() {
                 element.childElementCount > 3
             ) {
                 element.style.backgroundColor = "rgb(254 202 202)";
-                return false;
+                valid = false;
             }
+            element.childNodes.forEach((elementB) => {
+                if (elementB.id.split(",")[1] === "PB" && (element.childElementCount > 2 || element.childElementCount < 2)) {
+                    element.style.backgroundColor = "rgb(254 202 202)";
+                    console.log("PB");
+                    valid = false;
+                }
+            });
             let children = element.childNodes;
             for (let i = 0; i < children.length; i++) {
                 for (let j = 0; j < children.length; j++) {
                     if (children[j].id.split(",")[1] === "PA-60-GP") {
                         counterCheck++;
                         element.style.backgroundColor = "rgb(229 231 235)";
-                        return true;
+                        valid = true;
                     }
                 }
             }
@@ -362,25 +412,25 @@ function validateAllCombination() {
                                 counterCheck++;
                                 element.style.backgroundColor =
                                     "rgb(229 231 235)";
-                                return true;
+                                    valid =  true;
                             }
                         }
                         element.style.backgroundColor = "rgb(254 202 202)";
-                        return false;
+                        valid =  false;
                     }
                 }
             }
         } else {
             element.style.backgroundColor = "rgb(229 231 235)";
-            return false;
+            valid =  false;
         }
     });
-    if (zoneStart.childElementCount == 0) {
+    if (zoneStart.childElementCount == 0 && valid == true) {
         disableVal = false;
-        return true;
+        valid =  true;
     } else {
         disableVal = true;
-        return false;
+        valid =  false;
     }
 }
 
