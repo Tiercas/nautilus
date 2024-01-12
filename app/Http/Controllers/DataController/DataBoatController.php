@@ -11,6 +11,9 @@ class DataBoatController extends Controller
     public static function fetch()
     {
         $boatData = Boat::all();
-        return $boatData;
+        return response()->json([
+            'status' => 'success',
+            'data' => $boatData
+        ])->setStatusCode(200);
     }
 }

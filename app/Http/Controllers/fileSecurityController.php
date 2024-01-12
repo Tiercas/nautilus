@@ -15,4 +15,11 @@ class fileSecurityController extends Controller
 
         return view('sessionslist',['sessions' => $files]);
     }
+
+    function indexWithId(): View
+    {
+        $files = DivingSession::sessionsWithFilledFileWithId();
+
+        return view('sessionslistid',['sessions' => $files]);
+    }
 }

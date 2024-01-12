@@ -11,6 +11,9 @@ class DataRoleController extends Controller
     public static function fetch()
     {
         $roleData = Role::all();
-        return $roleData;
+        return response()->json([
+            'status' => 'success',
+            'data' => $roleData
+        ])->setStatusCode(200);
     }
 }

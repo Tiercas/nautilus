@@ -43,10 +43,6 @@ Route::get('/roleattribution',  [App\Http\Controllers\DataController\DataRoleAtt
 
 Route::get('/user',  [App\Http\Controllers\DataController\DataUserController::class, 'fetch']);
 
+Route::post('/subscribe', [App\Http\Controllers\ApiController\SubscribeApi::class, 'subscribe']);
 
-
-
-
-
-
-
+Route::get('/dives', [App\Http\Controllers\ApiController\DivesApi::class, 'fetch']);
