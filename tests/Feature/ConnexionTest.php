@@ -49,6 +49,6 @@ class ConnexionTest extends TestCase
     {
         $response = $this->followingRedirects()->post('/login',['mail'=>'wrong@email.com','password'=>'wrongpassword']);
 
-        $response->assertSee('Wrong password !');
+        $response->assertSee('Attention, le mot de passe est incorrect !');
     }
 }
