@@ -154,6 +154,11 @@ function isElementInList(element, list) {
 addPalanque.addEventListener("click", function () {
     let palanque = document.createElement("div");
     let palanqueeTitle = document.createElement("h3");
+    palanqueeTitle.addEventListener("click", function () {
+        let nbZone = this.parentElement.id.split("zone")[1];
+        console.log(palanqueeTitle, parseInt(nbZone)+1);
+        removePalanqueZone(parseInt(nbZone) + 1);
+    });
     let divContainer = document.createElement("div");
     divContainer.appendChild(palanqueeTitle);
     palanque.setAttribute(
@@ -167,7 +172,7 @@ addPalanque.addEventListener("click", function () {
     });
     conditionD = false;
     palanque.setAttribute("id", "zone" + countZone);
-    palanqueeTitle.innerHTML = "Palanquée " + (countZone + 1);
+    palanqueeTitle.innerHTML = "Palanquée " + (countZone + 1) + " - " + "<div class=\"delete-btn cursor-pointer inline underline\">Supprimer</div>";
     palanque.setAttribute("ondrop", "drop(event)");
     palanque.setAttribute("ondragover", "allowDrop(event)");
     zoneList.push(new DropZoneClass(countZone));
@@ -219,10 +224,10 @@ function updateZoneList() {
     dropZones.forEach((element) => {
         element.id = "zone" + k;
         // console.log(element);
-        if(element.textContent === "Palanquée " + (k + 2)) {
-            element.textContent = "Palanquée " + (k + 1);
+        if(element.innerHTML === "Palanquée " + (k + 2) + " - " + "<div class=\"cursor-pointer inline underline\">Supprimer</div>") {
+            element.innerHTML = "Palanquée " + (k + 1) + " - " + "<div class=\"cursor-pointer inline underline\">Supprimer</div>";
         } else {
-            element.querySelector('h3').textContent = "Palanquée " + (k + 1);
+            element.querySelector('h3').innerHTML = "Palanquée " + (k + 1) + " - " + "<div class=\"cursor-pointer inline underline\">Supprimer</div>";
             zoneList.push(new DropZoneClass(k));
             let compteurM = 0;
             let divers = element.querySelectorAll("div > div.h-8");
@@ -300,8 +305,10 @@ let validatePalanqueCombinate = {
 
 function validateAllCombination() {
     let counterCheck = 0;
-    zoneList.forEach((element) => {
-        element = document.querySelector("#zone" + element.getZoneNumber() + " > div");
+    zoneList.forEach((elementA) => {
+        // element = document.querySelector("#zone" + element.getZoneNumber() + " > div");
+        element = document.querySelector("#zone"+elementA.getZoneNumber()+".zone");
+
         // console.log(element);
         if (element.hasChildNodes()) {
             if (
@@ -349,7 +356,7 @@ function validateAllCombination() {
             return false;
         }
     });
-    if (DropZone.childElementCount === counterCheck) {
+    if (zoneStart.childElementCount == 0) {
         disableVal = false;
         return true;
     } else {
@@ -446,6 +453,11 @@ function fillZoneWithAlreadyExistingPalanque(diverList) {
                 if (zoneStart.contains(diver)) zoneStart.removeChild(diver);
             } else {
                 let palanqueeTitle = document.createElement("h3");
+                palanqueeTitle.addEventListener("click", function () {
+                    let nbZone = this.parentElement.id.split("zone")[1];
+                    console.log(palanqueeTitle, parseInt(nbZone)+1);
+                    removePalanqueZone(parseInt(nbZone) + 1);
+                });
                 let divContainer = document.createElement("div");
                 divContainer.appendChild(palanqueeTitle);
                 let palanque = document.createElement("div");
@@ -454,7 +466,7 @@ function fillZoneWithAlreadyExistingPalanque(diverList) {
                     "border text-center bg-gray-200 rounded-lg p-3 pb-20 zone"
                 );
                 palanque.setAttribute("id", "zone" + dgNumber);
-                palanqueeTitle.innerHTML = "Palanquée " + (dgNumber + 1);
+                palanqueeTitle.innerHTML = "Palanquée " + (dgNumber + 1) + " - " + "<div class=\"cursor-pointer inline underline\">Supprimer</div>";
                 palanque.setAttribute("ondrop", "drop(event)");
                 palanque.setAttribute("ondragover", "allowDrop(event)");
                 zoneList.push(new DropZoneClass(dgNumber));
