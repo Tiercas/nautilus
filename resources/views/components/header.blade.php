@@ -26,7 +26,10 @@
                     <div class="px-4 py-3">
                         <span
                             class="block text-sm text-white">{{ session('user')->US_FIRST_NAME . " " . session('user')->US_NAME }}</span>
-                        <span class="block text-sm truncate text-gray-400">{{ session('user')->US_EMAIL }}</span>
+                            <span class="mb-2 mt-2 italic block text-sm truncate text-white">    {{ session('user')->roles()->pluck('ROL_LABEL')->implode(' - ') }}</span>
+
+                            <span class="block text-sm truncate text-gray-400">{{ session('user')->US_EMAIL }}</span>
+
                     </div>
                     <ul class="py-2" aria-labelledby="user-menu-button">
                         <li>

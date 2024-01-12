@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Error;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -21,6 +22,12 @@ class DivingSession extends Model
 
     use HasFactory;
 
+    static public function sessionsWithFilledFile():array
+    {
+        $res =  DB::table('CAR_DIVING_SESSION')->get();
+        return $res->toArray();
+    }
+
     public function getParticipants(): array{
         $registrations = DB::table('CAR_REGISTRATION')->where('DS_CODE', $this->DS_CODE)->get();
         $participants = [];
@@ -36,9 +43,55 @@ class DivingSession extends Model
         return DivingGroup::where('DS_CODE', $this->DS_CODE)->get();
     }
 
-    public function disable()
+    public static function disable($id)
     {
-        $this->DS_ACTIVE = 0;
-        $this->save();
+        $ds = DivingSession::find($id);
+
+        if(($ds->DS_DATE < date('Y-m-d')) == 1)
+        {
+            return "Impossible de supprimer une plongée passée";
+        }
+        else
+        {
+            $ds->DS_ACTIVE = 0;
+            $ds->save();
+        }
     }
+
+    public function getRoleForUser(User $user){
+        if($user->US_ID === $this->US_ID_CAR_DIRECT){
+
+            return "Directeur de plongée";
+
+        }
+
+        if($user->US_ID === $this->US_ID){
+
+            return "Pilote";
+
+        }
+
+        if($user->US_ID === $this->US_ID_CAR_SECURE){
+
+            return "Sécurité de surface";
+
+        }
+
+        if($user->US_TEACHING_LEVEL > 0){
+
+            return "Encadrant";
+
+        }
+
+        if(strpos($user->PRE_CODE, 'GP')){
+
+            return "Guide de palanquée";
+
+        }
+
+        return "Plongeur";
+
+    }
+
+    
 }

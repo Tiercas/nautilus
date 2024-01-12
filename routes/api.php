@@ -22,3 +22,31 @@ Route::middleware('App\Http\Middleware\RightChecker')->get('/user', function (Re
 });
 
 Route::post('/palanques', [App\Http\Controllers\ManualPalanqueeController::class, 'store']);
+
+Route::get('/boat', [App\Http\Controllers\DataController\DataBoatController::class, 'fetch']);
+
+Route::get('/divinggroup',  [App\Http\Controllers\DataController\DataDivingGroupController::class, 'fetch']);
+
+Route::get('/divinglocation',  [App\Http\Controllers\DataController\DataDivingLocationController::class, 'fetch']);
+
+Route::get('/divingsession',  [App\Http\Controllers\DataController\DataDivingSessionController::class, 'fetch']);
+
+Route::get('/divingsession',  [App\Http\Controllers\DataController\DataDivingSessionController::class, 'fetch']);
+
+Route::get('/prerogative',  [App\Http\Controllers\DataController\DataPrerogativeController::class, 'fetch']);
+
+Route::get('/registration',  [App\Http\Controllers\DataController\DataRegistrationController::class, 'fetch']);
+
+Route::get('/role',  [App\Http\Controllers\DataController\DataRoleController::class, 'fetch']);
+
+Route::get('/roleattribution',  [App\Http\Controllers\DataController\DataRoleAttributionController::class, 'fetch']);
+
+Route::get('/user',  [App\Http\Controllers\DataController\DataUserController::class, 'fetch']);
+
+
+
+
+
+
+
+

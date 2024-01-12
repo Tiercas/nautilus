@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 
 class DiveDeletion extends Controller
 {
-
     public static function delete($id)
     {
         DiveSessionDelete::update($id);

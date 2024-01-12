@@ -1,3 +1,3 @@
-<table class= "border-4 border-solid border-black mb-2">
+<table style="text-align: left;">
     {{$slot}}
 </table>
