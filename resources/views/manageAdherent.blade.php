@@ -22,6 +22,7 @@
                         <th scope="col" class="px-6 py-3">Sécurité surface</th>
                         <th scope="col" class="px-6 py-3">Pilote</th>
                         <th scope="col" class="px-6 py-3">Directeur de plongée</th>
+                        <th scope="col" class="px-6 py-3">Responsable</th>
                         <th scope="col" class="px-6 py-3">Nombre de plongées</th>
                     </tr>
                 </thead>
@@ -48,6 +49,11 @@
                                 <input type="checkbox" id="checkbox{{ $users[0][$i][0] }}"
                                     name="checkbox_{{ $users[0][$i][0] }}_DIR" value="DIR"
                                     @if (array_search('DIR', $users[1][$i]) !== false) checked @endif>
+                            </td>
+                            <td class="px-6 py-4">
+                                <input type="checkbox" id="checkbox{{ $users[0][$i][0] }}"
+                                    name="checkbox_{{ $users[0][$i][0] }}_RES" value="RES"
+                                    @if (array_search('RES', $users[1][$i]) !== false) checked @endif>
                             </td>
                             <td class="px-6 py-4">
                                 {{$usersDives[$i]}}

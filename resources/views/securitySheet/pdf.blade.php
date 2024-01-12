@@ -74,7 +74,17 @@
     @endphp
 
     @foreach ($divingGroups as $divingGroup)
-        <x-security-sheets.diving-group-table groupNum="{{$divingGroup['group']->DG_NUMBER}}">
+        <table>
+            <colgroup>
+                <col width="135">
+                <col width="225">
+                <col width="125">
+                <col width="220">
+            </colgroup>
+            <!-- Table's header -->
+            <tr class="diving-group-header"><td colspan="4"><strong>
+                PALANQUEE n° {{$divingGroup['group']->DG_NUMBER}}
+            </strong></td></tr>
             <!-- Start and ending hours -->
             <tr>
                 <td>Heure de départ</td>
@@ -139,7 +149,7 @@
                     </td>
                 </tr>
             @endforeach
-        </x-security-sheets.diving-group-table>
+        </table>
 
         @php
             $i++;

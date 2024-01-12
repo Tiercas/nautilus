@@ -9,6 +9,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class DivingGroup extends Model
 {
     protected $table = 'CAR_DIVING_GROUP';
+    protected $fillable = ['DS_CODE', 'DG_NUMBER'];
+
+    public $timestamps = false;
 
     use HasFactory;
 
