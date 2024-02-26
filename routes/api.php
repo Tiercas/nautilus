@@ -46,3 +46,5 @@ Route::get('/user',  [App\Http\Controllers\DataController\DataUserController::cl
 Route::post('/subscribe', [App\Http\Controllers\ApiController\SubscribeApi::class, 'subscribe']);
 
 Route::get('/dives', [App\Http\Controllers\ApiController\DivesApi::class, 'fetch']);
+
+Route::post('/createdive', [App\Http\Controllers\ApiController\CreateDive::class, 'create']);
